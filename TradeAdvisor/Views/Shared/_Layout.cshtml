@@ -1,0 +1,13 @@
+﻿<!DOCTYPE html>
+<html lang="nl-nl" id="@ViewBag.PageId">
+@Html.Partial("_Head")
+<body class="gray_background">
+
+    @Html.Partial("_Header")
+
+    @RenderBody()
+
+    @{ Html.RenderPartial("_Scripts", RenderSection("validation", false)); }
+
+</body>
+</html>

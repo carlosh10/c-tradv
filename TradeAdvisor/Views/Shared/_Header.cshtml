@@ -1,0 +1,93 @@
+﻿<header class="header_pages">
+    <nav class="navbar">
+        <div class="container">
+            <div class="col-xs-4 padding_zero">
+                <ul class="nav-left">
+                    <li>
+                        <a data-toggle="collapse" href="#left-panel-menu" aria-expanded="false" aria-controls="left-panel-menu" class="icons_top">
+                            <i class="fa fa-reorder"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:window.history.go(-1)" class="icons_top">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-4 padding_zero nomenclatura">
+                <h1>Produto</h1>
+            </div>
+
+            <div class="col-xs-4 padding_zero">
+                <ul class="nav-right ">
+                    <li>
+                        <a href="@Url.Action("Logout","Account")" class="icons_top" title="Sair"> <i class="fa fa-sign-out text_white"></i></a>
+                    </li>
+                    <li>
+                        <a data-toggle="collapse" href="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch" class="icons_top">
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="filtros.html" class="icons_top">
+                            <i class="fa fa-filter"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+<aside class="collapse menu_lateral" id="left-panel-menu">
+
+    <!-- User info -->
+    <div class="login-info">
+        <span>
+            <!-- User image size is adjusted inside CSS, it should stay as it -->
+            @*<img src="~/img/avatars/sunny.png" alt="me" class="online" />*@
+            <span class="nome_logado">
+                @User.Identity.Name <a href="@Url.Action("Logout","Account")"> <i class="fa fa-sign-out text_white"></i></a>
+            </span>
+
+
+            <a href="user.html" class="option_user">
+                <i class="fa fa-gear fa-lg"></i>
+            </a>
+
+        </span>
+    </div>
+    <!-- end user info -->
+    <!-- NAVIGATION : This navigation is also responsive-->
+    <nav>
+        <ul>
+            <li>
+                <a href="@Url.Action("index", "home")" title="produtos">
+                    <i class="fa fa-database"></i>
+                    Produtos
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Dashboard">
+                    <i class="fa fa-truck"></i>
+                    Frete
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Dashboard">
+                    <i class="fa fa-bar-chart-o"></i>
+                    Auditoria
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Dashboard">
+                    <i class="fa fa-list-alt"></i>
+                    Classificação
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

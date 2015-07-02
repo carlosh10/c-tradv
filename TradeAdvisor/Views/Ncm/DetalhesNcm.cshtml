@@ -1,0 +1,284 @@
+﻿@model TradeAdvisor.Models.vw_ncm_full_15a
+
+<!--busca-->
+<div class="collapse" id="collapseSearch">
+
+    <form action="@Url.Action("Consulta", "Ncm")" method="POST">
+        <span class="search_box">
+            <input class="input_style col-xs-12" id="search-fld" type="text" name="descricao_detalhada_produto" value="@Request["descricao_detalhada_produto"]" placeholder="Faça sua pesquisa">
+            <button type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </form>
+</div>
+
+<div class="col-xs-12 block_blue">
+    <div class="light_blue col-xs-12 padding_zero">
+        <div class="col-xs-6">
+            <ul>
+                <li>
+                    <i class="fa fa-calendar"></i>
+                    @Model.mes_ano
+                </li>
+                <li>
+                    <strong><i class="fa fa-barcode"></i> Código NCM: @Model.ncm</strong>
+                </li>
+                <li>
+                    <p>
+                        @Model.ncmDescricao
+                    </p>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="col-xs-6 origem_aquisicao">
+            <span>
+                <img class="flag flag-@Model.siglaPaisOrigem.ToLower()" src="~/img/blank.gif" alt="@Model.paisOrigem" data-toggle="tooltip" data-placement="bottom" title="@Model.paisOrigem">
+                Origem: @Model.paisOrigem
+            </span>
+
+            <span>
+                <img class="flag flag-@Model.siglaPaisAquisicao.ToLower()" src="~/img/blank.gif" alt="@Model.paisAquisicao" data-toggle="tooltip" data-placement="bottom" title="@Model.paisAquisicao">
+                Aquisição: @Model.paisAquisicao
+            </span>
+        </div>
+    </div>
+
+    <div class="col-xs-12">
+        <p>
+            @Model.descricao_detalhada_produto
+        </p>
+    </div>
+
+
+    <div class="col-xs-12 light_blue center_text">
+        <div class="col-xs-3 small_font">
+            <strong>Qtd. Comercial</strong>
+            @Model.quantidade_comercializada_produto
+        </div>
+        <div class="col-xs-3 small_font">
+            <strong>Un. Comercial</strong>
+            @Model.unidade_comercializacao
+        </div>
+        <div class="col-xs-3 small_font">
+            <strong>Qtd. Aduaneira</strong>
+            @Model.quantidade_aduaneira
+        </div>
+        <div class="col-xs-3 small_font">
+            <strong>Un. Aduaneira</strong>
+            @Model.unidade_aduaneira
+        </div>
+    </div>
+
+    <table class="table table_trade1">
+        <thead>
+            <tr>
+                <th class="left_text">
+                    <strong>NCM</strong>
+
+                </th>
+                <th>
+                    <strong>Unitário</strong>
+                </th>
+                <th>
+                    <strong>Total</strong>
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="left_text">
+
+                    PRODUTO (FOB)
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_fob_dolar / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.valor_fob_dolar)
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="left_text">
+
+                    FRETE
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_frete_dolar / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.valor_frete_dolar)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="left_text">
+                    SEGURO
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_seguro_dolar / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", @Model.valor_seguro_dolar)
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="left_text">
+                    CIF
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF_unitario)
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF)
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="col-xs-12 light_blue center_text">
+        <div class="col-xs-4 small_font">
+            <strong>CIF Total USD</strong>
+            $@String.Format("{0:0,0.00}", @Model.CIF)
+        </div>
+        <div class="col-xs-4 small_font">
+            <strong>CIF un. USD</strong>
+            $@String.Format("{0:0,0.00}", @Model.CIF_unitario)
+        </div>
+        <div class="col-xs-4 small_font">
+            <strong>Aliq. Total USD</strong>
+            @String.Format("{0:0,0.00}", @Model.vl_ift)%
+        </div>
+    </div>
+
+
+    <table class="table table_trade1">
+        <thead>
+            <tr>
+                <th class="left_text">
+                    <strong>Impostos</strong>
+
+                </th>
+                <th>
+                    <strong>BC</strong>
+                </th>
+                <th>
+                    <strong>Aliq.</strong>
+                </th>
+                <th>
+                    <strong>Unitário</strong>
+
+                </th>
+                <th>
+                    <strong>Total</strong>
+
+                </th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="left_text">
+
+                    II
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF)
+                </td>
+                <td>
+                    @String.Format("{0:0.00}", @Model.ALIQUOTA_II)%
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_II / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", @Model.valor_II)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="left_text">
+                    IPI
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF)
+                </td>
+                <td>
+                    @String.Format("{0:0.00}", @Model.ALIQUOTA_IPI)%
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_IPI / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", @Model.valor_IPI)
+                </td>
+            </tr>
+
+            <tr>
+                <td class="left_text">
+                    PIS
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF)
+                </td>
+                <td>
+                    @String.Format("{0:0.00}", @Model.ALIQUOTA_PIS_ADVAL)%
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_PIS / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", @Model.valor_PIS)
+                </td>
+            </tr>
+            <tr>
+                <td class="left_text">
+                    COFINS
+                </td>
+                <td>
+                    $@String.Format("{0:0,0.00}", @Model.CIF)
+                </td>
+                <td>
+                    @String.Format("{0:0.00}", @Model.ALIQUOTA_COFINS_ADVAL)%
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", (@Model.valor_COFINS / @Model.quantidade_comercializada_produto))
+                </td>
+                <td>
+                    $@String.Format("{0:0.00}", @Model.valor_COFINS)
+                </td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+
+                    <strong>TOTAL</strong>
+                </td>
+                <td>
+
+                    <strong>@String.Format("{0:0,0.00}", @Model.vl_ift)%</strong>
+                </td>
+                <td>
+                    <strong>$@String.Format("{0:0,0.00}", (@Model.valor_II + @Model.valor_IPI + @Model.valor_PIS + @Model.valor_COFINS) / @Model.quantidade_comercializada_produto)</strong>
+                </td>
+                <td>
+                    <strong>$@String.Format("{0:0,0.00}", @Model.valor_II + @Model.valor_IPI + @Model.valor_PIS + @Model.valor_COFINS)</strong>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>

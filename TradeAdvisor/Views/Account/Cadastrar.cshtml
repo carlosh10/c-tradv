@@ -1,0 +1,59 @@
+﻿@model TradeAdvisor.Models.EmpresaCadastrar
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<div class="cadastro">
+    <div class="col-xs-10 col-md-4 col-xs-offset-1 col-md-offset-4 logo_center">
+        <img src="~/img/logo_tradeadvisor_white.svg" width="100%">
+    </div>
+
+    <div class="col-xs-12 col-md-4 col-md-offset-4">
+        <form @Url.Action("Cadastrar", "account") method="POST" id="login-form">
+            @Html.AntiForgeryToken()
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="cnpj" type="number" maxlength="14" name="cnpj" placeholder="Cnpj" required>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="razao_social" type="text" name="razao_social" placeholder="Razão Social" required>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="cidade" type="text" name="end_municipio" placeholder="Cidade">
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="estado" type="text" name="end_uf" placeholder="Estado">
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="email" type="text" name="nome_usuario" placeholder="Nome" required>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="email" type="email" name="email_usuario" placeholder="Email" required>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="senha" type="password" name="senha_usuario" placeholder="Senha" required>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <input class="input_style col-xs-12" id="cargo" type="text" name="cargo" placeholder="Cargo">
+            </div>
+            
+            <div class="col-xs-12 padding_zero">
+                <a class="text_white" href="@Url.Action("Login","Account")">Voltar para Login</a>
+            </div>
+
+            <div class="col-xs-12 padding_zero">
+                <button class="btn botao_padrao" type="submit">
+                    Cadastrar
+                </button>
+            </div>
+        </form>
+        @*<label value="@Model.mensagem" class="text_white" /><br />*@
+        <label class="text_white">@Html.ValidationSummary(true)</label>
+    </div>
+</div>

@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="tradeadvisorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_empresa">
+          <Key>
+            <PropertyRef Name="pk_empresa" />
+          </Key>
+          <Property Name="pk_empresa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="razao_social" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="end_rua" Type="nvarchar" MaxLength="100" />
+          <Property Name="end_numero" Type="nvarchar" MaxLength="10" />
+          <Property Name="end_bairro" Type="nvarchar" MaxLength="50" />
+          <Property Name="end_cep" Type="nvarchar" MaxLength="14" />
+          <Property Name="end_municipio" Type="nvarchar" MaxLength="50" />
+          <Property Name="end_uf" Type="nvarchar" MaxLength="50" />
+          <Property Name="importador" Type="bit" />
+          <Property Name="exportador" Type="bit" />
+          <Property Name="cnpj" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="pk_usuario" />
+          </Key>
+          <Property Name="pk_usuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="senha" Type="nvarchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_usuario_empresa">
+          <Key>
+            <PropertyRef Name="pk_usuario_empresa" />
+          </Key>
+          <Property Name="pk_usuario_empresa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_empresa" Type="bigint" Nullable="false" />
+          <Property Name="fk_usuario" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tb_usuario_empresa_tb_empresa">
+          <End Role="tb_empresa" Type="Self.tb_empresa" Multiplicity="1" />
+          <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_empresa">
+              <PropertyRef Name="pk_empresa" />
+            </Principal>
+            <Dependent Role="tb_usuario_empresa">
+              <PropertyRef Name="fk_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_usuario_empresa_tb_usuario">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="pk_usuario" />
+            </Principal>
+            <Dependent Role="tb_usuario_empresa">
+              <PropertyRef Name="fk_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="tradeadvisorModelStoreContainer">
+          <EntitySet Name="tb_empresa" EntityType="Self.tb_empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_usuario_empresa" EntityType="Self.tb_usuario_empresa" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tb_usuario_empresa_tb_empresa" Association="Self.FK_tb_usuario_empresa_tb_empresa">
+            <End Role="tb_empresa" EntitySet="tb_empresa" />
+            <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_usuario_empresa_tb_usuario" Association="Self.FK_tb_usuario_empresa_tb_usuario">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="tradeadvisorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_empresa">
+          <Key>
+            <PropertyRef Name="pk_empresa" />
+          </Key>
+          <Property Name="pk_empresa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="razao_social" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="end_rua" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="end_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="end_bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="end_cep" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="end_municipio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="end_uf" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="importador" Type="Boolean" />
+          <Property Name="exportador" Type="Boolean" />
+          <Property Name="cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_empresa" FromRole="tb_empresa" ToRole="tb_usuario_empresa" />
+        </EntityType>
+        <EntityType Name="tb_usuario">
+          <Key>
+            <PropertyRef Name="pk_usuario" />
+          </Key>
+          <Property Name="pk_usuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_usuario" FromRole="tb_usuario" ToRole="tb_usuario_empresa" />
+        </EntityType>
+        <EntityType Name="tb_usuario_empresa">
+          <Key>
+            <PropertyRef Name="pk_usuario_empresa" />
+          </Key>
+          <Property Name="pk_usuario_empresa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_empresa" Type="Int64" Nullable="false" />
+          <Property Name="fk_usuario" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="tb_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_empresa" FromRole="tb_usuario_empresa" ToRole="tb_empresa" />
+          <NavigationProperty Name="tb_usuario" Relationship="Self.FK_tb_usuario_empresa_tb_usuario" FromRole="tb_usuario_empresa" ToRole="tb_usuario" />
+        </EntityType>
+        <Association Name="FK_tb_usuario_empresa_tb_empresa">
+          <End Role="tb_empresa" Type="Self.tb_empresa" Multiplicity="1" />
+          <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_empresa">
+              <PropertyRef Name="pk_empresa" />
+            </Principal>
+            <Dependent Role="tb_usuario_empresa">
+              <PropertyRef Name="fk_empresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_usuario_empresa_tb_usuario">
+          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+          <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_usuario">
+              <PropertyRef Name="pk_usuario" />
+            </Principal>
+            <Dependent Role="tb_usuario_empresa">
+              <PropertyRef Name="fk_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="tradeadvisorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_empresa" EntityType="Self.tb_empresa" />
+          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" />
+          <EntitySet Name="tb_usuario_empresa" EntityType="Self.tb_usuario_empresa" />
+          <AssociationSet Name="FK_tb_usuario_empresa_tb_empresa" Association="Self.FK_tb_usuario_empresa_tb_empresa">
+            <End Role="tb_empresa" EntitySet="tb_empresa" />
+            <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_usuario_empresa_tb_usuario" Association="Self.FK_tb_usuario_empresa_tb_usuario">
+            <End Role="tb_usuario" EntitySet="tb_usuario" />
+            <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="tradeadvisorModelStoreContainer" CdmEntityContainer="tradeadvisorEntities">
+          <EntitySetMapping Name="tb_empresa">
+            <EntityTypeMapping TypeName="tradeadvisorModel.tb_empresa">
+              <MappingFragment StoreEntitySet="tb_empresa">
+                <ScalarProperty Name="pk_empresa" ColumnName="pk_empresa" />
+                <ScalarProperty Name="razao_social" ColumnName="razao_social" />
+                <ScalarProperty Name="end_rua" ColumnName="end_rua" />
+                <ScalarProperty Name="end_numero" ColumnName="end_numero" />
+                <ScalarProperty Name="end_bairro" ColumnName="end_bairro" />
+                <ScalarProperty Name="end_cep" ColumnName="end_cep" />
+                <ScalarProperty Name="end_municipio" ColumnName="end_municipio" />
+                <ScalarProperty Name="end_uf" ColumnName="end_uf" />
+                <ScalarProperty Name="importador" ColumnName="importador" />
+                <ScalarProperty Name="exportador" ColumnName="exportador" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_usuario">
+            <EntityTypeMapping TypeName="tradeadvisorModel.tb_usuario">
+              <MappingFragment StoreEntitySet="tb_usuario">
+                <ScalarProperty Name="pk_usuario" ColumnName="pk_usuario" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_usuario_empresa">
+            <EntityTypeMapping TypeName="tradeadvisorModel.tb_usuario_empresa">
+              <MappingFragment StoreEntitySet="tb_usuario_empresa">
+                <ScalarProperty Name="pk_usuario_empresa" ColumnName="pk_usuario_empresa" />
+                <ScalarProperty Name="fk_empresa" ColumnName="fk_empresa" />
+                <ScalarProperty Name="fk_usuario" ColumnName="fk_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

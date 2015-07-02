@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en-us">
+@Html.Partial("_Head")
+<body>
+    <div class="background_master"></div>
+    <div class="container">
+        <div class="center_search">
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Partial("_Scripts")
+</body>
+</html>

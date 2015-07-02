@@ -1,0 +1,93 @@
+﻿<div class="container">
+    <!--busca-->
+    <div class="collapse" id="collapseSearch">
+
+        <form action="@Url.Action("Consulta", "Ncm", new { descricao = @Request["descticao"], ncm = @Request["ncm"] })" method="POST">
+            <span class="search_box">
+                <input class="input_style col-xs-12" id="search-fld" type="text" name="descricao_detalhada_produto" value="@Request["descricao"]" placeholder="Faça sua pesquisa">
+                <button type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+            @Html.ValidationSummary(true)
+        </form>
+    </div>
+
+    <!--bloco resultados-->
+    <div id="divResumoConsulta" class="col-xs-12 alert block_default alert-dismissible" role="alert">
+        <button type="button" class="close_button glyphicon glyphicon-remove" data-dismiss="alert" aria-label="Close"></button>
+        <h1 class="col-xs-12">
+            <strong>Resumo da consulta:</strong>
+        </h1>
+
+        <div class="col-xs-7">
+            <h2>Número de resultados</h2>
+            <h2>
+                <strong>
+                    Carregando...
+                </strong>
+            </h2>
+        </div>
+
+        <div class="col-xs-5">
+            <h2>Total CIF</h2>
+            <h2>
+                <strong>
+                    Carregando...
+                </strong>
+            </h2>
+        </div>
+    </div>
+    <div id="ncmListDiv">
+        @Html.Partial("_NcmBlock")
+    </div>
+
+    @*<div id="loadingDiv"
+             style="text-align: center; display: none; margin-bottom: 20px;">
+            <img alt="Loading"
+                 src="@Url.Content("~/img/ajax-loader.gif")" />
+        </div>*@
+
+    <div id="loadingDiv" class="col-xs-12" style="text-align:center; ">
+        <a href="javascript:void(0);">
+            <i class="fa fa-spinner fa-4x fa-spin"></i>
+        </a>
+
+    </div>
+
+
+</div>
+<script language="JavaScript" type="text/javascript" src="~/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    var BlockNumber = 2;  //Infinate Scroll starts from second block
+    var NoMoreData = false;
+    var inProgress = false;
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() -
+        $(window).height() && !NoMoreData && !inProgress) {
+            inProgress = true;
+            $("#loadingDiv").show();
+
+            $.post("@Url.Action("InfinateScroll", "Ncm")", { "BlockNumber": BlockNumber, "descricao": "@Request["descricao"]","ncm": "@Request["ncm"]" },
+                    function (data) {
+
+                        BlockNumber = BlockNumber + 1;
+                        NoMoreData = data.NoMoreData;
+                        $("#ncmListDiv").append(data.HTMLString);
+                        $("#loadingDiv").hide();
+                        inProgress = false;
+                    });
+        }
+    });
+    
+       
+    //$("#divResumoConsulta").load(function () {
+    $(window).load(function () {
+        $.post("@Url.Action("ResumoConsultaDetalhada", "Ncm")", { "descricao": "@Request["descricao"]","ncm": "@Request["ncm"]" },
+                    function (data) {
+                        //$("#ncmListDiv").append(data.HTMLString);
+                        $("#divResumoConsulta").replaceWith(data.HTMLString);
+                    });
+    });
+</script>
