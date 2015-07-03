@@ -1,0 +1,5 @@
+﻿var query = new { query = new { match = new { descricao_detalhada_produto = "descricao_detalhada_produto", } } };
+
+var json_request = JsonConvert.SerializeObject(query, Formatting.Indented);
+
+var result = ElasticSearchService.ProdsenseStat.SearchByDescricaoDetalhadaProduto(json_request);

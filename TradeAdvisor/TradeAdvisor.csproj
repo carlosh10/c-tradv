@@ -55,6 +55,10 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -110,6 +114,7 @@
     <Content Include="css\smartadmin-rtl.min.css" />
     <Content Include="css\smartadmin-skins.min.css" />
     <Content Include="css\your_style.css" />
+    <Content Include="Elastic\usage.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome4.2\fontawesome-webfont.svg" />
     <Content Include="fonts\fontawesome4.2\readme.txt" />
@@ -790,6 +795,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NcmController.cs" />
     <Compile Include="Controllers\SistemaController.cs" />
+    <Compile Include="Elastic\ElasticSearchService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Elastic\Models\Response\DescricaoDetalhadaProdutoResponse.cs" />
+    <Compile Include="Elastic\ProdsenseStatService.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
