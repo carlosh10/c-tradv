@@ -14,40 +14,38 @@ namespace TradeAdvisor.Models
             {
                 try
                 {
-                    var empresa = conexao.tb_empresa.Where(c => c.cnpj == model.cnpj).FirstOrDefault();
+                    var empresa = conexao.empresas.Where(c => c.tx_cnpj == model.cnpj).FirstOrDefault();
                     if (empresa == null)
                     {
-                        empresa = new tb_empresa();
-                        empresa.cnpj = model.cnpj;
-                        empresa.end_bairro = model.end_bairro;
-                        empresa.end_cep = model.end_cep;
-                        empresa.end_municipio = model.end_municipio;
-                        empresa.end_numero = model.end_numero;
-                        empresa.end_rua = model.end_rua;
-                        empresa.end_uf = model.end_uf;
-                        empresa.exportador = model.exportador;
-                        empresa.importador = model.importador;
-                        empresa.razao_social = model.razao_social;
-                        conexao.tb_empresa.Add(empresa);
+                        empresa = new empresas();
+                        empresa.tx_cnpj = model.cnpj;
+                        empresa.tx_bairro_distrito = model.end_bairro;
+                        empresa.tx_cep = model.end_cep;
+                        empresa.tx_municipio = model.end_municipio;
+                        empresa.tx_numero = model.end_numero;
+                        empresa.tx_logradouro = model.end_rua;
+                        empresa.tx_uf = model.end_uf;
+                        empresa.tx_nome_empresarial = model.razao_social;
+                        conexao.empresas.Add(empresa);
                         conexao.SaveChanges();
                     }
-                    var usuario = conexao.tb_usuario.Where(c => c.email == model.email_usuario).ToList();
+                    var usuario = conexao.usuarios.Where(c => c.tx_email == model.email_usuario).ToList();
                     if (usuario.Count != 0)
                     {
                         model.mensagem = "Este Email já está Cadastrado!";
                         return model;
                     }
 
-                    tb_usuario user = new tb_usuario();
-                    user.email = model.email_usuario;
-                    user.nome = model.nome_usuario;
-                    user.senha = model.senha_usuario;
-                    conexao.tb_usuario.Add(user);
+                    usuarios user = new usuarios();
+                    user.tx_email = model.email_usuario;
+                    user.tx_nome = model.nome_usuario;
+                    user.tx_senha = model.senha_usuario;
+                    conexao.usuarios.Add(user);
                     conexao.SaveChanges();
 
                     tb_usuario_empresa userEmp = new tb_usuario_empresa();
-                    userEmp.tb_usuario = user;
-                    userEmp.tb_empresa = empresa;
+                    userEmp.usuarios = user;
+                    userEmp.empresas = empresa;
                     conexao.tb_usuario_empresa.Add(userEmp);
                     conexao.SaveChanges();
 

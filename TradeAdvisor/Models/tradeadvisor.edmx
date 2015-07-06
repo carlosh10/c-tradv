@@ -5,56 +5,118 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="tradeadvisorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="tb_empresa">
+        <EntityType Name="empresas">
           <Key>
-            <PropertyRef Name="pk_empresa" />
+            <PropertyRef Name="pk_company" />
           </Key>
-          <Property Name="pk_empresa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="razao_social" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="end_rua" Type="nvarchar" MaxLength="100" />
-          <Property Name="end_numero" Type="nvarchar" MaxLength="10" />
-          <Property Name="end_bairro" Type="nvarchar" MaxLength="50" />
-          <Property Name="end_cep" Type="nvarchar" MaxLength="14" />
-          <Property Name="end_municipio" Type="nvarchar" MaxLength="50" />
-          <Property Name="end_uf" Type="nvarchar" MaxLength="50" />
-          <Property Name="importador" Type="bit" />
-          <Property Name="exportador" Type="bit" />
-          <Property Name="cnpj" Type="nvarchar" MaxLength="50" />
+          <Property Name="pk_company" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_cnpj" Type="nvarchar" MaxLength="14" />
+          <Property Name="tx_tipoinscricao" Type="nvarchar" MaxLength="100" />
+          <Property Name="dt_data_abertura" Type="date" />
+          <Property Name="tx_nome_empresarial" Type="nvarchar" MaxLength="350" />
+          <Property Name="tx_nome_fantasia" Type="nvarchar" MaxLength="350" />
+          <Property Name="tx_cnae_principal" Type="nvarchar" MaxLength="250" />
+          <Property Name="tx_cnae_secundario" Type="nvarchar" MaxLength="250" />
+          <Property Name="tx_natureza_juridica" Type="nvarchar" MaxLength="250" />
+          <Property Name="tx_logradouro" Type="nvarchar" MaxLength="200" />
+          <Property Name="tx_numero" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_complemento" Type="nvarchar" MaxLength="200" />
+          <Property Name="tx_cep" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_bairro_distrito" Type="nvarchar" MaxLength="200" />
+          <Property Name="tx_municipio" Type="nvarchar" MaxLength="200" />
+          <Property Name="tx_uf" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_email" Type="nvarchar" MaxLength="150" />
+          <Property Name="tx_telefone" Type="nvarchar" MaxLength="30" />
+          <Property Name="tx_situacao_cadastral" Type="nvarchar" MaxLength="20" />
+          <Property Name="dt_data_situacao_cadastral" Type="date" />
         </EntityType>
-        <EntityType Name="tb_usuario">
+        <EntityType Name="estados">
           <Key>
-            <PropertyRef Name="pk_usuario" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="pk_usuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nome" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="senha" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pk_estado" Type="int" />
+          <Property Name="fk_pais" Type="int" />
+          <Property Name="nome_estado" Type="nvarchar" MaxLength="4000" />
+          <Property Name="sigla_estado" Type="nvarchar" MaxLength="4000" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pk_pais" Type="int" />
+          <Property Name="nome_pais" Type="nvarchar" MaxLength="4000" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'tradeadvisor.dbo.schema_migrations' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="schema_migrations">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="nvarchar" MaxLength="4000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="tb_usuario_empresa">
           <Key>
             <PropertyRef Name="pk_usuario_empresa" />
           </Key>
           <Property Name="pk_usuario_empresa" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fk_empresa" Type="bigint" Nullable="false" />
           <Property Name="fk_usuario" Type="bigint" Nullable="false" />
+          <Property Name="fk_empresa" Type="bigint" Nullable="false" />
         </EntityType>
-        <Association Name="FK_tb_usuario_empresa_tb_empresa">
-          <End Role="tb_empresa" Type="Self.tb_empresa" Multiplicity="1" />
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="pk_usuario" />
+          </Key>
+          <Property Name="pk_usuario" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_nome" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="tx_cpf" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_rg" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_logradouro" Type="nvarchar" MaxLength="50" />
+          <Property Name="tx_numero" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_complemento" Type="nvarchar" MaxLength="200" />
+          <Property Name="tx_bairro" Type="nvarchar" MaxLength="100" />
+          <Property Name="tx_cep" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_municipio" Type="nvarchar" MaxLength="200" />
+          <Property Name="fk_uf" Type="bigint" />
+          <Property Name="tx_email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="tx_telefone_casa" Type="nvarchar" MaxLength="20" />
+          <Property Name="tx_telefone_celular" Type="nvarchar" MaxLength="20" />
+          <Property Name="dt_nascimento" Type="date" />
+          <Property Name="bl_sexo" Type="bit" />
+          <Property Name="tx_senha" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tb_usuario_empresa_empresas">
+          <End Role="empresas" Type="Self.empresas" Multiplicity="1" />
           <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tb_empresa">
-              <PropertyRef Name="pk_empresa" />
+            <Principal Role="empresas">
+              <PropertyRef Name="pk_company" />
             </Principal>
             <Dependent Role="tb_usuario_empresa">
               <PropertyRef Name="fk_empresa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_usuario_empresa_tb_usuario">
-          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+        <Association Name="FK_tb_usuario_empresa_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
           <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tb_usuario">
+            <Principal Role="usuarios">
               <PropertyRef Name="pk_usuario" />
             </Principal>
             <Dependent Role="tb_usuario_empresa">
@@ -63,15 +125,23 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="tradeadvisorModelStoreContainer">
-          <EntitySet Name="tb_empresa" EntityType="Self.tb_empresa" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empresas" EntityType="Self.empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estados" EntityType="Self.estados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pais" EntityType="Self.pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_usuario_empresa" EntityType="Self.tb_usuario_empresa" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tb_usuario_empresa_tb_empresa" Association="Self.FK_tb_usuario_empresa_tb_empresa">
-            <End Role="tb_empresa" EntitySet="tb_empresa" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schema_migrations" EntityType="Self.schema_migrations" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [schema_migrations].[version] AS [version]
+    FROM [dbo].[schema_migrations] AS [schema_migrations]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tb_usuario_empresa_empresas" Association="Self.FK_tb_usuario_empresa_empresas">
+            <End Role="empresas" EntitySet="empresas" />
             <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_usuario_empresa_tb_usuario" Association="Self.FK_tb_usuario_empresa_tb_usuario">
-            <End Role="tb_usuario" EntitySet="tb_usuario" />
+          <AssociationSet Name="FK_tb_usuario_empresa_usuarios" Association="Self.FK_tb_usuario_empresa_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
             <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
           </AssociationSet>
         </EntityContainer>
@@ -80,60 +150,120 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="tradeadvisorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tb_empresa">
+        <EntityType Name="empresas">
           <Key>
-            <PropertyRef Name="pk_empresa" />
+            <PropertyRef Name="pk_company" />
           </Key>
-          <Property Name="pk_empresa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="razao_social" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="end_rua" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="end_numero" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="end_bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="end_cep" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
-          <Property Name="end_municipio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="end_uf" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="importador" Type="Boolean" />
-          <Property Name="exportador" Type="Boolean" />
-          <Property Name="cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_empresa" FromRole="tb_empresa" ToRole="tb_usuario_empresa" />
+          <Property Name="pk_company" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="tx_tipoinscricao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="dt_data_abertura" Type="DateTime" Precision="0" />
+          <Property Name="tx_nome_empresarial" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="tx_nome_fantasia" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="tx_cnae_principal" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tx_cnae_secundario" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tx_natureza_juridica" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="tx_logradouro" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tx_numero" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_complemento" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tx_cep" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_bairro_distrito" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tx_municipio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tx_uf" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="tx_telefone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="tx_situacao_cadastral" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="dt_data_situacao_cadastral" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_empresas" FromRole="empresas" ToRole="tb_usuario_empresa" />
         </EntityType>
-        <EntityType Name="tb_usuario">
+        <EntityType Name="estados">
           <Key>
-            <PropertyRef Name="pk_usuario" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="pk_usuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="senha" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_usuario" FromRole="tb_usuario" ToRole="tb_usuario_empresa" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pk_estado" Type="Int32" />
+          <Property Name="fk_pais" Type="Int32" />
+          <Property Name="nome_estado" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="sigla_estado" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pk_pais" Type="Int32" />
+          <Property Name="nome_pais" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="tb_usuario_empresa">
           <Key>
             <PropertyRef Name="pk_usuario_empresa" />
           </Key>
           <Property Name="pk_usuario_empresa" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fk_empresa" Type="Int64" Nullable="false" />
           <Property Name="fk_usuario" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="tb_empresa" Relationship="Self.FK_tb_usuario_empresa_tb_empresa" FromRole="tb_usuario_empresa" ToRole="tb_empresa" />
-          <NavigationProperty Name="tb_usuario" Relationship="Self.FK_tb_usuario_empresa_tb_usuario" FromRole="tb_usuario_empresa" ToRole="tb_usuario" />
+          <Property Name="fk_empresa" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="empresas" Relationship="Self.FK_tb_usuario_empresa_empresas" FromRole="tb_usuario_empresa" ToRole="empresas" />
+          <NavigationProperty Name="usuarios" Relationship="Self.FK_tb_usuario_empresa_usuarios" FromRole="tb_usuario_empresa" ToRole="usuarios" />
         </EntityType>
-        <Association Name="FK_tb_usuario_empresa_tb_empresa">
-          <End Role="tb_empresa" Type="Self.tb_empresa" Multiplicity="1" />
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="pk_usuario" />
+          </Key>
+          <Property Name="pk_usuario" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_nome" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tx_cpf" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_rg" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_logradouro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tx_numero" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_complemento" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="tx_bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tx_cep" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_municipio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="fk_uf" Type="Int64" />
+          <Property Name="tx_email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tx_telefone_casa" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="tx_telefone_celular" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="dt_nascimento" Type="DateTime" Precision="0" />
+          <Property Name="bl_sexo" Type="Boolean" />
+          <Property Name="tx_senha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tb_usuario_empresa" Relationship="Self.FK_tb_usuario_empresa_usuarios" FromRole="usuarios" ToRole="tb_usuario_empresa" />
+        </EntityType>
+        <EntityType Name="schema_migrations">
+          <Key>
+            <PropertyRef Name="version" />
+          </Key>
+          <Property Name="version" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tb_usuario_empresa_empresas">
+          <End Role="empresas" Type="Self.empresas" Multiplicity="1" />
           <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tb_empresa">
-              <PropertyRef Name="pk_empresa" />
+            <Principal Role="empresas">
+              <PropertyRef Name="pk_company" />
             </Principal>
             <Dependent Role="tb_usuario_empresa">
               <PropertyRef Name="fk_empresa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_usuario_empresa_tb_usuario">
-          <End Role="tb_usuario" Type="Self.tb_usuario" Multiplicity="1" />
+        <Association Name="FK_tb_usuario_empresa_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
           <End Role="tb_usuario_empresa" Type="Self.tb_usuario_empresa" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tb_usuario">
+            <Principal Role="usuarios">
               <PropertyRef Name="pk_usuario" />
             </Principal>
             <Dependent Role="tb_usuario_empresa">
@@ -142,15 +272,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="tradeadvisorEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tb_empresa" EntityType="Self.tb_empresa" />
-          <EntitySet Name="tb_usuario" EntityType="Self.tb_usuario" />
+          <EntitySet Name="empresas" EntityType="Self.empresas" />
+          <EntitySet Name="estados" EntityType="Self.estados" />
+          <EntitySet Name="pais" EntityType="Self.pais" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tb_usuario_empresa" EntityType="Self.tb_usuario_empresa" />
-          <AssociationSet Name="FK_tb_usuario_empresa_tb_empresa" Association="Self.FK_tb_usuario_empresa_tb_empresa">
-            <End Role="tb_empresa" EntitySet="tb_empresa" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <EntitySet Name="schema_migrations" EntityType="Self.schema_migrations" />
+          <AssociationSet Name="FK_tb_usuario_empresa_empresas" Association="Self.FK_tb_usuario_empresa_empresas">
+            <End Role="empresas" EntitySet="empresas" />
             <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_usuario_empresa_tb_usuario" Association="Self.FK_tb_usuario_empresa_tb_usuario">
-            <End Role="tb_usuario" EntitySet="tb_usuario" />
+          <AssociationSet Name="FK_tb_usuario_empresa_usuarios" Association="Self.FK_tb_usuario_empresa_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
             <End Role="tb_usuario_empresa" EntitySet="tb_usuario_empresa" />
           </AssociationSet>
         </EntityContainer>
@@ -160,30 +294,64 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="tradeadvisorModelStoreContainer" CdmEntityContainer="tradeadvisorEntities">
-          <EntitySetMapping Name="tb_empresa">
-            <EntityTypeMapping TypeName="tradeadvisorModel.tb_empresa">
-              <MappingFragment StoreEntitySet="tb_empresa">
-                <ScalarProperty Name="pk_empresa" ColumnName="pk_empresa" />
-                <ScalarProperty Name="razao_social" ColumnName="razao_social" />
-                <ScalarProperty Name="end_rua" ColumnName="end_rua" />
-                <ScalarProperty Name="end_numero" ColumnName="end_numero" />
-                <ScalarProperty Name="end_bairro" ColumnName="end_bairro" />
-                <ScalarProperty Name="end_cep" ColumnName="end_cep" />
-                <ScalarProperty Name="end_municipio" ColumnName="end_municipio" />
-                <ScalarProperty Name="end_uf" ColumnName="end_uf" />
-                <ScalarProperty Name="importador" ColumnName="importador" />
-                <ScalarProperty Name="exportador" ColumnName="exportador" />
-                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+          <EntitySetMapping Name="empresas">
+            <EntityTypeMapping TypeName="tradeadvisorModel.empresas">
+              <MappingFragment StoreEntitySet="empresas">
+                <ScalarProperty Name="pk_company" ColumnName="pk_company" />
+                <ScalarProperty Name="tx_cnpj" ColumnName="tx_cnpj" />
+                <ScalarProperty Name="tx_tipoinscricao" ColumnName="tx_tipoinscricao" />
+                <ScalarProperty Name="dt_data_abertura" ColumnName="dt_data_abertura" />
+                <ScalarProperty Name="tx_nome_empresarial" ColumnName="tx_nome_empresarial" />
+                <ScalarProperty Name="tx_nome_fantasia" ColumnName="tx_nome_fantasia" />
+                <ScalarProperty Name="tx_cnae_principal" ColumnName="tx_cnae_principal" />
+                <ScalarProperty Name="tx_cnae_secundario" ColumnName="tx_cnae_secundario" />
+                <ScalarProperty Name="tx_natureza_juridica" ColumnName="tx_natureza_juridica" />
+                <ScalarProperty Name="tx_logradouro" ColumnName="tx_logradouro" />
+                <ScalarProperty Name="tx_numero" ColumnName="tx_numero" />
+                <ScalarProperty Name="tx_complemento" ColumnName="tx_complemento" />
+                <ScalarProperty Name="tx_cep" ColumnName="tx_cep" />
+                <ScalarProperty Name="tx_bairro_distrito" ColumnName="tx_bairro_distrito" />
+                <ScalarProperty Name="tx_municipio" ColumnName="tx_municipio" />
+                <ScalarProperty Name="tx_uf" ColumnName="tx_uf" />
+                <ScalarProperty Name="tx_email" ColumnName="tx_email" />
+                <ScalarProperty Name="tx_telefone" ColumnName="tx_telefone" />
+                <ScalarProperty Name="tx_situacao_cadastral" ColumnName="tx_situacao_cadastral" />
+                <ScalarProperty Name="dt_data_situacao_cadastral" ColumnName="dt_data_situacao_cadastral" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tb_usuario">
-            <EntityTypeMapping TypeName="tradeadvisorModel.tb_usuario">
-              <MappingFragment StoreEntitySet="tb_usuario">
-                <ScalarProperty Name="pk_usuario" ColumnName="pk_usuario" />
-                <ScalarProperty Name="nome" ColumnName="nome" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="senha" ColumnName="senha" />
+          <EntitySetMapping Name="estados">
+            <EntityTypeMapping TypeName="tradeadvisorModel.estados">
+              <MappingFragment StoreEntitySet="estados">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pk_estado" ColumnName="pk_estado" />
+                <ScalarProperty Name="fk_pais" ColumnName="fk_pais" />
+                <ScalarProperty Name="nome_estado" ColumnName="nome_estado" />
+                <ScalarProperty Name="sigla_estado" ColumnName="sigla_estado" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pais">
+            <EntityTypeMapping TypeName="tradeadvisorModel.pais">
+              <MappingFragment StoreEntitySet="pais">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pk_pais" ColumnName="pk_pais" />
+                <ScalarProperty Name="nome_pais" ColumnName="nome_pais" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="tradeadvisorModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -191,8 +359,38 @@
             <EntityTypeMapping TypeName="tradeadvisorModel.tb_usuario_empresa">
               <MappingFragment StoreEntitySet="tb_usuario_empresa">
                 <ScalarProperty Name="pk_usuario_empresa" ColumnName="pk_usuario_empresa" />
-                <ScalarProperty Name="fk_empresa" ColumnName="fk_empresa" />
                 <ScalarProperty Name="fk_usuario" ColumnName="fk_usuario" />
+                <ScalarProperty Name="fk_empresa" ColumnName="fk_empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="tradeadvisorModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="pk_usuario" ColumnName="pk_usuario" />
+                <ScalarProperty Name="tx_nome" ColumnName="tx_nome" />
+                <ScalarProperty Name="tx_cpf" ColumnName="tx_cpf" />
+                <ScalarProperty Name="tx_rg" ColumnName="tx_rg" />
+                <ScalarProperty Name="tx_logradouro" ColumnName="tx_logradouro" />
+                <ScalarProperty Name="tx_numero" ColumnName="tx_numero" />
+                <ScalarProperty Name="tx_complemento" ColumnName="tx_complemento" />
+                <ScalarProperty Name="tx_bairro" ColumnName="tx_bairro" />
+                <ScalarProperty Name="tx_cep" ColumnName="tx_cep" />
+                <ScalarProperty Name="tx_municipio" ColumnName="tx_municipio" />
+                <ScalarProperty Name="fk_uf" ColumnName="fk_uf" />
+                <ScalarProperty Name="tx_email" ColumnName="tx_email" />
+                <ScalarProperty Name="tx_telefone_casa" ColumnName="tx_telefone_casa" />
+                <ScalarProperty Name="tx_telefone_celular" ColumnName="tx_telefone_celular" />
+                <ScalarProperty Name="dt_nascimento" ColumnName="dt_nascimento" />
+                <ScalarProperty Name="bl_sexo" ColumnName="bl_sexo" />
+                <ScalarProperty Name="tx_senha" ColumnName="tx_senha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schema_migrations">
+            <EntityTypeMapping TypeName="tradeadvisorModel.schema_migrations">
+              <MappingFragment StoreEntitySet="schema_migrations">
+                <ScalarProperty Name="version" ColumnName="version" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

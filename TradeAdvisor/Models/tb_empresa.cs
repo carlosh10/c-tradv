@@ -14,23 +14,19 @@ namespace TradeAdvisor.Models
     
     public partial class tb_empresa
     {
-        public tb_empresa()
-        {
-            this.tb_usuario_empresa = new HashSet<tb_usuario_empresa>();
-        }
-    
         public long pk_empresa { get; set; }
-        public string razao_social { get; set; }
-        public string end_rua { get; set; }
-        public string end_numero { get; set; }
-        public string end_bairro { get; set; }
-        public string end_cep { get; set; }
-        public string end_municipio { get; set; }
-        public string end_uf { get; set; }
-        public Nullable<bool> importador { get; set; }
-        public Nullable<bool> exportador { get; set; }
-        public string cnpj { get; set; }
+        public string tx_nomefantasia { get; set; }
+        public string tx_cidade { get; set; }
+        public string cd_cidade { get; set; }
+        public string tx_pais { get; set; }
+        public string cd_pais { get; set; }
+        public string tx_complemento { get; set; }
+        public string tx_estado { get; set; }
+        public string cd_estado { get; set; }
+        public string tx_logradouro { get; set; }
+        public string tx_numero { get; set; }
+        public long fk_tipo_empresa { get; set; }
     
-        public virtual ICollection<tb_usuario_empresa> tb_usuario_empresa { get; set; }
+        public virtual tb_tipo_empresa tb_tipo_empresa { get; set; }
     }
 }

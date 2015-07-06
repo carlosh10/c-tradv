@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Elasticsearch.Net;
+using Elasticsearch.Net.Connection;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -54,41 +56,46 @@ namespace TradeAdvisor.Models
         public static List<ResumoConsulta> ConsultaResumoBusca(string parametro, string ncm)
         {
             List<ResumoConsulta> ncms = new List<ResumoConsulta>();
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ncmrfEntities2"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(conString))
-            {
-                string query = "SELECT (ROW_NUMBER() OVER (ORDER BY (select null))) as pk_gs, "
-                    + "tbb.tx_ncm_desc, tba.ncm, tbb.vl_ift, count(tba.pk_ncmrf_15a) as countReg ,SUM(valor_fob_dolar + valor_frete_dolar + valor_seguro_dolar) AS CIFTot"
-                        + " FROM tb_ncmrf_full_15A as tba"
-                        + " left join tb_ncm_computada as tbb on tbb.tx_ncm = tba.ncm"
-                        + " WHERE ";
 
-                if ((ncm != "") && (ncm != null))
-                    query += " ncm = " + ncm + " AND ";
+           
 
-                query += "descricao_detalhada_produto LIKE \'%" + parametro + "%\'";
-                query += " GROUP BY tbb.tx_ncm_desc, tba.ncm, tbb.vl_ift";
-
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ResumoConsulta r = new ResumoConsulta();
-                            r.tx_ncm_desc = reader.GetValue(1).ToString();
-                            r.ncm = reader.GetValue(2).ToString();
-                            r.vl_ift = Int32.Parse(reader.GetValue(3).ToString());
-                            r.countReg = Int32.Parse(reader.GetValue(4).ToString());
-                            r.CIFTot = float.Parse(reader.GetValue(5).ToString());
-
-                            ncms.Add(r);
-                        }
-                    }
-                }
-            }
+          
             return ncms;
+            //string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ncmrfEntities2"].ConnectionString;
+            //using (SqlConnection connection = new SqlConnection(conString))
+            //{
+            //    string query = "SELECT (ROW_NUMBER() OVER (ORDER BY (select null))) as pk_gs, "
+            //        + "tbb.tx_ncm_desc, tba.ncm, tbb.vl_ift, count(tba.pk_ncmrf_15a) as countReg ,SUM(valor_fob_dolar + valor_frete_dolar + valor_seguro_dolar) AS CIFTot"
+            //            + " FROM tb_ncmrf_full_15A as tba"
+            //            + " left join tb_ncm_computada as tbb on tbb.tx_ncm = tba.ncm"
+            //            + " WHERE ";
+
+            //    if ((ncm != "") && (ncm != null))
+            //        query += " ncm = " + ncm + " AND ";
+
+            //    query += "descricao_detalhada_produto LIKE \'%" + parametro + "%\'";
+            //    query += " GROUP BY tbb.tx_ncm_desc, tba.ncm, tbb.vl_ift";
+
+            //    connection.Open();
+            //    using (SqlCommand command = new SqlCommand(query, connection))
+            //    {
+            //        using (SqlDataReader reader = command.ExecuteReader())
+            //        {
+            //            while (reader.Read())
+            //            {
+            //                ResumoConsulta r = new ResumoConsulta();
+            //                r.tx_ncm_desc = reader.GetValue(1).ToString();
+            //                r.ncm = reader.GetValue(2).ToString();
+            //                r.vl_ift = Int32.Parse(reader.GetValue(3).ToString());
+            //                r.countReg = Int32.Parse(reader.GetValue(4).ToString());
+            //                r.CIFTot = float.Parse(reader.GetValue(5).ToString());
+
+            //                ncms.Add(r);
+            //            }
+            //        }
+            //    }
+            //}
+            //return ncms;
         }
     }
 }

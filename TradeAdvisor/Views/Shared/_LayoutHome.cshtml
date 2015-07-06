@@ -5,12 +5,10 @@
 <html lang="en-us">
 @Html.Partial("_Head")
 <body>
-    <div class="background_master"></div>
-    <div class="container">
-        <div class="center_search">
-            @RenderBody()
-        </div>
-    </div>
-    @Html.Partial("_Scripts")
+    @Html.Partial("_Header")
+
+    @RenderBody()
+
+    @Html.Partial("_Footer")
 </body>
 </html>

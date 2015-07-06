@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a8046e826f414df0b1d1d59e147fc2cc" Name="Diagram1" ZoomLevel="68">
+      <Diagram DiagramId="a8046e826f414df0b1d1d59e147fc2cc" Name="Diagram1" ZoomLevel="105">
         <EntityTypeShape EntityType="ncmrfModel.vw_ncm_full" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ncmrfModel.vw_ncm_full_15a" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ncmrfModel.tb_ncmrf_full_15A" Width="1.5" PointX="5.375" PointY="0.75" />

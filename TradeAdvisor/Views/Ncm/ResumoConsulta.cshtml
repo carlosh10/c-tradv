@@ -17,7 +17,6 @@
 
     <!--bloco produto-->
     <div class="col-xs-12 block_default">
-
         <div style="width:50%;float:left; text-align:center;"><h3>CIF Total por NCM </h3></div>
         <div style="width:50%;float:right; text-align:center;"><h3>Quantidade por NCM</h3></div>
         <div class="col-sm-12">
@@ -35,15 +34,11 @@
                         <!-- end widget edit box -->
                         <!-- widget content -->
                         <div class="widget-body no-padding">
-
                             <div id="donut-graph" class="chart no-padding"></div>
-
                         </div>
                         <!-- end widget content -->
-
                     </div>
                     <!-- end widget div -->
-
                 </div>
 
                 <!-- Widget ID (each widget will need unique ID)-->
@@ -65,7 +60,6 @@
 
                     </div>
                     <!-- end widget div -->
-
                 </div>
 
 
@@ -116,115 +110,8 @@
                         }
                     </tbody>
                 </table>
-
             </div>
-
         </div>
-
     </div>
 </div>
 
-<script language="JavaScript" type="text/javascript" src="~/js/jquery-1.11.3.min.js"></script>
-<script src="~/js/plugin/morris/raphael.min.js"></script>
-<script src="~/js/plugin/morris/morris.min.js"></script>
-
-<script type="text/javascript">
-    // PAGE RELATED SCRIPTS
-
-    /*
-     * Run all morris chart on this page
-     */
-    Number.prototype.formatMoney = function(c, d, t){
-        var n = this,
-            c = isNaN(c = Math.abs(c)) ? 2 : c,
-            d = d == undefined ? "." : d,
-            t = t == undefined ? "," : t,
-            s = n < 0 ? "-" : "",
-            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-            j = (j = i.length) > 3 ? j % 3 : 0;
-        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-    };
-
-    $(document).ready(function () {
-
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!
-        pageSetUp();
-
-
-        // donut
-        if ($('#donut-graph').length) {
-            Morris.Donut({
-                element: 'donut-graph',
-                data: [
-                 @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
-                 {
-                     @:{
-                                                                                                                                 @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                                                                                                                 @:label: @ncm.ncm
-                                                                                                                             @:},
-                 }
-                ],
-                formatter: function (x) {
-                    return '$'+(x).formatMoney(2, ',', '.');
-                }
-            });
-        }
-    });
-
-    $(document).ready(function () {
-
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!
-        pageSetUp();
-
-
-        // donut
-        if ($('#donut-graph').length) {
-            Morris.Donut({
-                element: 'donut-graph',
-                data: [
-                 @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
-                 {
-                     @:{
-                                                                                                                                 @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                                                                                                                 @:label: @ncm.ncm
-                                                                                                                             @:},
-                 }
-                ],
-                formatter: function (x) {
-                    return '$'+(x).formatMoney(2, ',', '.');
-                }
-            });
-        }
-    });
-
-
-
-    $(document).ready(function () {
-
-        // DO NOT REMOVE : GLOBAL FUNCTIONS!
-        pageSetUp();
-
-
-        // donut
-        if ($('#donut-graphNcmQuantidade').length) {
-            Morris.Donut({
-                element: 'donut-graphNcmQuantidade',
-                data: [
-                 @foreach (var ncm in Model.OrderByDescending(c => c.countReg).Take(7).ToList())
-                {
-                @:{
-                                     @:value: @ncm.countReg.ToString().Replace(',', '.'),
-                                     @:label: @ncm.ncm
-                                     @:},
-                }
-                ],
-                formatter: function (x) {
-                    return x;
-                }
-            });
-        }
-    });
-
-
-
-</script>

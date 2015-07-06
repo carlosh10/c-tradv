@@ -25,8 +25,12 @@ namespace TradeAdvisor.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tb_empresa> tb_empresa { get; set; }
-        public virtual DbSet<tb_usuario> tb_usuario { get; set; }
+        public virtual DbSet<empresas> empresas { get; set; }
+        public virtual DbSet<estados> estados { get; set; }
+        public virtual DbSet<pais> pais { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<tb_usuario_empresa> tb_usuario_empresa { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
+        public virtual DbSet<schema_migrations> schema_migrations { get; set; }
     }
 }

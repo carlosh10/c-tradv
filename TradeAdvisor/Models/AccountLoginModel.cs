@@ -6,7 +6,7 @@ using System.Web;
 
 namespace TradeAdvisor.Models
 {
-    public class AccountLoginModel : tb_usuario
+    public class AccountLoginModel : usuarios
     {
         public string ReturnUrl;
         public bool RememberMe;

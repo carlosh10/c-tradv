@@ -1,0 +1,1642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="mercanteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_acrescimos">
+          <Key>
+            <PropertyRef Name="pk_acrescimo" />
+          </Key>
+          <Property Name="pk_acrescimo" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="tb_alteracao">
+          <Key>
+            <PropertyRef Name="pk_alteracao" />
+          </Key>
+          <Property Name="pk_alteracao" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_importacao" Type="bigint" Nullable="false" />
+          <Property Name="nm_tablea" Type="varchar" MaxLength="30" />
+          <Property Name="nm_campo" Type="varchar" MaxLength="100" />
+          <Property Name="vl_anterior" Type="text" />
+          <Property Name="vl_novo" Type="text" />
+        </EntityType>
+        <EntityType Name="tb_ce_aleatorias_consultadas">
+          <Key>
+            <PropertyRef Name="pk_ce_aleatoria" />
+          </Key>
+          <Property Name="pk_ce_aleatoria" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nrcemercanteconsultada" Type="varchar" MaxLength="30" />
+          <Property Name="dtconsulta" Type="datetime" Nullable="false" />
+          <Property Name="valido" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ce_dia_porto">
+          <Key>
+            <PropertyRef Name="pk_nr_ce_dia_porto" />
+          </Key>
+          <Property Name="pk_nr_ce_dia_porto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_porto" Type="bigint" Nullable="false" />
+          <Property Name="data" Type="datetime" />
+          <Property Name="conhecimentos_longo_curso_importacao_convencional" Type="int" />
+          <Property Name="conhecimentos_longo_curso_importacao_desconsolidacao" Type="int" />
+          <Property Name="manifestos_longo_curso_descosolidacao" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_ce_mercante">
+          <Key>
+            <PropertyRef Name="pk_mercante" />
+          </Key>
+          <Property Name="pk_mercante" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_importacao" Type="bigint" Nullable="false" />
+          <Property Name="master" Type="bit" Nullable="false" />
+          <Property Name="nrcemercante" Type="varchar" MaxLength="30" />
+          <Property Name="nrcemercantemaster" Type="varchar" MaxLength="30" />
+          <Property Name="dtceorigem" Type="datetime" />
+          <Property Name="dtemissao" Type="datetime" />
+          <Property Name="dtemissaoce" Type="datetime" />
+          <Property Name="dtoperacao" Type="datetime" Nullable="false" />
+          <Property Name="responsavel_data_conhec" Type="datetime" />
+          <Property Name="bloqueio_conhecimento" Type="bit" />
+          <Property Name="vlcubagem" Type="float" />
+          <Property Name="vlfrete" Type="float" />
+          <Property Name="vlfretetotal" Type="float" />
+          <Property Name="vlpesobruto" Type="float" />
+          <Property Name="afrmm" Type="float" />
+          <Property Name="afrmm_total_devido" Type="float" />
+          <Property Name="afrmm_valor_juros" Type="float" />
+          <Property Name="afrmm_valor_multa" Type="float" />
+          <Property Name="cotacao_moeda_frete" Type="float" />
+          <Property Name="cdagencianavegacao" Type="varchar" MaxLength="28" />
+          <Property Name="tx_url_arquivo" Type="varchar" MaxLength="150" />
+          <Property Name="cdconsignatario" Type="varchar" MaxLength="28" />
+          <Property Name="cdembarcacao" Type="varchar" MaxLength="14" />
+          <Property Name="cdempresanavegacao" Type="varchar" MaxLength="28" />
+          <Property Name="cdmoedafrete" Type="varchar" MaxLength="6" />
+          <Property Name="cdnotifypart" Type="varchar" MaxLength="28" />
+          <Property Name="cdpaisprocedencia" Type="varchar" MaxLength="4" />
+          <Property Name="cdportocarregamento" Type="varchar" MaxLength="10" />
+          <Property Name="cdportodescarregamento" Type="varchar" MaxLength="10" />
+          <Property Name="cdportodestino" Type="varchar" MaxLength="10" />
+          <Property Name="cdportoorigem" Type="varchar" MaxLength="10" />
+          <Property Name="cdportooriginal" Type="varchar" MaxLength="10" />
+          <Property Name="cdpracaentexterior" Type="varchar" MaxLength="4" />
+          <Property Name="cdshipper" Type="varchar" MaxLength="28" />
+          <Property Name="cdterminalportuario" Type="varchar" MaxLength="16" />
+          <Property Name="cdterminalportuariocarregamento" Type="varchar" MaxLength="16" />
+          <Property Name="ckblservico" Type="varchar" MaxLength="2" />
+          <Property Name="ckshipsconvenience" Type="varchar" MaxLength="506" />
+          <Property Name="indblordem" Type="varchar" MaxLength="2" />
+          <Property Name="indmodalidadefrete" Type="varchar" MaxLength="4" />
+          <Property Name="indufdestino" Type="varchar" MaxLength="4" />
+          <Property Name="nmagencianavegacao" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmconsignatario" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmembarcacao" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmempresanavegacao" Type="varchar" MaxLength="110" />
+          <Property Name="nmmoedafrete" Type="varchar" MaxLength="34" />
+          <Property Name="nmnavioorigem" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmpaisprocedencia" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmportocarregamento" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmportodescarregamento" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmportodestino" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmportoorigem" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmportooriginal" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmpracaentexterior" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmterminalportuario" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmterminalportuariocarregamento" Type="nvarchar" MaxLength="150" />
+          <Property Name="nmufdestino" Type="nvarchar" MaxLength="150" />
+          <Property Name="nrblconhecimento" Type="varchar" MaxLength="36" />
+          <Property Name="nrceorigem" Type="varchar" MaxLength="36" />
+          <Property Name="nrceoriginal" Type="varchar" MaxLength="30" />
+          <Property Name="nrmanifesto" Type="varchar" MaxLength="28" />
+          <Property Name="nrviagem" Type="varchar" MaxLength="20" />
+          <Property Name="opconsignatario" Type="varchar" MaxLength="10" />
+          <Property Name="oprecolhimentofrete" Type="varchar" MaxLength="2" />
+          <Property Name="pendencia_transito_maritimo" Type="varchar" MaxLength="2" />
+          <Property Name="qtconhecimentosassociado" Type="varchar" MaxLength="30" />
+          <Property Name="qtconhecimentosexistentes" Type="varchar" MaxLength="34" />
+          <Property Name="qtconhecimentosinformados" Type="varchar" MaxLength="34" />
+          <Property Name="qtveiculostransportadores" Type="varchar" MaxLength="2" />
+          <Property Name="responsavel_cpf_conhec" Type="varchar" MaxLength="30" />
+          <Property Name="responsavel_ip_conhec" Type="varchar" MaxLength="32" />
+          <Property Name="responsavel_nome_conhec" Type="varchar" MaxLength="200" />
+          <Property Name="responsavel_tipo_conhec" Type="varchar" MaxLength="2" />
+          <Property Name="ret_pendente_analise" Type="varchar" MaxLength="2" />
+          <Property Name="revisao_ou_pendencia_afrmm" Type="varchar" MaxLength="2" />
+          <Property Name="situacao_endosso" Type="varchar" MaxLength="2" />
+          <Property Name="tipoconhecimento" Type="varchar" MaxLength="4" />
+          <Property Name="tipoconsulta" Type="varchar" MaxLength="2" />
+          <Property Name="tptrafego" Type="varchar" MaxLength="4" />
+          <Property Name="transbordosexterior" Type="varchar" MaxLength="350" />
+          <Property Name="txconsignatario" Type="text" />
+          <Property Name="txmercadoria" Type="text" />
+          <Property Name="txnotifypart" Type="text" />
+          <Property Name="txobservacoes" Type="text" />
+          <Property Name="txshipper" Type="text" />
+          <Property Name="componentesfrete" Type="text" />
+          <Property Name="cdterminalportuariodescarregamento" Type="varchar" MaxLength="30" />
+          <Property Name="nmterminalportuariodescarregamento" Type="varchar" MaxLength="150" />
+          <Property Name="cdagdescolsolidadora" Type="varchar" MaxLength="30" />
+          <Property Name="nmagdescolsolidadora" Type="varchar" MaxLength="150" />
+          <Property Name="cdempresanvocc" Type="varchar" MaxLength="30" />
+          <Property Name="nmempresanvocc" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_componente_frete">
+          <Key>
+            <PropertyRef Name="pk_componente_frete" />
+          </Key>
+          <Property Name="pk_componente_frete" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_ce_mercante" Type="bigint" Nullable="false" />
+          <Property Name="tipo_componente" Type="varchar" MaxLength="30" />
+          <Property Name="valor" Type="float" Nullable="false" />
+          <Property Name="moeda" Type="varchar" MaxLength="50" />
+          <Property Name="cotacao" Type="float" Nullable="false" />
+          <Property Name="recolhimento" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_condicao_venda">
+          <Key>
+            <PropertyRef Name="pk_condicao_venda" />
+          </Key>
+          <Property Name="pk_condicao_venda" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="50" />
+          <Property Name="tx_criterio" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tb_de_para">
+          <Key>
+            <PropertyRef Name="pk_de_para" />
+          </Key>
+          <Property Name="pk_de_para" Type="bigint" Nullable="false" />
+          <Property Name="cd_chave" Type="varchar" MaxLength="150" />
+          <Property Name="nm_descricao" Type="varchar" MaxLength="500" />
+          <Property Name="tp_tipo" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_empresas_parceiras">
+          <Key>
+            <PropertyRef Name="pk_empresa_parceira" />
+          </Key>
+          <Property Name="pk_empresa_parceira" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_empresa" Type="varchar" MaxLength="30" />
+          <Property Name="nm_empresa" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_escala">
+          <Key>
+            <PropertyRef Name="pk_escala" />
+          </Key>
+          <Property Name="pk_escala" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dt_previsao_atracacao" Type="datetime" Nullable="false" />
+          <Property Name="dt_efetiva_atracacao" Type="datetime" Nullable="false" />
+          <Property Name="dt_previsao_desatracacao" Type="datetime" Nullable="false" />
+          <Property Name="dt_efetiva_desatracacao" Type="datetime" Nullable="false" />
+          <Property Name="nr_escala" Type="varchar" MaxLength="30" />
+          <Property Name="cd_ag_navegacao" Type="varchar" MaxLength="28" />
+          <Property Name="nm_ag_navegacao" Type="varchar" MaxLength="150" />
+          <Property Name="cd_porto_escala" Type="varchar" MaxLength="10" />
+          <Property Name="nm_porto_escala" Type="varchar" MaxLength="150" />
+          <Property Name="cd_embarcacao" Type="varchar" MaxLength="20" />
+          <Property Name="nm_embarcacao" Type="varchar" MaxLength="150" />
+          <Property Name="num_viagem_armador" Type="varchar" MaxLength="30" />
+          <Property Name="tipo_operacao" Type="varchar" MaxLength="20" />
+          <Property Name="bandeira_embarcacao" Type="varchar" MaxLength="100" />
+          <Property Name="responsavel_embarcacao" Type="varchar" MaxLength="150" />
+          <Property Name="cd_empresa_navegacao" Type="varchar" MaxLength="30" />
+          <Property Name="nm_empresa_navegacao" Type="varchar" MaxLength="150" />
+          <Property Name="nacionalidade_transportador" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_escala_empresa_parceira">
+          <Key>
+            <PropertyRef Name="pk_escala_empresa_parceira" />
+          </Key>
+          <Property Name="pk_escala_empresa_parceira" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_escala" Type="bigint" Nullable="false" />
+          <Property Name="fk_empresa_parceira" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_evento_conhecimento">
+          <Key>
+            <PropertyRef Name="pk_evento_ce" />
+          </Key>
+          <Property Name="pk_evento_ce" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_ce_mercante" Type="bigint" Nullable="false" />
+          <Property Name="modalidade" Type="varchar" MaxLength="30" />
+          <Property Name="motivo" Type="varchar" MaxLength="150" />
+          <Property Name="peso_liquido" Type="float" />
+          <Property Name="valor_frete" Type="float" />
+          <Property Name="valor_afrmm" Type="float" />
+          <Property Name="valor_conta_fundo" Type="float" />
+          <Property Name="valor_conta_espec" Type="float" />
+          <Property Name="valor_vinculado" Type="float" />
+          <Property Name="data_evento" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_importacao">
+          <Key>
+            <PropertyRef Name="pk_importacao" />
+          </Key>
+          <Property Name="pk_importacao" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dt_inicio" Type="datetime" Nullable="false" />
+          <Property Name="dt_fim" Type="datetime" />
+          <Property Name="bl_sucesso" Type="varchar" MaxLength="5" />
+          <Property Name="dt_consulta" Type="datetime" Nullable="false" />
+          <Property Name="fk_representante" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_indice_ce">
+          <Key>
+            <PropertyRef Name="pk_indice_ce" />
+          </Key>
+          <Property Name="pk_indice_ce" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_importacao" Type="bigint" Nullable="false" />
+          <Property Name="dtoperacao" Type="datetime" Nullable="false" />
+          <Property Name="nrcemercante" Type="varchar" MaxLength="30" />
+          <Property Name="nrblconhecimento" Type="varchar" MaxLength="36" />
+          <Property Name="nrmanifesto" Type="varchar" MaxLength="28" />
+          <Property Name="cdembarcacao" Type="varchar" MaxLength="14" />
+          <Property Name="nmembarcacao" Type="varchar" MaxLength="150" />
+          <Property Name="cdportoorigem" Type="varchar" MaxLength="10" />
+          <Property Name="cdportodestino" Type="varchar" MaxLength="10" />
+          <Property Name="consultado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tb_item_carga">
+          <Key>
+            <PropertyRef Name="pk_item_conhecimento" />
+          </Key>
+          <Property Name="pk_item_conhecimento" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_ce_mercante" Type="bigint" Nullable="false" />
+          <Property Name="itemcarga_cdtipoembalagem" Type="int" />
+          <Property Name="itemcarga_cdtipogranel" Type="int" />
+          <Property Name="qthousedeclaradomaster" Type="int" />
+          <Property Name="qthouseinformadomaster" Type="int" />
+          <Property Name="tpitem" Type="int" />
+          <Property Name="usoparcial" Type="varchar" MaxLength="5" />
+          <Property Name="responsavel_data" Type="datetime" />
+          <Property Name="responsavel_hora" Type="datetime" />
+          <Property Name="dtemissaocemaster" Type="datetime" />
+          <Property Name="dtemissaoce" Type="datetime" />
+          <Property Name="itemcarga_vlcubagem" Type="float" />
+          <Property Name="itemcarga_vlpesobruto" Type="float" />
+          <Property Name="itemcarga_vlquantidade" Type="float" />
+          <Property Name="itemcarga_vltaracontainer" Type="float" />
+          <Property Name="vlcubagem" Type="float" />
+          <Property Name="tx_url_arquivo" Type="varchar" MaxLength="150" />
+          <Property Name="cdAgtNavegMaster" Type="varchar" MaxLength="16" />
+          <Property Name="cdconsignatario" Type="varchar" MaxLength="14" />
+          <Property Name="nmconsignatario" Type="varchar" MaxLength="150" />
+          <Property Name="cdportoorigem" Type="varchar" MaxLength="10" />
+          <Property Name="nmportoorigem" Type="varchar" MaxLength="100" />
+          <Property Name="cdportodestino" Type="varchar" MaxLength="10" />
+          <Property Name="nmportodestino" Type="varchar" MaxLength="100" />
+          <Property Name="cdempnavegdesconmaster" Type="varchar" MaxLength="28" />
+          <Property Name="itemcarga_cdclassemercadoriaperigosa" Type="varchar" MaxLength="8" />
+          <Property Name="itemcarga_cdindicadormercadoriaperigosa" Type="varchar" MaxLength="12" />
+          <Property Name="itemcarga_cdlacres" Type="varchar" MaxLength="120" />
+          <Property Name="itemcarga_cdncms" Type="text" />
+          <Property Name="itemcarga_descricao" Type="varchar" MaxLength="382" />
+          <Property Name="itemcarga_descricao_container" Type="varchar" MaxLength="80" />
+          <Property Name="itemcarga_descricao_embalagem" Type="varchar" MaxLength="58" />
+          <Property Name="itemcarga_descricao_tipogranel" Type="varchar" MaxLength="46" />
+          <Property Name="itemcarga_noncms" Type="text" />
+          <Property Name="itemcarga_nrchassi" Type="varchar" MaxLength="34" />
+          <Property Name="itemcarga_nrcontainer" Type="varchar" MaxLength="22" />
+          <Property Name="itemcarga_nritem" Type="varchar" MaxLength="8" />
+          <Property Name="itemcarga_tipocontainer" Type="varchar" MaxLength="8" />
+          <Property Name="itemcarga_txcontramarca" Type="varchar" MaxLength="110" />
+          <Property Name="itemcarga_txmarca" Type="varchar" MaxLength="110" />
+          <Property Name="nmagtnavegmaster" Type="varchar" MaxLength="110" />
+          <Property Name="nmempnavegdesconmaster" Type="varchar" MaxLength="110" />
+          <Property Name="nrcemaster" Type="varchar" MaxLength="30" />
+          <Property Name="responsavel_cpf" Type="varchar" MaxLength="22" />
+          <Property Name="responsavel_ip" Type="varchar" MaxLength="38" />
+          <Property Name="responsavel_nome" Type="varchar" MaxLength="200" />
+          <Property Name="responsavel_tipo" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="tb_manifesto_escala">
+          <Key>
+            <PropertyRef Name="pk_manifesto_escala" />
+          </Key>
+          <Property Name="pk_manifesto_escala" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_manifesto" Type="bigint" Nullable="false" />
+          <Property Name="fk_escala" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_manifestos">
+          <Key>
+            <PropertyRef Name="pk_manifesto" />
+          </Key>
+          <Property Name="pk_manifesto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_importacao" Type="bigint" Nullable="false" />
+          <Property Name="nr_manifesto" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tb_moeda">
+          <Key>
+            <PropertyRef Name="pk_moeda" />
+          </Key>
+          <Property Name="pk_moeda" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="40" />
+          <Property Name="tx_sigla" Type="varchar" MaxLength="3" />
+          <Property Name="fk_pais" Type="varchar" MaxLength="3" />
+        </EntityType>
+        <EntityType Name="tb_pais">
+          <Key>
+            <PropertyRef Name="pk_pais" />
+          </Key>
+          <Property Name="pk_pais" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_porto">
+          <Key>
+            <PropertyRef Name="pk_porto" />
+          </Key>
+          <Property Name="pk_porto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_porto" Type="varchar" MaxLength="10" />
+          <Property Name="nm_porto" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="tb_porto_procedencia">
+          <Key>
+            <PropertyRef Name="pk_porto_procedencia" />
+          </Key>
+          <Property Name="pk_porto_procedencia" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_escala" Type="bigint" Nullable="false" />
+          <Property Name="fk_porto" Type="bigint" Nullable="false" />
+          <Property Name="dt_desatracacao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_porto_subsequente">
+          <Key>
+            <PropertyRef Name="pk_porto_subsequente" />
+          </Key>
+          <Property Name="pk_porto_subsequente" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_escala" Type="bigint" Nullable="false" />
+          <Property Name="fk_porto" Type="bigint" Nullable="false" />
+          <Property Name="dt_previsao_atracacao" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_representante">
+          <Key>
+            <PropertyRef Name="pk_representante" />
+          </Key>
+          <Property Name="pk_representante" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_cpf" Type="text" />
+          <Property Name="tx_senha" Type="text" />
+          <Property Name="nm_certificado" Type="text" />
+          <Property Name="senha_valida" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_taxas_selic">
+          <Key>
+            <PropertyRef Name="pk_tx_selic" />
+          </Key>
+          <Property Name="pk_tx_selic" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dt_taxa" Type="datetime" Nullable="false" />
+          <Property Name="vl_taxa" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="vl_taxa_acumulada" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="dt_consulta" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_tipo_container">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="50" />
+          <Property Name="tx_descricao_detalhada" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_tipo_embalagem">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="tb_tipo_granel">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="tb_tipo_item">
+          <Key>
+            <PropertyRef Name="pk_tipo_item" />
+          </Key>
+          <Property Name="pk_tipo_item" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_urf">
+          <Key>
+            <PropertyRef Name="pk_urf" />
+          </Key>
+          <Property Name="pk_urf" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_sigla" Type="varchar" MaxLength="6" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_usuario_acesso">
+          <Key>
+            <PropertyRef Name="pk_usuario_acesso" />
+          </Key>
+          <Property Name="pk_usuario_acesso" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dt_ocorrencia" Type="datetime" Nullable="false" />
+          <Property Name="id_usuario" Type="text" />
+          <Property Name="tipo_pagina" Type="text" />
+          <Property Name="fk_registro" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_via_transporte">
+          <Key>
+            <PropertyRef Name="pk_via" />
+          </Key>
+          <Property Name="pk_via" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tx_descricao" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__tb_porto___fk_es__59063A47">
+          <End Role="tb_escala" Type="Self.tb_escala" Multiplicity="1" />
+          <End Role="tb_porto_procedencia" Type="Self.tb_porto_procedencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_escala">
+              <PropertyRef Name="pk_escala" />
+            </Principal>
+            <Dependent Role="tb_porto_procedencia">
+              <PropertyRef Name="fk_escala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_es__5AEE82B9">
+          <End Role="tb_escala" Type="Self.tb_escala" Multiplicity="1" />
+          <End Role="tb_porto_subsequente" Type="Self.tb_porto_subsequente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_escala">
+              <PropertyRef Name="pk_escala" />
+            </Principal>
+            <Dependent Role="tb_porto_subsequente">
+              <PropertyRef Name="fk_escala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_po__59FA5E80">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_porto_procedencia" Type="Self.tb_porto_procedencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_porto_procedencia">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_po__5BE2A6F2">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_porto_subsequente" Type="Self.tb_porto_subsequente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_porto_subsequente">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ce_dia_porto_tb_porto">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_ce_dia_porto" Type="Self.tb_ce_dia_porto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_ce_dia_porto">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_item_carga_tb_ce_mercante">
+          <End Role="tb_ce_mercante" Type="Self.tb_ce_mercante" Multiplicity="1" />
+          <End Role="tb_item_carga" Type="Self.tb_item_carga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ce_mercante">
+              <PropertyRef Name="pk_mercante" />
+            </Principal>
+            <Dependent Role="tb_item_carga">
+              <PropertyRef Name="fk_ce_mercante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mercanteModelStoreContainer">
+          <EntitySet Name="tb_acrescimos" EntityType="Self.tb_acrescimos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_alteracao" EntityType="Self.tb_alteracao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ce_aleatorias_consultadas" EntityType="Self.tb_ce_aleatorias_consultadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ce_dia_porto" EntityType="Self.tb_ce_dia_porto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ce_mercante" EntityType="Self.tb_ce_mercante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_componente_frete" EntityType="Self.tb_componente_frete" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_condicao_venda" EntityType="Self.tb_condicao_venda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_de_para" EntityType="Self.tb_de_para" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_empresas_parceiras" EntityType="Self.tb_empresas_parceiras" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_escala" EntityType="Self.tb_escala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_escala_empresa_parceira" EntityType="Self.tb_escala_empresa_parceira" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_evento_conhecimento" EntityType="Self.tb_evento_conhecimento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_importacao" EntityType="Self.tb_importacao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_indice_ce" EntityType="Self.tb_indice_ce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_item_carga" EntityType="Self.tb_item_carga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_manifesto_escala" EntityType="Self.tb_manifesto_escala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_manifestos" EntityType="Self.tb_manifestos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_moeda" EntityType="Self.tb_moeda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_pais" EntityType="Self.tb_pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_porto" EntityType="Self.tb_porto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_porto_procedencia" EntityType="Self.tb_porto_procedencia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_porto_subsequente" EntityType="Self.tb_porto_subsequente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_representante" EntityType="Self.tb_representante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_taxas_selic" EntityType="Self.tb_taxas_selic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tipo_container" EntityType="Self.tb_tipo_container" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tipo_embalagem" EntityType="Self.tb_tipo_embalagem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tipo_granel" EntityType="Self.tb_tipo_granel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_tipo_item" EntityType="Self.tb_tipo_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_urf" EntityType="Self.tb_urf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_usuario_acesso" EntityType="Self.tb_usuario_acesso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_via_transporte" EntityType="Self.tb_via_transporte" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tb_porto___fk_es__59063A47" Association="Self.FK__tb_porto___fk_es__59063A47">
+            <End Role="tb_escala" EntitySet="tb_escala" />
+            <End Role="tb_porto_procedencia" EntitySet="tb_porto_procedencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_es__5AEE82B9" Association="Self.FK__tb_porto___fk_es__5AEE82B9">
+            <End Role="tb_escala" EntitySet="tb_escala" />
+            <End Role="tb_porto_subsequente" EntitySet="tb_porto_subsequente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_po__59FA5E80" Association="Self.FK__tb_porto___fk_po__59FA5E80">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_porto_procedencia" EntitySet="tb_porto_procedencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_po__5BE2A6F2" Association="Self.FK__tb_porto___fk_po__5BE2A6F2">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_porto_subsequente" EntitySet="tb_porto_subsequente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_ce_dia_porto_tb_porto" Association="Self.FK_tb_ce_dia_porto_tb_porto">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_ce_dia_porto" EntitySet="tb_ce_dia_porto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_item_carga_tb_ce_mercante" Association="Self.FK_tb_item_carga_tb_ce_mercante">
+            <End Role="tb_ce_mercante" EntitySet="tb_ce_mercante" />
+            <End Role="tb_item_carga" EntitySet="tb_item_carga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mercanteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_acrescimos">
+          <Key>
+            <PropertyRef Name="pk_acrescimo" />
+          </Key>
+          <Property Name="pk_acrescimo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_alteracao">
+          <Key>
+            <PropertyRef Name="pk_alteracao" />
+          </Key>
+          <Property Name="pk_alteracao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_importacao" Type="Int64" Nullable="false" />
+          <Property Name="nm_tablea" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nm_campo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="vl_anterior" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="vl_novo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_ce_aleatorias_consultadas">
+          <Key>
+            <PropertyRef Name="pk_ce_aleatoria" />
+          </Key>
+          <Property Name="pk_ce_aleatoria" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nrcemercanteconsultada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="dtconsulta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="valido" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ce_dia_porto">
+          <Key>
+            <PropertyRef Name="pk_nr_ce_dia_porto" />
+          </Key>
+          <Property Name="pk_nr_ce_dia_porto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_porto" Type="Int64" Nullable="false" />
+          <Property Name="data" Type="DateTime" Precision="3" />
+          <Property Name="conhecimentos_longo_curso_importacao_convencional" Type="Int32" />
+          <Property Name="conhecimentos_longo_curso_importacao_desconsolidacao" Type="Int32" />
+          <Property Name="manifestos_longo_curso_descosolidacao" Type="Int32" />
+          <NavigationProperty Name="tb_porto" Relationship="Self.FK_tb_ce_dia_porto_tb_porto" FromRole="tb_ce_dia_porto" ToRole="tb_porto" />
+        </EntityType>
+        <EntityType Name="tb_ce_mercante">
+          <Key>
+            <PropertyRef Name="pk_mercante" />
+          </Key>
+          <Property Name="pk_mercante" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_importacao" Type="Int64" Nullable="false" />
+          <Property Name="master" Type="Boolean" Nullable="false" />
+          <Property Name="nrcemercante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nrcemercantemaster" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="dtceorigem" Type="DateTime" Precision="3" />
+          <Property Name="dtemissao" Type="DateTime" Precision="3" />
+          <Property Name="dtemissaoce" Type="DateTime" Precision="3" />
+          <Property Name="dtoperacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="responsavel_data_conhec" Type="DateTime" Precision="3" />
+          <Property Name="bloqueio_conhecimento" Type="Boolean" />
+          <Property Name="vlcubagem" Type="Double" />
+          <Property Name="vlfrete" Type="Double" />
+          <Property Name="vlfretetotal" Type="Double" />
+          <Property Name="vlpesobruto" Type="Double" />
+          <Property Name="afrmm" Type="Double" />
+          <Property Name="afrmm_total_devido" Type="Double" />
+          <Property Name="afrmm_valor_juros" Type="Double" />
+          <Property Name="afrmm_valor_multa" Type="Double" />
+          <Property Name="cotacao_moeda_frete" Type="Double" />
+          <Property Name="cdagencianavegacao" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="tx_url_arquivo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdconsignatario" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="cdembarcacao" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cdempresanavegacao" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="cdmoedafrete" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="cdnotifypart" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="cdpaisprocedencia" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="cdportocarregamento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdportodescarregamento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdportodestino" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdportoorigem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdportooriginal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdpracaentexterior" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="cdshipper" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="cdterminalportuario" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="cdterminalportuariocarregamento" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ckblservico" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ckshipsconvenience" Type="String" MaxLength="506" FixedLength="false" Unicode="false" />
+          <Property Name="indblordem" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="indmodalidadefrete" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="indufdestino" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="nmagencianavegacao" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmconsignatario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmembarcacao" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmempresanavegacao" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="nmmoedafrete" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="nmnavioorigem" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmpaisprocedencia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmportocarregamento" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmportodescarregamento" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmportodestino" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmportoorigem" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmportooriginal" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmpracaentexterior" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmterminalportuario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmterminalportuariocarregamento" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nmufdestino" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="nrblconhecimento" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="nrceorigem" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="nrceoriginal" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nrmanifesto" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="nrviagem" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="opconsignatario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="oprecolhimentofrete" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="pendencia_transito_maritimo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="qtconhecimentosassociado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="qtconhecimentosexistentes" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="qtconhecimentosinformados" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="qtveiculostransportadores" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_cpf_conhec" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_ip_conhec" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_nome_conhec" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_tipo_conhec" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ret_pendente_analise" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="revisao_ou_pendencia_afrmm" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="situacao_endosso" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tipoconhecimento" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="tipoconsulta" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tptrafego" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="transbordosexterior" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="txconsignatario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="txmercadoria" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="txnotifypart" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="txobservacoes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="txshipper" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="componentesfrete" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cdterminalportuariodescarregamento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nmterminalportuariodescarregamento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdagdescolsolidadora" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nmagdescolsolidadora" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdempresanvocc" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nmempresanvocc" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_item_carga" Relationship="Self.FK_tb_item_carga_tb_ce_mercante" FromRole="tb_ce_mercante" ToRole="tb_item_carga" />
+        </EntityType>
+        <EntityType Name="tb_componente_frete">
+          <Key>
+            <PropertyRef Name="pk_componente_frete" />
+          </Key>
+          <Property Name="pk_componente_frete" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ce_mercante" Type="Int64" Nullable="false" />
+          <Property Name="tipo_componente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="valor" Type="Double" Nullable="false" />
+          <Property Name="moeda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cotacao" Type="Double" Nullable="false" />
+          <Property Name="recolhimento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_condicao_venda">
+          <Key>
+            <PropertyRef Name="pk_condicao_venda" />
+          </Key>
+          <Property Name="pk_condicao_venda" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tx_criterio" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_de_para">
+          <Key>
+            <PropertyRef Name="pk_de_para" />
+          </Key>
+          <Property Name="pk_de_para" Type="Int64" Nullable="false" />
+          <Property Name="cd_chave" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nm_descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="tp_tipo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_empresas_parceiras">
+          <Key>
+            <PropertyRef Name="pk_empresa_parceira" />
+          </Key>
+          <Property Name="pk_empresa_parceira" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_empresa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nm_empresa" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_escala">
+          <Key>
+            <PropertyRef Name="pk_escala" />
+          </Key>
+          <Property Name="pk_escala" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dt_previsao_atracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_efetiva_atracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_previsao_desatracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_efetiva_desatracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nr_escala" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="cd_ag_navegacao" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="nm_ag_navegacao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cd_porto_escala" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nm_porto_escala" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cd_embarcacao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nm_embarcacao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="num_viagem_armador" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_operacao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bandeira_embarcacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_embarcacao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cd_empresa_navegacao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nm_empresa_navegacao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="nacionalidade_transportador" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_porto_procedencia" Relationship="Self.FK__tb_porto___fk_es__59063A47" FromRole="tb_escala" ToRole="tb_porto_procedencia" />
+          <NavigationProperty Name="tb_porto_subsequente" Relationship="Self.FK__tb_porto___fk_es__5AEE82B9" FromRole="tb_escala" ToRole="tb_porto_subsequente" />
+        </EntityType>
+        <EntityType Name="tb_escala_empresa_parceira">
+          <Key>
+            <PropertyRef Name="pk_escala_empresa_parceira" />
+          </Key>
+          <Property Name="pk_escala_empresa_parceira" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_escala" Type="Int64" Nullable="false" />
+          <Property Name="fk_empresa_parceira" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_evento_conhecimento">
+          <Key>
+            <PropertyRef Name="pk_evento_ce" />
+          </Key>
+          <Property Name="pk_evento_ce" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ce_mercante" Type="Int64" Nullable="false" />
+          <Property Name="modalidade" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="motivo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="peso_liquido" Type="Double" />
+          <Property Name="valor_frete" Type="Double" />
+          <Property Name="valor_afrmm" Type="Double" />
+          <Property Name="valor_conta_fundo" Type="Double" />
+          <Property Name="valor_conta_espec" Type="Double" />
+          <Property Name="valor_vinculado" Type="Double" />
+          <Property Name="data_evento" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tb_importacao">
+          <Key>
+            <PropertyRef Name="pk_importacao" />
+          </Key>
+          <Property Name="pk_importacao" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dt_inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_fim" Type="DateTime" Precision="3" />
+          <Property Name="bl_sucesso" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="dt_consulta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fk_representante" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_indice_ce">
+          <Key>
+            <PropertyRef Name="pk_indice_ce" />
+          </Key>
+          <Property Name="pk_indice_ce" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_importacao" Type="Int64" Nullable="false" />
+          <Property Name="dtoperacao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nrcemercante" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nrblconhecimento" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="nrmanifesto" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="cdembarcacao" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="nmembarcacao" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdportoorigem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="cdportodestino" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="consultado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tb_item_carga">
+          <Key>
+            <PropertyRef Name="pk_item_conhecimento" />
+          </Key>
+          <Property Name="pk_item_conhecimento" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_ce_mercante" Type="Int64" Nullable="false" />
+          <Property Name="itemcarga_cdtipoembalagem" Type="Int32" />
+          <Property Name="itemcarga_cdtipogranel" Type="Int32" />
+          <Property Name="qthousedeclaradomaster" Type="Int32" />
+          <Property Name="qthouseinformadomaster" Type="Int32" />
+          <Property Name="tpitem" Type="Int32" />
+          <Property Name="usoparcial" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_data" Type="DateTime" Precision="3" />
+          <Property Name="responsavel_hora" Type="DateTime" Precision="3" />
+          <Property Name="dtemissaocemaster" Type="DateTime" Precision="3" />
+          <Property Name="dtemissaoce" Type="DateTime" Precision="3" />
+          <Property Name="itemcarga_vlcubagem" Type="Double" />
+          <Property Name="itemcarga_vlpesobruto" Type="Double" />
+          <Property Name="itemcarga_vlquantidade" Type="Double" />
+          <Property Name="itemcarga_vltaracontainer" Type="Double" />
+          <Property Name="vlcubagem" Type="Double" />
+          <Property Name="tx_url_arquivo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdAgtNavegMaster" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="cdconsignatario" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="nmconsignatario" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cdportoorigem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nmportoorigem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cdportodestino" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nmportodestino" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cdempnavegdesconmaster" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_cdclassemercadoriaperigosa" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_cdindicadormercadoriaperigosa" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_cdlacres" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_cdncms" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_descricao" Type="String" MaxLength="382" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_descricao_container" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_descricao_embalagem" Type="String" MaxLength="58" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_descricao_tipogranel" Type="String" MaxLength="46" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_noncms" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_nrchassi" Type="String" MaxLength="34" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_nrcontainer" Type="String" MaxLength="22" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_nritem" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_tipocontainer" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_txcontramarca" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="itemcarga_txmarca" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="nmagtnavegmaster" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="nmempnavegdesconmaster" Type="String" MaxLength="110" FixedLength="false" Unicode="false" />
+          <Property Name="nrcemaster" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_cpf" Type="String" MaxLength="22" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_ip" Type="String" MaxLength="38" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="responsavel_tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_ce_mercante" Relationship="Self.FK_tb_item_carga_tb_ce_mercante" FromRole="tb_item_carga" ToRole="tb_ce_mercante" />
+        </EntityType>
+        <EntityType Name="tb_manifesto_escala">
+          <Key>
+            <PropertyRef Name="pk_manifesto_escala" />
+          </Key>
+          <Property Name="pk_manifesto_escala" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_manifesto" Type="Int64" Nullable="false" />
+          <Property Name="fk_escala" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_manifestos">
+          <Key>
+            <PropertyRef Name="pk_manifesto" />
+          </Key>
+          <Property Name="pk_manifesto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_importacao" Type="Int64" Nullable="false" />
+          <Property Name="nr_manifesto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_moeda">
+          <Key>
+            <PropertyRef Name="pk_moeda" />
+          </Key>
+          <Property Name="pk_moeda" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_descricao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="tx_sigla" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="fk_pais" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_pais">
+          <Key>
+            <PropertyRef Name="pk_pais" />
+          </Key>
+          <Property Name="pk_pais" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_porto">
+          <Key>
+            <PropertyRef Name="pk_porto" />
+          </Key>
+          <Property Name="pk_porto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_porto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nm_porto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_ce_dia_porto" Relationship="Self.FK_tb_ce_dia_porto_tb_porto" FromRole="tb_porto" ToRole="tb_ce_dia_porto" />
+          <NavigationProperty Name="tb_porto_procedencia" Relationship="Self.FK__tb_porto___fk_po__59FA5E80" FromRole="tb_porto" ToRole="tb_porto_procedencia" />
+          <NavigationProperty Name="tb_porto_subsequente" Relationship="Self.FK__tb_porto___fk_po__5BE2A6F2" FromRole="tb_porto" ToRole="tb_porto_subsequente" />
+        </EntityType>
+        <EntityType Name="tb_porto_procedencia">
+          <Key>
+            <PropertyRef Name="pk_porto_procedencia" />
+          </Key>
+          <Property Name="pk_porto_procedencia" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_escala" Type="Int64" Nullable="false" />
+          <Property Name="fk_porto" Type="Int64" Nullable="false" />
+          <Property Name="dt_desatracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tb_escala" Relationship="Self.FK__tb_porto___fk_es__59063A47" FromRole="tb_porto_procedencia" ToRole="tb_escala" />
+          <NavigationProperty Name="tb_porto" Relationship="Self.FK__tb_porto___fk_po__59FA5E80" FromRole="tb_porto_procedencia" ToRole="tb_porto" />
+        </EntityType>
+        <EntityType Name="tb_porto_subsequente">
+          <Key>
+            <PropertyRef Name="pk_porto_subsequente" />
+          </Key>
+          <Property Name="pk_porto_subsequente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_escala" Type="Int64" Nullable="false" />
+          <Property Name="fk_porto" Type="Int64" Nullable="false" />
+          <Property Name="dt_previsao_atracacao" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tb_escala" Relationship="Self.FK__tb_porto___fk_es__5AEE82B9" FromRole="tb_porto_subsequente" ToRole="tb_escala" />
+          <NavigationProperty Name="tb_porto" Relationship="Self.FK__tb_porto___fk_po__5BE2A6F2" FromRole="tb_porto_subsequente" ToRole="tb_porto" />
+        </EntityType>
+        <EntityType Name="tb_representante">
+          <Key>
+            <PropertyRef Name="pk_representante" />
+          </Key>
+          <Property Name="pk_representante" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_cpf" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tx_senha" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="nm_certificado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="senha_valida" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_taxas_selic">
+          <Key>
+            <PropertyRef Name="pk_tx_selic" />
+          </Key>
+          <Property Name="pk_tx_selic" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dt_taxa" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="vl_taxa" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="vl_taxa_acumulada" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="dt_consulta" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="tb_tipo_container">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tx_descricao_detalhada" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_tipo_embalagem">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_tipo_granel">
+          <Key>
+            <PropertyRef Name="pk_id" />
+          </Key>
+          <Property Name="pk_id" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_tipo_item">
+          <Key>
+            <PropertyRef Name="pk_tipo_item" />
+          </Key>
+          <Property Name="pk_tipo_item" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_descricao" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_urf">
+          <Key>
+            <PropertyRef Name="pk_urf" />
+          </Key>
+          <Property Name="pk_urf" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_sigla" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="tx_descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tb_usuario_acesso">
+          <Key>
+            <PropertyRef Name="pk_usuario_acesso" />
+          </Key>
+          <Property Name="pk_usuario_acesso" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dt_ocorrencia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_usuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_pagina" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="fk_registro" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_via_transporte">
+          <Key>
+            <PropertyRef Name="pk_via" />
+          </Key>
+          <Property Name="pk_via" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tx_descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tb_ce_dia_porto_tb_porto">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_ce_dia_porto" Type="Self.tb_ce_dia_porto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_ce_dia_porto">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_item_carga_tb_ce_mercante">
+          <End Role="tb_ce_mercante" Type="Self.tb_ce_mercante" Multiplicity="1" />
+          <End Role="tb_item_carga" Type="Self.tb_item_carga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ce_mercante">
+              <PropertyRef Name="pk_mercante" />
+            </Principal>
+            <Dependent Role="tb_item_carga">
+              <PropertyRef Name="fk_ce_mercante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_es__59063A47">
+          <End Role="tb_escala" Type="Self.tb_escala" Multiplicity="1" />
+          <End Role="tb_porto_procedencia" Type="Self.tb_porto_procedencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_escala">
+              <PropertyRef Name="pk_escala" />
+            </Principal>
+            <Dependent Role="tb_porto_procedencia">
+              <PropertyRef Name="fk_escala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_es__5AEE82B9">
+          <End Role="tb_escala" Type="Self.tb_escala" Multiplicity="1" />
+          <End Role="tb_porto_subsequente" Type="Self.tb_porto_subsequente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_escala">
+              <PropertyRef Name="pk_escala" />
+            </Principal>
+            <Dependent Role="tb_porto_subsequente">
+              <PropertyRef Name="fk_escala" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_po__59FA5E80">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_porto_procedencia" Type="Self.tb_porto_procedencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_porto_procedencia">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_porto___fk_po__5BE2A6F2">
+          <End Role="tb_porto" Type="Self.tb_porto" Multiplicity="1" />
+          <End Role="tb_porto_subsequente" Type="Self.tb_porto_subsequente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_porto">
+              <PropertyRef Name="pk_porto" />
+            </Principal>
+            <Dependent Role="tb_porto_subsequente">
+              <PropertyRef Name="fk_porto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mercanteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_acrescimos" EntityType="Self.tb_acrescimos" />
+          <EntitySet Name="tb_alteracao" EntityType="Self.tb_alteracao" />
+          <EntitySet Name="tb_ce_aleatorias_consultadas" EntityType="Self.tb_ce_aleatorias_consultadas" />
+          <EntitySet Name="tb_ce_dia_porto" EntityType="Self.tb_ce_dia_porto" />
+          <EntitySet Name="tb_ce_mercante" EntityType="Self.tb_ce_mercante" />
+          <EntitySet Name="tb_componente_frete" EntityType="Self.tb_componente_frete" />
+          <EntitySet Name="tb_condicao_venda" EntityType="Self.tb_condicao_venda" />
+          <EntitySet Name="tb_de_para" EntityType="Self.tb_de_para" />
+          <EntitySet Name="tb_empresas_parceiras" EntityType="Self.tb_empresas_parceiras" />
+          <EntitySet Name="tb_escala" EntityType="Self.tb_escala" />
+          <EntitySet Name="tb_escala_empresa_parceira" EntityType="Self.tb_escala_empresa_parceira" />
+          <EntitySet Name="tb_evento_conhecimento" EntityType="Self.tb_evento_conhecimento" />
+          <EntitySet Name="tb_importacao" EntityType="Self.tb_importacao" />
+          <EntitySet Name="tb_indice_ce" EntityType="Self.tb_indice_ce" />
+          <EntitySet Name="tb_item_carga" EntityType="Self.tb_item_carga" />
+          <EntitySet Name="tb_manifesto_escala" EntityType="Self.tb_manifesto_escala" />
+          <EntitySet Name="tb_manifestos" EntityType="Self.tb_manifestos" />
+          <EntitySet Name="tb_moeda" EntityType="Self.tb_moeda" />
+          <EntitySet Name="tb_pais" EntityType="Self.tb_pais" />
+          <EntitySet Name="tb_porto" EntityType="Self.tb_porto" />
+          <EntitySet Name="tb_porto_procedencia" EntityType="Self.tb_porto_procedencia" />
+          <EntitySet Name="tb_porto_subsequente" EntityType="Self.tb_porto_subsequente" />
+          <EntitySet Name="tb_representante" EntityType="Self.tb_representante" />
+          <EntitySet Name="tb_taxas_selic" EntityType="Self.tb_taxas_selic" />
+          <EntitySet Name="tb_tipo_container" EntityType="Self.tb_tipo_container" />
+          <EntitySet Name="tb_tipo_embalagem" EntityType="Self.tb_tipo_embalagem" />
+          <EntitySet Name="tb_tipo_granel" EntityType="Self.tb_tipo_granel" />
+          <EntitySet Name="tb_tipo_item" EntityType="Self.tb_tipo_item" />
+          <EntitySet Name="tb_urf" EntityType="Self.tb_urf" />
+          <EntitySet Name="tb_usuario_acesso" EntityType="Self.tb_usuario_acesso" />
+          <EntitySet Name="tb_via_transporte" EntityType="Self.tb_via_transporte" />
+          <AssociationSet Name="FK_tb_ce_dia_porto_tb_porto" Association="Self.FK_tb_ce_dia_porto_tb_porto">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_ce_dia_porto" EntitySet="tb_ce_dia_porto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_item_carga_tb_ce_mercante" Association="Self.FK_tb_item_carga_tb_ce_mercante">
+            <End Role="tb_ce_mercante" EntitySet="tb_ce_mercante" />
+            <End Role="tb_item_carga" EntitySet="tb_item_carga" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_es__59063A47" Association="Self.FK__tb_porto___fk_es__59063A47">
+            <End Role="tb_escala" EntitySet="tb_escala" />
+            <End Role="tb_porto_procedencia" EntitySet="tb_porto_procedencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_es__5AEE82B9" Association="Self.FK__tb_porto___fk_es__5AEE82B9">
+            <End Role="tb_escala" EntitySet="tb_escala" />
+            <End Role="tb_porto_subsequente" EntitySet="tb_porto_subsequente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_po__59FA5E80" Association="Self.FK__tb_porto___fk_po__59FA5E80">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_porto_procedencia" EntitySet="tb_porto_procedencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_porto___fk_po__5BE2A6F2" Association="Self.FK__tb_porto___fk_po__5BE2A6F2">
+            <End Role="tb_porto" EntitySet="tb_porto" />
+            <End Role="tb_porto_subsequente" EntitySet="tb_porto_subsequente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="mercanteModelStoreContainer" CdmEntityContainer="mercanteEntities">
+          <EntitySetMapping Name="tb_acrescimos">
+            <EntityTypeMapping TypeName="mercanteModel.tb_acrescimos">
+              <MappingFragment StoreEntitySet="tb_acrescimos">
+                <ScalarProperty Name="pk_acrescimo" ColumnName="pk_acrescimo" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_alteracao">
+            <EntityTypeMapping TypeName="mercanteModel.tb_alteracao">
+              <MappingFragment StoreEntitySet="tb_alteracao">
+                <ScalarProperty Name="pk_alteracao" ColumnName="pk_alteracao" />
+                <ScalarProperty Name="fk_importacao" ColumnName="fk_importacao" />
+                <ScalarProperty Name="nm_tablea" ColumnName="nm_tablea" />
+                <ScalarProperty Name="nm_campo" ColumnName="nm_campo" />
+                <ScalarProperty Name="vl_anterior" ColumnName="vl_anterior" />
+                <ScalarProperty Name="vl_novo" ColumnName="vl_novo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ce_aleatorias_consultadas">
+            <EntityTypeMapping TypeName="mercanteModel.tb_ce_aleatorias_consultadas">
+              <MappingFragment StoreEntitySet="tb_ce_aleatorias_consultadas">
+                <ScalarProperty Name="pk_ce_aleatoria" ColumnName="pk_ce_aleatoria" />
+                <ScalarProperty Name="nrcemercanteconsultada" ColumnName="nrcemercanteconsultada" />
+                <ScalarProperty Name="dtconsulta" ColumnName="dtconsulta" />
+                <ScalarProperty Name="valido" ColumnName="valido" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ce_dia_porto">
+            <EntityTypeMapping TypeName="mercanteModel.tb_ce_dia_porto">
+              <MappingFragment StoreEntitySet="tb_ce_dia_porto">
+                <ScalarProperty Name="pk_nr_ce_dia_porto" ColumnName="pk_nr_ce_dia_porto" />
+                <ScalarProperty Name="fk_porto" ColumnName="fk_porto" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="conhecimentos_longo_curso_importacao_convencional" ColumnName="conhecimentos_longo_curso_importacao_convencional" />
+                <ScalarProperty Name="conhecimentos_longo_curso_importacao_desconsolidacao" ColumnName="conhecimentos_longo_curso_importacao_desconsolidacao" />
+                <ScalarProperty Name="manifestos_longo_curso_descosolidacao" ColumnName="manifestos_longo_curso_descosolidacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ce_mercante">
+            <EntityTypeMapping TypeName="mercanteModel.tb_ce_mercante">
+              <MappingFragment StoreEntitySet="tb_ce_mercante">
+                <ScalarProperty Name="pk_mercante" ColumnName="pk_mercante" />
+                <ScalarProperty Name="fk_importacao" ColumnName="fk_importacao" />
+                <ScalarProperty Name="master" ColumnName="master" />
+                <ScalarProperty Name="nrcemercante" ColumnName="nrcemercante" />
+                <ScalarProperty Name="nrcemercantemaster" ColumnName="nrcemercantemaster" />
+                <ScalarProperty Name="dtceorigem" ColumnName="dtceorigem" />
+                <ScalarProperty Name="dtemissao" ColumnName="dtemissao" />
+                <ScalarProperty Name="dtemissaoce" ColumnName="dtemissaoce" />
+                <ScalarProperty Name="dtoperacao" ColumnName="dtoperacao" />
+                <ScalarProperty Name="responsavel_data_conhec" ColumnName="responsavel_data_conhec" />
+                <ScalarProperty Name="bloqueio_conhecimento" ColumnName="bloqueio_conhecimento" />
+                <ScalarProperty Name="vlcubagem" ColumnName="vlcubagem" />
+                <ScalarProperty Name="vlfrete" ColumnName="vlfrete" />
+                <ScalarProperty Name="vlfretetotal" ColumnName="vlfretetotal" />
+                <ScalarProperty Name="vlpesobruto" ColumnName="vlpesobruto" />
+                <ScalarProperty Name="afrmm" ColumnName="afrmm" />
+                <ScalarProperty Name="afrmm_total_devido" ColumnName="afrmm_total_devido" />
+                <ScalarProperty Name="afrmm_valor_juros" ColumnName="afrmm_valor_juros" />
+                <ScalarProperty Name="afrmm_valor_multa" ColumnName="afrmm_valor_multa" />
+                <ScalarProperty Name="cotacao_moeda_frete" ColumnName="cotacao_moeda_frete" />
+                <ScalarProperty Name="cdagencianavegacao" ColumnName="cdagencianavegacao" />
+                <ScalarProperty Name="tx_url_arquivo" ColumnName="tx_url_arquivo" />
+                <ScalarProperty Name="cdconsignatario" ColumnName="cdconsignatario" />
+                <ScalarProperty Name="cdembarcacao" ColumnName="cdembarcacao" />
+                <ScalarProperty Name="cdempresanavegacao" ColumnName="cdempresanavegacao" />
+                <ScalarProperty Name="cdmoedafrete" ColumnName="cdmoedafrete" />
+                <ScalarProperty Name="cdnotifypart" ColumnName="cdnotifypart" />
+                <ScalarProperty Name="cdpaisprocedencia" ColumnName="cdpaisprocedencia" />
+                <ScalarProperty Name="cdportocarregamento" ColumnName="cdportocarregamento" />
+                <ScalarProperty Name="cdportodescarregamento" ColumnName="cdportodescarregamento" />
+                <ScalarProperty Name="cdportodestino" ColumnName="cdportodestino" />
+                <ScalarProperty Name="cdportoorigem" ColumnName="cdportoorigem" />
+                <ScalarProperty Name="cdportooriginal" ColumnName="cdportooriginal" />
+                <ScalarProperty Name="cdpracaentexterior" ColumnName="cdpracaentexterior" />
+                <ScalarProperty Name="cdshipper" ColumnName="cdshipper" />
+                <ScalarProperty Name="cdterminalportuario" ColumnName="cdterminalportuario" />
+                <ScalarProperty Name="cdterminalportuariocarregamento" ColumnName="cdterminalportuariocarregamento" />
+                <ScalarProperty Name="ckblservico" ColumnName="ckblservico" />
+                <ScalarProperty Name="ckshipsconvenience" ColumnName="ckshipsconvenience" />
+                <ScalarProperty Name="indblordem" ColumnName="indblordem" />
+                <ScalarProperty Name="indmodalidadefrete" ColumnName="indmodalidadefrete" />
+                <ScalarProperty Name="indufdestino" ColumnName="indufdestino" />
+                <ScalarProperty Name="nmagencianavegacao" ColumnName="nmagencianavegacao" />
+                <ScalarProperty Name="nmconsignatario" ColumnName="nmconsignatario" />
+                <ScalarProperty Name="nmembarcacao" ColumnName="nmembarcacao" />
+                <ScalarProperty Name="nmempresanavegacao" ColumnName="nmempresanavegacao" />
+                <ScalarProperty Name="nmmoedafrete" ColumnName="nmmoedafrete" />
+                <ScalarProperty Name="nmnavioorigem" ColumnName="nmnavioorigem" />
+                <ScalarProperty Name="nmpaisprocedencia" ColumnName="nmpaisprocedencia" />
+                <ScalarProperty Name="nmportocarregamento" ColumnName="nmportocarregamento" />
+                <ScalarProperty Name="nmportodescarregamento" ColumnName="nmportodescarregamento" />
+                <ScalarProperty Name="nmportodestino" ColumnName="nmportodestino" />
+                <ScalarProperty Name="nmportoorigem" ColumnName="nmportoorigem" />
+                <ScalarProperty Name="nmportooriginal" ColumnName="nmportooriginal" />
+                <ScalarProperty Name="nmpracaentexterior" ColumnName="nmpracaentexterior" />
+                <ScalarProperty Name="nmterminalportuario" ColumnName="nmterminalportuario" />
+                <ScalarProperty Name="nmterminalportuariocarregamento" ColumnName="nmterminalportuariocarregamento" />
+                <ScalarProperty Name="nmufdestino" ColumnName="nmufdestino" />
+                <ScalarProperty Name="nrblconhecimento" ColumnName="nrblconhecimento" />
+                <ScalarProperty Name="nrceorigem" ColumnName="nrceorigem" />
+                <ScalarProperty Name="nrceoriginal" ColumnName="nrceoriginal" />
+                <ScalarProperty Name="nrmanifesto" ColumnName="nrmanifesto" />
+                <ScalarProperty Name="nrviagem" ColumnName="nrviagem" />
+                <ScalarProperty Name="opconsignatario" ColumnName="opconsignatario" />
+                <ScalarProperty Name="oprecolhimentofrete" ColumnName="oprecolhimentofrete" />
+                <ScalarProperty Name="pendencia_transito_maritimo" ColumnName="pendencia_transito_maritimo" />
+                <ScalarProperty Name="qtconhecimentosassociado" ColumnName="qtconhecimentosassociado" />
+                <ScalarProperty Name="qtconhecimentosexistentes" ColumnName="qtconhecimentosexistentes" />
+                <ScalarProperty Name="qtconhecimentosinformados" ColumnName="qtconhecimentosinformados" />
+                <ScalarProperty Name="qtveiculostransportadores" ColumnName="qtveiculostransportadores" />
+                <ScalarProperty Name="responsavel_cpf_conhec" ColumnName="responsavel_cpf_conhec" />
+                <ScalarProperty Name="responsavel_ip_conhec" ColumnName="responsavel_ip_conhec" />
+                <ScalarProperty Name="responsavel_nome_conhec" ColumnName="responsavel_nome_conhec" />
+                <ScalarProperty Name="responsavel_tipo_conhec" ColumnName="responsavel_tipo_conhec" />
+                <ScalarProperty Name="ret_pendente_analise" ColumnName="ret_pendente_analise" />
+                <ScalarProperty Name="revisao_ou_pendencia_afrmm" ColumnName="revisao_ou_pendencia_afrmm" />
+                <ScalarProperty Name="situacao_endosso" ColumnName="situacao_endosso" />
+                <ScalarProperty Name="tipoconhecimento" ColumnName="tipoconhecimento" />
+                <ScalarProperty Name="tipoconsulta" ColumnName="tipoconsulta" />
+                <ScalarProperty Name="tptrafego" ColumnName="tptrafego" />
+                <ScalarProperty Name="transbordosexterior" ColumnName="transbordosexterior" />
+                <ScalarProperty Name="txconsignatario" ColumnName="txconsignatario" />
+                <ScalarProperty Name="txmercadoria" ColumnName="txmercadoria" />
+                <ScalarProperty Name="txnotifypart" ColumnName="txnotifypart" />
+                <ScalarProperty Name="txobservacoes" ColumnName="txobservacoes" />
+                <ScalarProperty Name="txshipper" ColumnName="txshipper" />
+                <ScalarProperty Name="componentesfrete" ColumnName="componentesfrete" />
+                <ScalarProperty Name="cdterminalportuariodescarregamento" ColumnName="cdterminalportuariodescarregamento" />
+                <ScalarProperty Name="nmterminalportuariodescarregamento" ColumnName="nmterminalportuariodescarregamento" />
+                <ScalarProperty Name="cdagdescolsolidadora" ColumnName="cdagdescolsolidadora" />
+                <ScalarProperty Name="nmagdescolsolidadora" ColumnName="nmagdescolsolidadora" />
+                <ScalarProperty Name="cdempresanvocc" ColumnName="cdempresanvocc" />
+                <ScalarProperty Name="nmempresanvocc" ColumnName="nmempresanvocc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_componente_frete">
+            <EntityTypeMapping TypeName="mercanteModel.tb_componente_frete">
+              <MappingFragment StoreEntitySet="tb_componente_frete">
+                <ScalarProperty Name="pk_componente_frete" ColumnName="pk_componente_frete" />
+                <ScalarProperty Name="fk_ce_mercante" ColumnName="fk_ce_mercante" />
+                <ScalarProperty Name="tipo_componente" ColumnName="tipo_componente" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="moeda" ColumnName="moeda" />
+                <ScalarProperty Name="cotacao" ColumnName="cotacao" />
+                <ScalarProperty Name="recolhimento" ColumnName="recolhimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_condicao_venda">
+            <EntityTypeMapping TypeName="mercanteModel.tb_condicao_venda">
+              <MappingFragment StoreEntitySet="tb_condicao_venda">
+                <ScalarProperty Name="pk_condicao_venda" ColumnName="pk_condicao_venda" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+                <ScalarProperty Name="tx_criterio" ColumnName="tx_criterio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_de_para">
+            <EntityTypeMapping TypeName="mercanteModel.tb_de_para">
+              <MappingFragment StoreEntitySet="tb_de_para">
+                <ScalarProperty Name="pk_de_para" ColumnName="pk_de_para" />
+                <ScalarProperty Name="cd_chave" ColumnName="cd_chave" />
+                <ScalarProperty Name="nm_descricao" ColumnName="nm_descricao" />
+                <ScalarProperty Name="tp_tipo" ColumnName="tp_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_empresas_parceiras">
+            <EntityTypeMapping TypeName="mercanteModel.tb_empresas_parceiras">
+              <MappingFragment StoreEntitySet="tb_empresas_parceiras">
+                <ScalarProperty Name="pk_empresa_parceira" ColumnName="pk_empresa_parceira" />
+                <ScalarProperty Name="cd_empresa" ColumnName="cd_empresa" />
+                <ScalarProperty Name="nm_empresa" ColumnName="nm_empresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_escala">
+            <EntityTypeMapping TypeName="mercanteModel.tb_escala">
+              <MappingFragment StoreEntitySet="tb_escala">
+                <ScalarProperty Name="pk_escala" ColumnName="pk_escala" />
+                <ScalarProperty Name="dt_previsao_atracacao" ColumnName="dt_previsao_atracacao" />
+                <ScalarProperty Name="dt_efetiva_atracacao" ColumnName="dt_efetiva_atracacao" />
+                <ScalarProperty Name="dt_previsao_desatracacao" ColumnName="dt_previsao_desatracacao" />
+                <ScalarProperty Name="dt_efetiva_desatracacao" ColumnName="dt_efetiva_desatracacao" />
+                <ScalarProperty Name="nr_escala" ColumnName="nr_escala" />
+                <ScalarProperty Name="cd_ag_navegacao" ColumnName="cd_ag_navegacao" />
+                <ScalarProperty Name="nm_ag_navegacao" ColumnName="nm_ag_navegacao" />
+                <ScalarProperty Name="cd_porto_escala" ColumnName="cd_porto_escala" />
+                <ScalarProperty Name="nm_porto_escala" ColumnName="nm_porto_escala" />
+                <ScalarProperty Name="cd_embarcacao" ColumnName="cd_embarcacao" />
+                <ScalarProperty Name="nm_embarcacao" ColumnName="nm_embarcacao" />
+                <ScalarProperty Name="num_viagem_armador" ColumnName="num_viagem_armador" />
+                <ScalarProperty Name="tipo_operacao" ColumnName="tipo_operacao" />
+                <ScalarProperty Name="bandeira_embarcacao" ColumnName="bandeira_embarcacao" />
+                <ScalarProperty Name="responsavel_embarcacao" ColumnName="responsavel_embarcacao" />
+                <ScalarProperty Name="cd_empresa_navegacao" ColumnName="cd_empresa_navegacao" />
+                <ScalarProperty Name="nm_empresa_navegacao" ColumnName="nm_empresa_navegacao" />
+                <ScalarProperty Name="nacionalidade_transportador" ColumnName="nacionalidade_transportador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_escala_empresa_parceira">
+            <EntityTypeMapping TypeName="mercanteModel.tb_escala_empresa_parceira">
+              <MappingFragment StoreEntitySet="tb_escala_empresa_parceira">
+                <ScalarProperty Name="pk_escala_empresa_parceira" ColumnName="pk_escala_empresa_parceira" />
+                <ScalarProperty Name="fk_escala" ColumnName="fk_escala" />
+                <ScalarProperty Name="fk_empresa_parceira" ColumnName="fk_empresa_parceira" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_evento_conhecimento">
+            <EntityTypeMapping TypeName="mercanteModel.tb_evento_conhecimento">
+              <MappingFragment StoreEntitySet="tb_evento_conhecimento">
+                <ScalarProperty Name="pk_evento_ce" ColumnName="pk_evento_ce" />
+                <ScalarProperty Name="fk_ce_mercante" ColumnName="fk_ce_mercante" />
+                <ScalarProperty Name="modalidade" ColumnName="modalidade" />
+                <ScalarProperty Name="motivo" ColumnName="motivo" />
+                <ScalarProperty Name="peso_liquido" ColumnName="peso_liquido" />
+                <ScalarProperty Name="valor_frete" ColumnName="valor_frete" />
+                <ScalarProperty Name="valor_afrmm" ColumnName="valor_afrmm" />
+                <ScalarProperty Name="valor_conta_fundo" ColumnName="valor_conta_fundo" />
+                <ScalarProperty Name="valor_conta_espec" ColumnName="valor_conta_espec" />
+                <ScalarProperty Name="valor_vinculado" ColumnName="valor_vinculado" />
+                <ScalarProperty Name="data_evento" ColumnName="data_evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_importacao">
+            <EntityTypeMapping TypeName="mercanteModel.tb_importacao">
+              <MappingFragment StoreEntitySet="tb_importacao">
+                <ScalarProperty Name="pk_importacao" ColumnName="pk_importacao" />
+                <ScalarProperty Name="dt_inicio" ColumnName="dt_inicio" />
+                <ScalarProperty Name="dt_fim" ColumnName="dt_fim" />
+                <ScalarProperty Name="bl_sucesso" ColumnName="bl_sucesso" />
+                <ScalarProperty Name="dt_consulta" ColumnName="dt_consulta" />
+                <ScalarProperty Name="fk_representante" ColumnName="fk_representante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_indice_ce">
+            <EntityTypeMapping TypeName="mercanteModel.tb_indice_ce">
+              <MappingFragment StoreEntitySet="tb_indice_ce">
+                <ScalarProperty Name="pk_indice_ce" ColumnName="pk_indice_ce" />
+                <ScalarProperty Name="fk_importacao" ColumnName="fk_importacao" />
+                <ScalarProperty Name="dtoperacao" ColumnName="dtoperacao" />
+                <ScalarProperty Name="nrcemercante" ColumnName="nrcemercante" />
+                <ScalarProperty Name="nrblconhecimento" ColumnName="nrblconhecimento" />
+                <ScalarProperty Name="nrmanifesto" ColumnName="nrmanifesto" />
+                <ScalarProperty Name="cdembarcacao" ColumnName="cdembarcacao" />
+                <ScalarProperty Name="nmembarcacao" ColumnName="nmembarcacao" />
+                <ScalarProperty Name="cdportoorigem" ColumnName="cdportoorigem" />
+                <ScalarProperty Name="cdportodestino" ColumnName="cdportodestino" />
+                <ScalarProperty Name="consultado" ColumnName="consultado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_item_carga">
+            <EntityTypeMapping TypeName="mercanteModel.tb_item_carga">
+              <MappingFragment StoreEntitySet="tb_item_carga">
+                <ScalarProperty Name="pk_item_conhecimento" ColumnName="pk_item_conhecimento" />
+                <ScalarProperty Name="fk_ce_mercante" ColumnName="fk_ce_mercante" />
+                <ScalarProperty Name="itemcarga_cdtipoembalagem" ColumnName="itemcarga_cdtipoembalagem" />
+                <ScalarProperty Name="itemcarga_cdtipogranel" ColumnName="itemcarga_cdtipogranel" />
+                <ScalarProperty Name="qthousedeclaradomaster" ColumnName="qthousedeclaradomaster" />
+                <ScalarProperty Name="qthouseinformadomaster" ColumnName="qthouseinformadomaster" />
+                <ScalarProperty Name="tpitem" ColumnName="tpitem" />
+                <ScalarProperty Name="usoparcial" ColumnName="usoparcial" />
+                <ScalarProperty Name="responsavel_data" ColumnName="responsavel_data" />
+                <ScalarProperty Name="responsavel_hora" ColumnName="responsavel_hora" />
+                <ScalarProperty Name="dtemissaocemaster" ColumnName="dtemissaocemaster" />
+                <ScalarProperty Name="dtemissaoce" ColumnName="dtemissaoce" />
+                <ScalarProperty Name="itemcarga_vlcubagem" ColumnName="itemcarga_vlcubagem" />
+                <ScalarProperty Name="itemcarga_vlpesobruto" ColumnName="itemcarga_vlpesobruto" />
+                <ScalarProperty Name="itemcarga_vlquantidade" ColumnName="itemcarga_vlquantidade" />
+                <ScalarProperty Name="itemcarga_vltaracontainer" ColumnName="itemcarga_vltaracontainer" />
+                <ScalarProperty Name="vlcubagem" ColumnName="vlcubagem" />
+                <ScalarProperty Name="tx_url_arquivo" ColumnName="tx_url_arquivo" />
+                <ScalarProperty Name="cdAgtNavegMaster" ColumnName="cdAgtNavegMaster" />
+                <ScalarProperty Name="cdconsignatario" ColumnName="cdconsignatario" />
+                <ScalarProperty Name="nmconsignatario" ColumnName="nmconsignatario" />
+                <ScalarProperty Name="cdportoorigem" ColumnName="cdportoorigem" />
+                <ScalarProperty Name="nmportoorigem" ColumnName="nmportoorigem" />
+                <ScalarProperty Name="cdportodestino" ColumnName="cdportodestino" />
+                <ScalarProperty Name="nmportodestino" ColumnName="nmportodestino" />
+                <ScalarProperty Name="cdempnavegdesconmaster" ColumnName="cdempnavegdesconmaster" />
+                <ScalarProperty Name="itemcarga_cdclassemercadoriaperigosa" ColumnName="itemcarga_cdclassemercadoriaperigosa" />
+                <ScalarProperty Name="itemcarga_cdindicadormercadoriaperigosa" ColumnName="itemcarga_cdindicadormercadoriaperigosa" />
+                <ScalarProperty Name="itemcarga_cdlacres" ColumnName="itemcarga_cdlacres" />
+                <ScalarProperty Name="itemcarga_cdncms" ColumnName="itemcarga_cdncms" />
+                <ScalarProperty Name="itemcarga_descricao" ColumnName="itemcarga_descricao" />
+                <ScalarProperty Name="itemcarga_descricao_container" ColumnName="itemcarga_descricao_container" />
+                <ScalarProperty Name="itemcarga_descricao_embalagem" ColumnName="itemcarga_descricao_embalagem" />
+                <ScalarProperty Name="itemcarga_descricao_tipogranel" ColumnName="itemcarga_descricao_tipogranel" />
+                <ScalarProperty Name="itemcarga_noncms" ColumnName="itemcarga_noncms" />
+                <ScalarProperty Name="itemcarga_nrchassi" ColumnName="itemcarga_nrchassi" />
+                <ScalarProperty Name="itemcarga_nrcontainer" ColumnName="itemcarga_nrcontainer" />
+                <ScalarProperty Name="itemcarga_nritem" ColumnName="itemcarga_nritem" />
+                <ScalarProperty Name="itemcarga_tipocontainer" ColumnName="itemcarga_tipocontainer" />
+                <ScalarProperty Name="itemcarga_txcontramarca" ColumnName="itemcarga_txcontramarca" />
+                <ScalarProperty Name="itemcarga_txmarca" ColumnName="itemcarga_txmarca" />
+                <ScalarProperty Name="nmagtnavegmaster" ColumnName="nmagtnavegmaster" />
+                <ScalarProperty Name="nmempnavegdesconmaster" ColumnName="nmempnavegdesconmaster" />
+                <ScalarProperty Name="nrcemaster" ColumnName="nrcemaster" />
+                <ScalarProperty Name="responsavel_cpf" ColumnName="responsavel_cpf" />
+                <ScalarProperty Name="responsavel_ip" ColumnName="responsavel_ip" />
+                <ScalarProperty Name="responsavel_nome" ColumnName="responsavel_nome" />
+                <ScalarProperty Name="responsavel_tipo" ColumnName="responsavel_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_manifesto_escala">
+            <EntityTypeMapping TypeName="mercanteModel.tb_manifesto_escala">
+              <MappingFragment StoreEntitySet="tb_manifesto_escala">
+                <ScalarProperty Name="pk_manifesto_escala" ColumnName="pk_manifesto_escala" />
+                <ScalarProperty Name="fk_manifesto" ColumnName="fk_manifesto" />
+                <ScalarProperty Name="fk_escala" ColumnName="fk_escala" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_manifestos">
+            <EntityTypeMapping TypeName="mercanteModel.tb_manifestos">
+              <MappingFragment StoreEntitySet="tb_manifestos">
+                <ScalarProperty Name="pk_manifesto" ColumnName="pk_manifesto" />
+                <ScalarProperty Name="fk_importacao" ColumnName="fk_importacao" />
+                <ScalarProperty Name="nr_manifesto" ColumnName="nr_manifesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_moeda">
+            <EntityTypeMapping TypeName="mercanteModel.tb_moeda">
+              <MappingFragment StoreEntitySet="tb_moeda">
+                <ScalarProperty Name="pk_moeda" ColumnName="pk_moeda" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+                <ScalarProperty Name="tx_sigla" ColumnName="tx_sigla" />
+                <ScalarProperty Name="fk_pais" ColumnName="fk_pais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_pais">
+            <EntityTypeMapping TypeName="mercanteModel.tb_pais">
+              <MappingFragment StoreEntitySet="tb_pais">
+                <ScalarProperty Name="pk_pais" ColumnName="pk_pais" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_porto">
+            <EntityTypeMapping TypeName="mercanteModel.tb_porto">
+              <MappingFragment StoreEntitySet="tb_porto">
+                <ScalarProperty Name="pk_porto" ColumnName="pk_porto" />
+                <ScalarProperty Name="cd_porto" ColumnName="cd_porto" />
+                <ScalarProperty Name="nm_porto" ColumnName="nm_porto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_porto_procedencia">
+            <EntityTypeMapping TypeName="mercanteModel.tb_porto_procedencia">
+              <MappingFragment StoreEntitySet="tb_porto_procedencia">
+                <ScalarProperty Name="pk_porto_procedencia" ColumnName="pk_porto_procedencia" />
+                <ScalarProperty Name="fk_escala" ColumnName="fk_escala" />
+                <ScalarProperty Name="fk_porto" ColumnName="fk_porto" />
+                <ScalarProperty Name="dt_desatracacao" ColumnName="dt_desatracacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_porto_subsequente">
+            <EntityTypeMapping TypeName="mercanteModel.tb_porto_subsequente">
+              <MappingFragment StoreEntitySet="tb_porto_subsequente">
+                <ScalarProperty Name="pk_porto_subsequente" ColumnName="pk_porto_subsequente" />
+                <ScalarProperty Name="fk_escala" ColumnName="fk_escala" />
+                <ScalarProperty Name="fk_porto" ColumnName="fk_porto" />
+                <ScalarProperty Name="dt_previsao_atracacao" ColumnName="dt_previsao_atracacao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_representante">
+            <EntityTypeMapping TypeName="mercanteModel.tb_representante">
+              <MappingFragment StoreEntitySet="tb_representante">
+                <ScalarProperty Name="pk_representante" ColumnName="pk_representante" />
+                <ScalarProperty Name="tx_cpf" ColumnName="tx_cpf" />
+                <ScalarProperty Name="tx_senha" ColumnName="tx_senha" />
+                <ScalarProperty Name="nm_certificado" ColumnName="nm_certificado" />
+                <ScalarProperty Name="senha_valida" ColumnName="senha_valida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_taxas_selic">
+            <EntityTypeMapping TypeName="mercanteModel.tb_taxas_selic">
+              <MappingFragment StoreEntitySet="tb_taxas_selic">
+                <ScalarProperty Name="pk_tx_selic" ColumnName="pk_tx_selic" />
+                <ScalarProperty Name="dt_taxa" ColumnName="dt_taxa" />
+                <ScalarProperty Name="vl_taxa" ColumnName="vl_taxa" />
+                <ScalarProperty Name="vl_taxa_acumulada" ColumnName="vl_taxa_acumulada" />
+                <ScalarProperty Name="dt_consulta" ColumnName="dt_consulta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tipo_container">
+            <EntityTypeMapping TypeName="mercanteModel.tb_tipo_container">
+              <MappingFragment StoreEntitySet="tb_tipo_container">
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+                <ScalarProperty Name="tx_descricao_detalhada" ColumnName="tx_descricao_detalhada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tipo_embalagem">
+            <EntityTypeMapping TypeName="mercanteModel.tb_tipo_embalagem">
+              <MappingFragment StoreEntitySet="tb_tipo_embalagem">
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tipo_granel">
+            <EntityTypeMapping TypeName="mercanteModel.tb_tipo_granel">
+              <MappingFragment StoreEntitySet="tb_tipo_granel">
+                <ScalarProperty Name="pk_id" ColumnName="pk_id" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_tipo_item">
+            <EntityTypeMapping TypeName="mercanteModel.tb_tipo_item">
+              <MappingFragment StoreEntitySet="tb_tipo_item">
+                <ScalarProperty Name="pk_tipo_item" ColumnName="pk_tipo_item" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_urf">
+            <EntityTypeMapping TypeName="mercanteModel.tb_urf">
+              <MappingFragment StoreEntitySet="tb_urf">
+                <ScalarProperty Name="pk_urf" ColumnName="pk_urf" />
+                <ScalarProperty Name="tx_sigla" ColumnName="tx_sigla" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_usuario_acesso">
+            <EntityTypeMapping TypeName="mercanteModel.tb_usuario_acesso">
+              <MappingFragment StoreEntitySet="tb_usuario_acesso">
+                <ScalarProperty Name="pk_usuario_acesso" ColumnName="pk_usuario_acesso" />
+                <ScalarProperty Name="dt_ocorrencia" ColumnName="dt_ocorrencia" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="tipo_pagina" ColumnName="tipo_pagina" />
+                <ScalarProperty Name="fk_registro" ColumnName="fk_registro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_via_transporte">
+            <EntityTypeMapping TypeName="mercanteModel.tb_via_transporte">
+              <MappingFragment StoreEntitySet="tb_via_transporte">
+                <ScalarProperty Name="pk_via" ColumnName="pk_via" />
+                <ScalarProperty Name="tx_descricao" ColumnName="tx_descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

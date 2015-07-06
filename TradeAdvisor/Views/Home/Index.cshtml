@@ -1,20 +1,209 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
+<section id="topo">
+    <div class="banner_principal uk-width-1-1" data-uk-parallax="{bg: '-200'}">
+        <div class="uk-container uk-container-center">
 
-<div class="col-xs-10 col-md-4 col-xs-offset-1 col-md-offset-4 logo_center">
-    <img src="~/img/logo_tradeadvisor_white.svg" width="100%">
-</div>
-<!-- input: search field -->
-<div class="col-xs-12 col-md-8 col-md-offset-2">
-    <form action="@Url.Action("ResumoConsulta", "Ncm")" method="POST">
-        <span class="search_box">
-            <input class="input_style col-xs-12" id="search-fld" type="text" name="descricao_detalhada_produto" placeholder="Faça sua pesquisa">
-            <button type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-        <!--<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>-->
-        @Html.ValidationSummary(true)
-    </form>
-</div>
+            <div class="mensagem_banner uk-width-medium-3-5 uk-container-center">
+                <a class="uk-display-block uk-width-4-5 uk-container-center uk-visible-small" href="/">
+                    <img width="100%" class="uk-margin-remove" src="~/images/logo.svg" title="Tradeadvisor" alt="Tradeadvisor">
+                </a>
+
+                <h2 class="titulo_banner">
+                    Vá além da superfície, descubra a fundo sobre comércio exterior:
+                </h2>
+
+                <form class="uk-form" action="@Url.Action("ResumoConsulta", "Ncm")">
+                    <div class="uk-grid uk-grid-collapse">
+                        <div class="uk-width-5-6 uk-width-medium-9-10">
+                            <input class="input_busca uk-width-1-1" type="text" placeholder="Pesquisa" name="descricao_detalhada_produto">
+                        </div>
+                        <div class="uk-width-1-6 uk-width-medium-1-10">
+                            <button class="button_busca uk-width-1-1"><i class="uk-icon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                
+                <a href="#exemplos" data-uk-smooth-scroll="{offset:60}" class="descer">
+                    <span>Exemplos</span>
+                    <i class="uk-icon-angle-double-down uk-icon-medium"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!--exemplos-->
+<section id="exemplos">
+    <div class="green_back">
+        <div class="pading_block">
+            <div class="uk-container uk-container-center text_center">
+                <h2>Não sabe por onde começar?</h2>
+                <p>Sua busca pode ser direcionada a:</p>
+
+
+            </div>
+        </div>
+
+        <div class="uk-width-small-1-1 polygon_balao">
+            <svg height="20" width="30">
+                <polygon points="0,0 30,0 15,15" style="fill:#3ef192;"></polygon>
+                Sorry, your browser does not support inline SVG.
+            </svg>
+        </div>
+
+    </div>
+    <div class="gray_back uk-width-1-1">
+        <div class="pading_block">
+            <div class="uk-container uk-container-center">
+
+                <div class="uk-grid uk-grid-medium uk-grid-divider">
+
+                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
+                        <article class="blocos_exemplo">
+                            <div class="imagem_exemplos">
+                                <img src="~/images/documentos.svg">
+                            </div>
+                            <h3>Documentos</h3>
+                            <p class="justify">
+                                A Vivian Advocacia propõe-se a prestar soluções e serviços jurídicos de alto nível técnico, respeitando a ética profissional e os interesses e necessidades de seus clientes.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
+                        <article class="blocos_exemplo">
+                            <div class="imagem_exemplos">
+                                <img src="~/images/produtos.svg">
+                            </div>
+                            <h3>Produtos</h3>
+                            <p class="justify">
+                                A Vivian Advocacia propõe-se a prestar soluções e serviços jurídicos de alto nível técnico, respeitando a ética profissional e os interesses e necessidades de seus clientes.
+                            </p>
+                        </article>
+                    </div>
+
+                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
+                        <article class="blocos_exemplo">
+                            <div class="imagem_exemplos">
+                                <img src="~/images/ncms.svg">
+                            </div>
+                            <h3>NCM's</h3>
+                            <p class="justify">
+                                A Vivian Advocacia propõe-se a prestar soluções e serviços jurídicos de alto nível técnico, respeitando a ética profissional e os interesses e necessidades de seus clientes.
+                            </p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="uk-width-medium-2-3 uk-container-center">
+                    <div class="uk-grid uk-grid-medium uk-grid-divider">
+
+
+                        <div class="uk-width-small-1-1 uk-width-medium-1-2">
+                            <article class="blocos_exemplo">
+                                <div class="imagem_exemplos">
+                                    <img src="~/images/empresas.svg">
+                                </div>
+
+                                <h3>Empresas</h3>
+                                <p class="justify">
+                                    A Vivian Advocacia propõe-se a prestar soluções e serviços jurídicos de alto nível técnico, respeitando a ética profissional e os interesses e necessidades de seus clientes.
+                                </p>
+                            </article>
+                        </div>
+
+                        <div class="uk-width-small-1-1 uk-width-medium-1-2">
+                            <article class="blocos_exemplo">
+                                <div class="imagem_exemplos">
+                                    <img src="~/images/pessoas.svg">
+                                </div>
+                                <h3>Pessoas</h3>
+                                <p class="justify">
+                                    A Vivian Advocacia propõe-se a prestar soluções e serviços jurídicos de alto nível técnico, respeitando a ética profissional e os interesses e necessidades de seus clientes.
+                                </p>
+                            </article>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--Blog-->
+<section id="blog">
+    <div class="uk-width-1-1">
+        <div class="pading_block">
+            <div class="uk-container uk-container-center">
+
+
+                <h2 class="titulo_blog">
+                    <a href="#blog" data-uk-smooth-scroll="{offset:60}" class="blog_icon">Blog <span></span></a>
+                    <span class="uk-hidden-small">Saiba tudo sobre os principais temas ligados ao Comércio Exterior</span>
+                </h2>
+
+                <div class="uk-grid uk-grid-medium">
+
+                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
+                        <a href="#" class="content_news uk-cover-background" style="background:url(~/images/news_image.png)">
+                            <article>
+
+                                <span class="date_post">
+                                    <i class="uk-icon-clock-o"></i>
+                                    Há 24 horas
+                                </span>
+                                <div class="conteudo_noticia">
+                                    <span class="tags_post">
+                                        <i class="uk-icon-tag"></i>
+                                        Importação
+                                    </span>
+                                    <h3 class="noticias_title">
+                                        Presidente Dilma encerra em Nova York Encontro sobre Investimentos no Brasil
+                                    </h3>
+                                </div>
+
+                            </article>
+                            <div class="blog_hover dark_blue_mask">
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="uk-width-small-1-1 uk-width-medium-1-3">
+                        <a href="#" class="content_news uk-cover-background" style="background:url(~/images/news_image.png)">
+                            <article>
+
+                                <span class="date_post">
+                                    <i class="uk-icon-clock-o"></i>
+                                    Há 24 horas
+                                </span>
+                                <div class="conteudo_noticia">
+                                    <span class="tags_post">
+                                        <i class="uk-icon-tag"></i>
+                                        Importação
+                                    </span>
+                                    <h3 class="noticias_title">
+                                        Presidente Dilma encerra em Nova York Encontro sobre Investimentos no Brasil
+                                    </h3>
+                                </div>
+
+                            </article>
+                            <div class="blog_hover dark_blue_mask">
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="uk-width-1-1 text_center">
+                    <button class="uk-button"><i class="uk-icon-plus btn_icon"></i> Leia Mais</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

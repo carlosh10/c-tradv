@@ -15,10 +15,10 @@ namespace TradeAdvisor.Models
     public partial class tb_usuario_empresa
     {
         public long pk_usuario_empresa { get; set; }
-        public long fk_empresa { get; set; }
         public long fk_usuario { get; set; }
+        public long fk_empresa { get; set; }
     
-        public virtual tb_empresa tb_empresa { get; set; }
-        public virtual tb_usuario tb_usuario { get; set; }
+        public virtual empresas empresas { get; set; }
+        public virtual usuarios usuarios { get; set; }
     }
 }

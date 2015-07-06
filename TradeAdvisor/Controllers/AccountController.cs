@@ -30,14 +30,14 @@ namespace TradeAdvisor.Controllers
                 using (tradeadvisorEntities conexao = new tradeadvisorEntities())
                 {
                     //AutenticaGoodData();
-                    var user = conexao.tb_usuario.Where(c => c.email == model.email && c.senha == model.senha).FirstOrDefault();
+                    var user = conexao.usuarios.Where(c => c.tx_email == model.tx_email && c.tx_senha == model.tx_senha).FirstOrDefault();
                     if (user == null)
                     {
                         ModelState.AddModelError("", "Login ou senha inválidos!");
                         return View(model);
                     }
 
-                    FormsAuthentication.SetAuthCookie(model.email, true);
+                    FormsAuthentication.SetAuthCookie(model.tx_email, true);
 
                     //Redirecionar no login
                     if (Url.IsLocalUrl(model.ReturnUrl))
