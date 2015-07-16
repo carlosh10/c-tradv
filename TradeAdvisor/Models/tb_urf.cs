@@ -14,8 +14,7 @@ namespace TradeAdvisor.Models
     
     public partial class tb_urf
     {
-        public long pk_urf { get; set; }
-        public string tx_sigla { get; set; }
+        public int pk_urf { get; set; }
         public string tx_descricao { get; set; }
     }
 }

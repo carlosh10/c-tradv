@@ -9,7 +9,6 @@ using TradeAdvisor.Models;
 
 namespace TradeAdvisor.Controllers
 {
-    [Authorize]
     public class NcmController : Controller
     {
         public class JsonModel

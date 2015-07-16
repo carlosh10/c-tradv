@@ -15,10 +15,7 @@ namespace TradeAdvisor.Models
     public partial class tb_importacao
     {
         public long pk_importacao { get; set; }
-        public System.DateTime dt_inicio { get; set; }
-        public Nullable<System.DateTime> dt_fim { get; set; }
-        public string bl_sucesso { get; set; }
-        public System.DateTime dt_consulta { get; set; }
-        public long fk_representante { get; set; }
+        public string nr_cnpj { get; set; }
+        public System.DateTime dt_dtUltimaPesquisa { get; set; }
     }
 }

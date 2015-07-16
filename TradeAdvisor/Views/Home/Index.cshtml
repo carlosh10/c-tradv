@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<TradeAdvisor.Models.DIPOCO>
+@{
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 }
 <section id="topo">
@@ -11,7 +12,7 @@
                 </a>
 
                 <h2 class="titulo_banner">
-                    Vá além da superfície, descubra a fundo sobre comércio exterior:
+                    Vá além da superfície, descubra a fundo sobre comércio exterior: Resultados: @Model.Count
                 </h2>
 
                 <form class="uk-form" action="@Url.Action("ResumoConsulta", "Ncm")">
@@ -24,7 +25,7 @@
                         </div>
                     </div>
                 </form>
-                
+
                 <a href="#exemplos" data-uk-smooth-scroll="{offset:60}" class="descer">
                     <span>Exemplos</span>
                     <i class="uk-icon-angle-double-down uk-icon-medium"></i>

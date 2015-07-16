@@ -17,7 +17,6 @@ namespace TradeAdvisor.Models
         public long pk_tx_selic { get; set; }
         public System.DateTime dt_taxa { get; set; }
         public decimal vl_taxa { get; set; }
-        public decimal vl_taxa_acumulada { get; set; }
         public System.DateTime dt_consulta { get; set; }
     }
 }

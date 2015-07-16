@@ -1,117 +1,1454 @@
 ﻿@model List<TradeAdvisor.Models.NcmDAO.ResumoConsulta>
-<div class="container">
-    <!--busca-->
-    <div class="collapse" id="collapseSearch">
 
-        <form action="produtos.html">
-            <span class="search_box">
-                <input class="input_style col-xs-12" id="search-fld" type="text" name="param" placeholder="Faça sua pesquisa">
-                <button type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-            <!--<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>-->
-        </form>
+<section id="nav_abas">
+    <div class="gray_back">
 
-    </div>
-
-    <!--bloco produto-->
-    <div class="col-xs-12 block_default">
-        <div style="width:50%;float:left; text-align:center;"><h3>CIF Total por NCM </h3></div>
-        <div style="width:50%;float:right; text-align:center;"><h3>Quantidade por NCM</h3></div>
-        <div class="col-sm-12">
-
-            <div>
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
-
-                    <div>
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-
-                        </div>
-                        <!-- end widget edit box -->
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-                            <div id="donut-graph" class="chart no-padding"></div>
-                        </div>
-                        <!-- end widget content -->
-                    </div>
-                    <!-- end widget div -->
-                </div>
-
-                <!-- Widget ID (each widget will need unique ID)-->
-                <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
-
-                    <div>
-                        <!-- widget edit box -->
-                        <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-
-                        </div>
-                        <!-- end widget edit box -->
-                        <!-- widget content -->
-                        <div class="widget-body no-padding">
-
-                            <div id="donut-graphNcmQuantidade" class="chart no-padding"></div>
-                        </div>
-                        <!-- end widget content -->
-
-                    </div>
-                    <!-- end widget div -->
-                </div>
-
-
-                <table class="table table-striped table_trade2">
-                    <thead>
-                        <tr>
-                            <th>
-                                <strong>Ncm</strong>
-
-                            </th>
-                            <th>
-                                <strong>Descrição</strong>
-                            </th>
-                            <th>
-                                <strong>CIF Total USD</strong>
-                            </th>
-                            <th>
-                                <strong>Aliquota Total</strong>
-
-                            </th>
-                            <th>
-                                <strong>Quantidade</strong>
-                            </th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-                        @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).ToList())
-                        {
-                            <tr>
-                                <td>
-                                    <a href="@Url.Action("Consulta", "Ncm", new { descricao = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.ncm</a>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Consulta", "Ncm", new { descricao = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.tx_ncm_desc</a>
-                                </td>
-                                <td>
-                                    $@String.Format("{0:0,0.00}", @ncm.CIFTot)
-                                </td>
-                                <td>
-                                    @String.Format("{0:0}", @ncm.vl_ift)%
-                                </td>
-                                <td>
-                                    @ncm.countReg
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <div class="navegacao_abas" data-uk-sticky="{top:-80, animation: 'uk-animation-slide-top'}">
+            <div class="uk-container uk-container-center">
+                <ul data-uk-switcher="{connect:'#my-id', animation: 'uk-animation-fade, uk-animation-slide-left'}">
+                    <li><a href="">Produtos Importados</a></li>
+                    <li><a href="">Empresas</a></li>
+                    <li><a href="">Documentos</a></li>
+                    <li><a href="">NCMs</a></li>
+                    <li><a href="">Pessoas</a></li>
+                </ul>
             </div>
         </div>
+
+        <div class="uk-container uk-container-center">
+            <!-- This is the container of the content items -->
+            <ul id="my-id" class="uk-switcher">
+
+                <!--Produtos importados-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//graficos 1 aba 4-->
+                                    <h3>Total de NCMs</h3>
+                                    <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                        <li><a href="">Valor ($)</a></li>
+                                        <li><a href="">Quantidade</a></li>
+                                    </ul>
+
+                                    <ul id="produtos_abas1" class="uk-switcher">
+                                        <li>
+                                            <!--//grafico 1.1 aba 4-->
+                                            <div id="produtos_1_1" class="graficos_responsivos"></div>
+                                        </li>
+                                        <li>
+                                            <!--//grafico 1.2 aba 4-->
+                                            <div id="produtos_1_2" class="graficos_responsivos"></div>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+
+                            <div class="uk-width-small-1-1">
+                                <div class="transparent_card">
+
+                                    <!--//filtro NCM's-->
+                                    <div class="uk-grid uk-grid-small">
+                                        <h3 class="uk-width-small-1-1 uk-width-medium-5-10" style="padding-top:12px;">Selecione a(s) NCM(s) desejada(s):</h3>
+                                        <div class="uk-width-small-1-1 uk-width-medium-4-10">
+                                            <form class="uk-form">
+                                                <div class="uk-grid uk-grid-collapse">
+
+                                                    <div class="uk-width-5-6 uk-width-medium-9-10">
+                                                        <input class="input_busca uk-width-1-1" type="text" placeholder="Pesquisa">
+                                                    </div>
+
+                                                    <div class="uk-width-1-6 uk-width-medium-1-10">
+                                                        <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="uk-width-small-1-1 uk-width-medium-1-10">
+                                            <button class="uk-button uk-width-1-1" data-uk-toggle="{target:'#ncm_filter', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                                <i class="uk-icon-angle-down uk-icon-large"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="uk-hidden" id="ncm_filter">
+
+                                    <header class="uk-width-small-1-1 uk-hidden-small">
+                                        <div class="header_cards">
+                                            <div class="uk-grid uk-grid-small">
+                                                <div class="title_card uk-width-small-1-10">
+
+                                                </div>
+                                                <div class="title_card uk-width-small-1-10">
+                                                    Código
+                                                </div>
+                                                <div class="title_card uk-width-small-4-10">
+                                                    Descrição
+                                                </div>
+                                                <div class="title_card uk-width-small-2-10">
+                                                    Resultados
+                                                </div>
+                                                <div class="title_card uk-width-small-2-10">
+                                                    Valor($)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
+
+
+                                    <div class="uk-width-small-1-1">
+                                        <div class="card_style uk-grid uk-grid-small">
+
+                                            <div class="uk-width-small-1-10">
+
+                                                <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info_filter', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                                    <i class="uk-icon-plus-square"></i>
+                                                </a>
+
+                                                <form class="uk-form">
+                                                    <fieldset data-uk-margin>
+                                                        <label><input type="checkbox"></label>
+                                                    </fieldset>
+                                                </form>
+
+                                            </div>
+
+                                            <div class="uk-width-small-1-10">
+                                                <span class="uk-visible-small title_card">
+                                                    Código
+                                                </span>
+                                                3573794
+
+                                            </div>
+
+                                            <div class="uk-width-small-6-10 uk-hidden-small">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                            </div>
+
+
+                                            <div class="uk-width-small-1-10 uk-hidden-small">
+                                                10
+                                            </div>
+
+                                            <div class="uk-width-small-1-10 uk-hidden-small">
+                                                xx
+                                            </div>
+
+
+                                            <div id="mais_info_filter" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                                <div class="uk-width-small-3-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Descrição
+                                                    </span>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                                </div>
+
+
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Resultados
+                                                    </span>
+                                                    10
+                                                </div>
+
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Valor($)
+                                                    </span>
+                                                    xx
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="uk-width-small-1-1">
+                                        <div class="card_style uk-grid uk-grid-small">
+
+                                            <div class="uk-width-small-1-10">
+
+                                                <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info_filter', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                                    <i class="uk-icon-plus-square"></i>
+                                                </a>
+
+                                                <form class="uk-form">
+                                                    <fieldset data-uk-margin>
+                                                        <label><input type="checkbox"></label>
+                                                    </fieldset>
+                                                </form>
+
+                                            </div>
+
+                                            <div class="uk-width-small-1-10">
+                                                <span class="uk-visible-small title_card">
+                                                    Código
+                                                </span>
+                                                3573794
+
+                                            </div>
+
+                                            <div class="uk-width-small-6-10 uk-hidden-small">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                            </div>
+
+
+                                            <div class="uk-width-small-1-10 uk-hidden-small">
+                                                10
+                                            </div>
+
+                                            <div class="uk-width-small-1-10 uk-hidden-small">
+                                                xx
+                                            </div>
+
+
+                                            <div id="mais_info_filter" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                                <div class="uk-width-small-3-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Descrição
+                                                    </span>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                                </div>
+
+
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Resultados
+                                                    </span>
+                                                    10
+                                                </div>
+
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Valor($)
+                                                    </span>
+                                                    xx
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <!--//graficos 2 aba 4-->
+                                        <h3>Total de Produtos Importados x País de Aquisição</h3>
+                                        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas2', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                            <li><a href="">Valor ($)</a></li>
+                                            <li><a href="">Quantidade</a></li>
+                                        </ul>
+
+                                        <ul id="produtos_abas2" class="uk-switcher">
+                                            <li>
+                                                <!--//grafico 2.1 aba 4-->
+                                                <div id="produtos_2_1" class="graficos_responsivos"></div>
+                                            </li>
+                                            <li>
+                                                <!--//grafico 2.2 aba 4-->
+                                                <div id="produtos_2_2" class="graficos_responsivos"></div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <!--//graficos 3 aba 4-->
+                                        <h3>Total de Produtos Importados x País de Origem</h3>
+                                        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas3', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                            <li><a href="">Valor ($)</a></li>
+                                            <li><a href="">Quantidade</a></li>
+                                        </ul>
+
+                                        <ul id="produtos_abas3" class="uk-switcher">
+                                            <li>
+                                                <!--//grafico 3.1 aba 4-->
+                                                <div id="produtos_3_1" class="graficos_responsivos"></div>
+                                            </li>
+                                            <li>
+                                                <!--//grafico 3.2 aba 4-->
+                                                <div id="produtos_3_2" class="graficos_responsivos"></div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+
+                                        <div class="uk-width-1-1 text_right">
+                                            <form class="uk-form">
+                                                De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                                a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                            </form>
+                                        </div>
+                                        <!--//grafico 4 aba 4-->
+                                        <div id="produtos_4" class="graficos_responsivos"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                </li>
+
+                <!--Empresas-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small" data-uk-grid="{gutter: 20}">
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 1 aba 1-->
+
+                                    <div id="container_1" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 2 aba 1-->
+
+                                    <div id="container_2" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <h3>Volume Importado x Localização</h3>
+
+                                    <!--mapa exemplo-->
+                                    <script src='https://maps.googleapis.com/maps/api/js?key=&sensor=false&extension=.js'></script>
+
+                                    <script>
+
+                                        google.maps.event.addDomListener(window, 'load', init);
+                                        var map;
+                                        function init() {
+                                            var mapOptions = {
+                                                center: new google.maps.LatLng(40.830437, -4.552003),
+                                                zoom: 3,
+                                                zoomControl: true,
+                                                zoomControlOptions: {
+                                                    style: google.maps.ZoomControlStyle.DEFAULT,
+                                                },
+                                                disableDoubleClickZoom: true,
+                                                mapTypeControl: true,
+                                                mapTypeControlOptions: {
+                                                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                                                },
+                                                scaleControl: true,
+                                                scrollwheel: false,
+                                                panControl: true,
+                                                streetViewControl: true,
+                                                draggable: false,
+                                                overviewMapControl: true,
+                                                overviewMapControlOptions: {
+                                                    opened: false,
+                                                },
+                                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                                            }
+                                            var mapElement = document.getElementById('map_ex');
+                                            var map = new google.maps.Map(mapElement, mapOptions);
+                                            var locations = [
+
+                                            ];
+                                            for (i = 0; i < locations.length; i++) {
+                                                if (locations[i][1] == 'undefined') { description = ''; } else { description = locations[i][1]; }
+                                                if (locations[i][2] == 'undefined') { telephone = ''; } else { telephone = locations[i][2]; }
+                                                if (locations[i][3] == 'undefined') { email = ''; } else { email = locations[i][3]; }
+                                                if (locations[i][4] == 'undefined') { web = ''; } else { web = locations[i][4]; }
+                                                if (locations[i][7] == 'undefined') { markericon = ''; } else { markericon = locations[i][7]; }
+                                                marker = new google.maps.Marker({
+                                                    icon: markericon,
+                                                    position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+                                                    map: map,
+                                                    title: locations[i][0],
+                                                    desc: description,
+                                                    tel: telephone,
+                                                    email: email,
+                                                    web: web
+                                                });
+                                                link = '';
+                                            }
+
+                                        }
+                                    </script>
+                                    <style>
+                                        #map_ex {
+                                            height: 400px;
+                                            width: 100%px;
+                                        }
+
+                                        .gm-style-iw * {
+                                            display: block;
+                                            width: 100%;
+                                        }
+
+                                        .gm-style-iw h4, .gm-style-iw p {
+                                            margin: 0;
+                                            padding: 0;
+                                        }
+
+                                        .gm-style-iw a {
+                                            color: #4272db;
+                                        }
+                                    </style>
+
+                                    <div id='map_ex'></div>
+                                    <!--fim mapa-->
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!--Documentos-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 1 aba 2-->
+                                    <div id="documentos_1" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 2 aba 2-->
+                                    <div id="documentos_2" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <div class="uk-width-1-1 text_right">
+                                        <form class="uk-form">
+                                            De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                            a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                        </form>
+                                    </div>
+                                    <!--//grafico 3 aba 2-->
+                                    <div id="documentos_3" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!--NCM's-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+                            <div class="uk-width-small-1-2 uk-width-medium-2-3">
+                                <h2 class="total_busca">Total: <span>2939203</span></h2>
+                            </div>
+                            <div class="uk-width-small-1-2 uk-width-medium-1-3">
+                                <form class="uk-form">
+                                    <div class="uk-grid uk-grid-collapse">
+                                        <div class="uk-width-5-6 uk-width-medium-8-10">
+                                            <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
+                                        </div>
+                                        <div class="uk-width-1-6 uk-width-medium-2-10">
+                                            <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <header class="uk-width-small-1-1 uk-hidden-small">
+                                <div class="header_cards">
+                                    <div class="uk-grid uk-grid-small">
+                                        <div class="title_card uk-width-small-2-10">
+                                            Código
+                                        </div>
+                                        <div class="title_card uk-width-small-4-10">
+                                            Descrição
+                                        </div>
+                                        <div class="title_card uk-width-small-2-10">
+                                            Alíquota
+                                        </div>
+                                        <div class="title_card uk-width-small-2-10">
+                                            Licença de Importação
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style uk-grid uk-grid-small">
+                                    <div class="uk-width-small-2-10">
+                                        <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                            <i class="uk-icon-plus-square"></i>
+                                        </a>
+                                        <span class="uk-visible-small title_card">
+                                            Código
+                                        </span>
+                                        3573794
+
+                                    </div>
+
+                                    <div class="uk-width-small-4-10 uk-hidden-small">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                    </div>
+
+
+                                    <div class="uk-width-small-2-10 uk-hidden-small">
+                                        <strong>IPI:</strong> XX% <br>
+                                        <strong>II:</strong> XX% <br>
+                                        <strong>PIS/COFINS:</strong> XX%
+                                    </div>
+                                    <div class="uk-width-small-2-10 uk-hidden-small">
+                                        <a href="#" class="tag_licenca">
+                                            Licença de Importação
+                                        </a>
+                                    </div>
+
+
+                                    <div id="mais_info" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                        <div class="uk-width-small-3-5">
+                                            <span class="uk-visible-small title_card">
+                                                Descrição
+                                            </span>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                        </div>
+
+
+                                        <div class="uk-width-small-1-5">
+                                            <span class="uk-visible-small title_card">
+                                                Alíquota
+                                            </span>
+                                            <strong>IPI:</strong> XX% <br>
+                                            <strong>II:</strong> XX% <br>
+                                            <strong>PIS/COFINS:</strong> XX%
+                                        </div>
+                                        <div class="uk-width-small-1-5">
+                                            <span class="uk-visible-small title_card">
+                                                Licença de Importação
+                                            </span>
+                                            <a href="#" class="tag_licenca">
+                                                Licença de Importação
+                                            </a>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style uk-grid uk-grid-small">
+                                    <div class="uk-width-small-2-10">
+                                        <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                            <i class="uk-icon-plus-square"></i>
+                                        </a>
+                                        <span class="uk-visible-small title_card">
+                                            Código
+                                        </span>
+                                        3573794
+
+                                    </div>
+
+                                    <div class="uk-width-small-4-10 uk-hidden-small">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                    </div>
+
+
+                                    <div class="uk-width-small-2-10 uk-hidden-small">
+                                        <strong>IPI:</strong> XX% <br>
+                                        <strong>II:</strong> XX% <br>
+                                        <strong>PIS/COFINS:</strong> XX%
+                                    </div>
+                                    <div class="uk-width-small-2-10 uk-hidden-small">
+                                        <a href="#" class="tag_licenca">
+                                            Licença de Importação
+                                        </a>
+                                        <a href="#" class="tag_licenca">
+                                            Tag teste
+                                        </a>
+                                    </div>
+
+
+                                    <div id="mais_info" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                        <div class="uk-width-small-3-5">
+                                            <span class="uk-visible-small title_card">
+                                                Descrição
+                                            </span>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                        </div>
+
+
+                                        <div class="uk-width-small-1-5">
+                                            <span class="uk-visible-small title_card">
+                                                Alíquota
+                                            </span>
+                                            <strong>IPI:</strong> XX% <br>
+                                            <strong>II:</strong> XX% <br>
+                                            <strong>PIS/COFINS:</strong> XX%
+                                        </div>
+                                        <div class="uk-width-small-1-5">
+                                            <span class="uk-visible-small title_card">
+                                                Licença de Importação
+                                            </span>
+                                            <a href="#" class="tag_licenca">
+                                                Licença de Importação
+                                            </a>
+                                            <a href="#" class="tag_licenca">
+                                                Tag teste
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </li>
+
+                
+
+
+                <!--Pessoas-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+
+
+
+                            <div class="uk-width-small-1-2 uk-width-medium-2-3">
+                                <h2 class="total_busca">Total: <span>2939203</span></h2>
+                            </div>
+                            <div class="uk-width-small-1-2 uk-width-medium-1-3">
+                                <form class="uk-form">
+                                    <div class="uk-grid uk-grid-collapse">
+                                        <div class="uk-width-5-6 uk-width-medium-8-10">
+                                            <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
+                                        </div>
+                                        <div class="uk-width-1-6 uk-width-medium-2-10">
+                                            <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <header class="uk-width-small-1-1 uk-hidden-small">
+                                <div class="header_cards">
+                                    <div class="uk-grid uk-grid-small">
+                                        <div class="title_card uk-width-small-4-10">
+                                            Nome
+                                        </div>
+                                        <div class="title_card uk-width-small-3-10">
+                                            CPF
+                                        </div>
+                                        <div class="title_card uk-width-small-3-10">
+                                            E-mail
+                                        </div>
+                                    </div>
+                                </div>
+                            </header>
+
+
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style uk-grid uk-grid-small">
+                                    <div class="uk-width-small-4-10">
+                                        <span class="title_card uk-visible-small">Nome</span>
+                                        José Silva
+                                    </div>
+                                    <div class="uk-width-small-3-10">
+                                        <span class="title_card uk-visible-small">CPF</span>
+                                        000.000.000-00
+                                    </div>
+                                    <div class="uk-width-small-3-10">
+                                        <span class="title_card uk-visible-small">E-mail</span>
+                                        contato@jose.com.br
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style uk-grid uk-grid-small">
+                                    <div class="uk-width-small-4-10">
+                                        <span class="title_card uk-visible-small">Nome</span>
+                                        José Silva
+                                    </div>
+                                    <div class="uk-width-small-3-10">
+                                        <span class="title_card uk-visible-small">CPF</span>
+                                        000.000.000-00
+                                    </div>
+                                    <div class="uk-width-small-3-10">
+                                        <span class="title_card uk-visible-small">E-mail</span>
+                                        contato@jose.com.br
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
     </div>
-</div>
+
+</section>
+
+<script type="text/javascript">
+
+    //grafico 1 aba 1
+    $(function () {
+        $('#container_1').highcharts({
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Volume de importação'
+            },
+            subtitle: {
+                text: 'Dados: <a href="https://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>'
+            },
+            xAxis: {
+                categories: ['Volume'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Volume (USD)',
+                    align: 'high'
+                },
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            tooltip: {
+                valueSuffix: ' USD'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 35,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Até USD 1M',
+                data: [107]
+            }, {
+                name: 'Entre USD 1 e 10M',
+                data: [133]
+            }, {
+                name: 'Até USD 1M',
+                data: [133]
+            }, {
+                name: 'Acima de USD 50M',
+                data: [1052]
+            }]
+        });
+    });
+
+    //grafico 2 aba 1
+    $(function () {
+        $('#container_2').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'Atividade Econômica',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'Atividade Econômica',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Volume Importado x Atividade Econômica'
+            }
+        });
+    });
+
+
+    //grafico 1 aba 2
+    $(function () {
+        $('#documentos_1').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: '<a href="http://css3generator.com/">Nome/CNPJ</a>',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'Nome/CNPJ',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Quantidade de Documentos Total x Empresa'
+            }
+        });
+    });
+
+    //grafico 2 aba 2
+    $(function () {
+        $('#documentos_2').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'DI',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'CE',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'LI',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'NF-e de entrada',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'DI',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'CE',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'LI',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Quantidade de Documentos x Tipo'
+            }
+        });
+    });
+
+
+    //grafico 3 aba 2
+    $(function () {
+        $('#documentos_3').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Quantidade de Documentos x Período'
+            },
+            xAxis: {
+                categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Novembro', 'Outubro', 'Dezembro']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Quantidade (Milhões)'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'DI',
+                data: [5, 3, 4, 7, 2, 5, 3, 2, 7, 2, 2, 5]
+            }, {
+                name: 'CE',
+                data: [2, 2, 3, 2, 1, 5, 4, 7, 4, 6, 4, 9]
+            }, {
+                name: 'LI',
+                data: [2, 2, 3, 2, 1, 5, 4, 7, 4, 6, 4, 9]
+            }, {
+                name: 'NF-e de Entrada',
+                data: [2, 2, 3, 2, 1, 5, 4, 7, 4, 6, 4, 9]
+            }]
+        });
+    });
+
+
+    //graficos 1 aba 4
+
+    //grafico 1.1 aba 4
+    $(function () {
+        $('#produtos_1_1').highcharts({
+            colorAxis: {
+                minColor:  Highcharts.getOptions().colors[0],
+                maxColor:  '#FFFFFF'
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [
+                @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
+                {
+                    @:{
+                        @:name: '@ncm.ncm',
+                        @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                        @:colorValue: @ncm.CIFTot.ToString().Replace(',','.')
+                    @:},
+                }
+                ]
+            }],
+            title: {
+                text: 'Valor'
+            }
+        });
+    });
+
+
+
+
+    //grafico 1.2 aba 4
+    $(function () {
+        $('#produtos_1_2').highcharts({
+            colorAxis: {
+                minColor:  Highcharts.getOptions().colors[0],
+                maxColor:  '#FFFFFF'
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [
+                @foreach (var ncm in @Model.OrderByDescending(c => c.countReg).Take(7).ToList())
+                {
+                    @:{
+                    @:name: '@ncm.ncm',
+                    @:value: @ncm.countReg,
+                    @:colorValue: @ncm.countReg
+                    @:},
+                }
+                ]
+            }],
+            title: {
+                text: 'Quantidade'
+            }
+        });
+    });
+
+    //graficos 2 aba 4
+
+    //grafico 2.1 aba 4
+    $(function () {
+        $('#produtos_2_1').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'Brasil, $',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'Brasil, $',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'Brasil, $',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'Brasil, $',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'Brasil, $',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'Brasil, $',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'Brasil, $',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Valor'
+            }
+        });
+    });
+
+    //grafico 2.2 aba 4
+    $(function () {
+        $('#produtos_2_2').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'Brasil, qtd',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'Brasil, qtd',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Quantidade'
+            }
+        });
+    });
+
+
+    //graficos 3 aba 4
+
+    //grafico 3.1 aba 4
+    $(function () {
+        $('#produtos_3_1').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'China, $',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'China, $',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'China, $',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'China, $',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'China, $',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'China, $',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'China, $',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Valor'
+            }
+        });
+    });
+
+    //grafico 3.2 aba 4
+    $(function () {
+        $('#produtos_3_2').highcharts({
+            colorAxis: {
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [{
+                    name: 'China, qtd',
+                    value: 6,
+                    colorValue: 1
+                }, {
+                    name: 'China, qtd',
+                    value: 6,
+                    colorValue: 2
+                }, {
+                    name: 'China, qtd',
+                    value: 4,
+                    colorValue: 3
+                }, {
+                    name: 'China, qtd',
+                    value: 3,
+                    colorValue: 4
+                }, {
+                    name: 'China, qtd',
+                    value: 2,
+                    colorValue: 5
+                }, {
+                    name: 'China, qtd',
+                    value: 2,
+                    colorValue: 6
+                }, {
+                    name: 'China, qtd',
+                    value: 2,
+                    colorValue: 7
+                }, {
+                    name: 'China, qtd',
+                    value: 1,
+                    colorValue: 7
+                }]
+            }],
+            title: {
+                text: 'Quantidade'
+            }
+        });
+    });
+
+    //grafico 4 aba 4
+    $(function () {
+        $('#produtos_4').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Quantidade de Produtos Importados x Período'
+            },
+            xAxis: {
+                categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Novembro', 'Outubro', 'Dezembro']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Quantidade (Milhões)'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + this.y + '<br/>' +
+                        'Total: ' + this.point.stackTotal;
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name: 'Quantidade',
+                data: [5, 3, 4, 7, 2, 5, 3, 2, 7, 2, 2, 5]
+            }]
+        });
+    });
+</script>
+
+
+
+
+
+@*<div class="container">
+        <!--busca-->
+        <div class="collapse" id="collapseSearch">
+
+            <form action="produtos.html">
+                <span class="search_box">
+                    <input class="input_style col-xs-12" id="search-fld" type="text" name="param" placeholder="Faça sua pesquisa">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+                <!--<a href="javascript:void(0);" id="cancel-search-js" title="Cancel Search"><i class="fa fa-times"></i></a>-->
+            </form>
+
+        </div>
+
+        <!--bloco produto-->
+        <div class="col-xs-12 block_default">
+            <div style="width:50%;float:left; text-align:center;"><h3>CIF Total por NCM </h3></div>
+            <div style="width:50%;float:right; text-align:center;"><h3>Quantidade por NCM</h3></div>
+            <div class="col-sm-12">
+
+                <div>
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+
+                        <div>
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
+                            </div>
+                            <!-- end widget edit box -->
+                            <!-- widget content -->
+                            <div class="widget-body no-padding">
+                                <div id="donut-graph" class="chart no-padding"></div>
+                            </div>
+                            <!-- end widget content -->
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+
+                        <div>
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
+                            </div>
+                            <!-- end widget edit box -->
+                            <!-- widget content -->
+                            <div class="widget-body no-padding">
+
+                                <div id="donut-graphNcmQuantidade" class="chart no-padding"></div>
+                            </div>
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+                    </div>
+
+
+                    <table class="table table-striped table_trade2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <strong>Ncm</strong>
+
+                                </th>
+                                <th>
+                                    <strong>Descrição</strong>
+                                </th>
+                                <th>
+                                    <strong>CIF Total USD</strong>
+                                </th>
+                                <th>
+                                    <strong>Aliquota Total</strong>
+
+                                </th>
+                                <th>
+                                    <strong>Quantidade</strong>
+                                </th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+                            @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).ToList())
+                            {
+                                <tr>
+                                    <td>
+                                        <a href="@Url.Action("Consulta", "Ncm", new { descricao = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.ncm</a>
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Consulta", "Ncm", new { descricao = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.tx_ncm_desc</a>
+                                    </td>
+                                    <td>
+                                        $@String.Format("{0:0,0.00}", @ncm.CIFTot)
+                                    </td>
+                                    <td>
+                                        @String.Format("{0:0}", @ncm.vl_ift)%
+                                    </td>
+                                    <td>
+                                        @ncm.countReg
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>*@
 

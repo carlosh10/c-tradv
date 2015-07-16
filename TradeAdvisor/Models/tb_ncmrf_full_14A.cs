@@ -6,7 +6,7 @@ namespace TradeAdvisor.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class tb_ncmrf_full_15A
+    public partial class tb_ncmrf_full_14A
     {
         [StringLength(32)]
         public string nr_ordem { get; set; }
@@ -65,6 +65,6 @@ namespace TradeAdvisor.Models
         public DateTime? data_ordem { get; set; }
 
         [Key]
-        public long pk_ncmrf_15a { get; set; }
+        public long pk_ncmrf_14a { get; set; }
     }
 }

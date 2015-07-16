@@ -55,6 +55,9 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net40\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Nest">
+      <HintPath>..\packages\NEST.1.6.1\lib\net45\Nest.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -144,6 +147,24 @@
     </Compile>
     <Compile Include="Models\AccountDAO.cs" />
     <Compile Include="Models\AccountLoginModel.cs" />
+    <Compile Include="Models\DIDAO.cs" />
+    <Compile Include="Models\ModelDI.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDI.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDI.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDI.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDI.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDI.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ncmrf_full.cs" />
+    <Compile Include="Models\POCO.cs" />
     <Compile Include="Models\empresas.cs">
       <DependentUpon>tradeAdvisor.tt</DependentUpon>
     </Compile>
@@ -164,21 +185,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelCE.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDI.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDI.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDI.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDI.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDI.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDI.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NcmDAO.cs" />
     <Compile Include="Models\ncmrf.Context.cs">
@@ -251,7 +257,7 @@
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_importacao.cs">
-      <DependentUpon>ModelCE.tt</DependentUpon>
+      <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_importador.cs">
       <DependentUpon>ModelDI.tt</DependentUpon>
@@ -274,12 +280,16 @@
     <Compile Include="Models\tb_moeda.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tb_ncmrf_full_14A.cs" />
     <Compile Include="Models\tb_ncmrf_full_15A.cs">
       <DependentUpon>ncmrf.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tb_ncm_aliq.cs" />
     <Compile Include="Models\tb_ncm_computada.cs">
       <DependentUpon>ncmrf.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tb_ncm_desc.cs" />
+    <Compile Include="Models\tb_ncm_tags.cs" />
     <Compile Include="Models\tb_pais.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
@@ -295,8 +305,9 @@
     <Compile Include="Models\tb_representante.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tb_tags.cs" />
     <Compile Include="Models\tb_taxas_selic.cs">
-      <DependentUpon>ModelCE.tt</DependentUpon>
+      <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_tipo_container.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
@@ -317,7 +328,7 @@
       <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_urf.cs">
-      <DependentUpon>ModelCE.tt</DependentUpon>
+      <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_usuario_acesso.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
@@ -328,6 +339,7 @@
     <Compile Include="Models\tb_via_transporte.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TESTE.cs" />
     <Compile Include="Models\tradeAdvisor.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -384,23 +396,6 @@
     <Content Include="Views\Shared\_ResumoConsulta.cshtml" />
     <Content Include="Views\Account\Cadastrar.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <EntityDeploy Include="Models\ModelDI.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDI.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ModelDI.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDI.edmx</DependentUpon>
-      <LastGenOutput>ModelDI.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelDI.edmx.diagram">
-      <DependentUpon>ModelDI.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\ModelDI.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDI.edmx</DependentUpon>
-      <LastGenOutput>ModelDI.cs</LastGenOutput>
-    </Content>
     <EntityDeploy Include="Models\tradeAdvisor.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>tradeAdvisor.Designer.cs</LastGenOutput>
@@ -434,6 +429,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelCE.edmx</DependentUpon>
       <LastGenOutput>ModelCE.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\ModelDI.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelDI.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelDI.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDI.edmx</DependentUpon>
+      <LastGenOutput>ModelDI.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelDI.edmx.diagram">
+      <DependentUpon>ModelDI.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ModelDI.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDI.edmx</DependentUpon>
+      <LastGenOutput>ModelDI.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
