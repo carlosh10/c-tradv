@@ -1,0 +1,203 @@
+﻿@model List<TradeAdvisor.Models.ResumoPorNCM>
+
+@foreach (var ncm in @Model)
+{
+    @:{
+    @:name: '@ncm.ncm',
+    @:value: @ncm.qtde,
+    @:colorValue: @ncm.qtde
+    @:},
+}
+
+
+@*{
+        name: '87082999',
+        value: 100,
+        colorValue: 100
+    },
+    {
+        name: '73181500',
+        value: 10,
+        colorValue: 10
+    },
+    {
+        name: '39269090',
+        value: 50,
+        colorValue: 50
+    },
+    {
+        name: '87089990',
+        value: 15,
+        colorValue: 15
+    },
+    {
+        name: '40169300',
+        value: 7,
+        colorValue: 7
+    },*@
+
+@*<div id="abaNcms" class="card_style">
+        <!--//graficos 1 aba 4-->
+        <h3>Total de NCMs</h3>
+        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
+            <li><a href="">Valor ($)</a></li>
+            <li><a href="">Quantidade</a></li>
+        </ul>
+
+        <ul id="produtos_abas1" class="uk-switcher">
+            <li>
+                <!--//grafico 1.1 aba 4-->
+                <div id="produtos_1_1" class="graficos_responsivos"></div>
+            </li>
+            <li>
+                <!--//grafico 1.2 aba 4-->
+                <div id="produtos_1_2" class="graficos_responsivos"></div>
+            </li>
+        </ul>
+
+    </div>*@
+
+@*<script type="text/javascript">*@
+@*//grafico 1.1 aba 4
+    $(function () {
+        $('#produtos_1_1').highcharts({
+            colorAxis: {
+                minColor:  '#007FFF',
+                maxColor:  '#C0D9D9'
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [
+                @foreach (var ncm in @Model)
+                {
+                    @:{
+                        @:name: '@ncm.ncm',
+                        @:value: @ncm.sum_cif,
+                        @:colorValue: @ncm.sum_cif
+                    @:},
+                }
+                ]
+            }],
+            title: {
+                text: 'Valor'
+            }
+        });
+    });
+
+    //grafico 1.2 aba 4
+    $(function () {
+        $('#produtos_1_2').highcharts({
+            colorAxis: {
+                minColor:  '#007FFF',
+                maxColor:  '#C0D9D9'
+            },
+            series: [{
+                type: "treemap",
+                layoutAlgorithm: 'squarified',
+                data: [
+                @foreach (var ncm in @Model)
+                {
+                    @:{
+                        @:name: '@ncm.ncm',
+                        @:value: @ncm.qtde,
+                        @:colorValue: @ncm.qtde
+                    @:},
+                }
+                ]
+            }],
+            title: {
+                text: 'Quantidade'
+            }
+        });
+    });*@
+@*</script>*@
+@*<script type="text/javascript">
+        //grafico 1.1 aba 4
+        $(function () {
+            $('#produtos_1_1').highcharts({
+                colorAxis: {
+                    minColor: '#007FFF',
+                    maxColor: '#C0D9D9'
+                },
+                series: [{
+                    type: "treemap",
+                    layoutAlgorithm: 'squarified',
+                    data: [
+                        {
+                            name: '87082999',
+                            value: 100,
+                            colorValue: 100
+                        },
+                        {
+                            name: '73181500',
+                            value: 10,
+                            colorValue: 10
+                        },
+                        {
+                            name: '39269090',
+                            value: 50,
+                            colorValue: 50
+                        },
+                        {
+                            name: '87089990',
+                            value: 15,
+                            colorValue: 15
+                        },
+                        {
+                            name: '40169300',
+                            value: 7,
+                            colorValue: 7
+                        },
+                    ]
+                }],
+                title: {
+                    text: 'Valor'
+                }
+            });
+        });
+
+        //grafico 1.2 aba 4
+        $(function () {
+            $('#produtos_1_2').highcharts({
+                colorAxis: {
+                    minColor: '#007FFF',
+                    maxColor: '#C0D9D9'
+                },
+                series: [{
+                    type: "treemap",
+                    layoutAlgorithm: 'squarified',
+                    data: [
+                        {
+                            name: '87082999',
+                            value: 217271,
+                            colorValue: 217271
+                        },
+                        {
+                            name: '73181500',
+                            value: 216386,
+                            colorValue: 216386
+                        },
+                        {
+                            name: '39269090',
+                            value: 157420,
+                            colorValue: 157420
+                        },
+                        {
+                            name: '87089990',
+                            value: 109548,
+                            colorValue: 109548
+                        },
+                        {
+                            name: '40169300',
+                            value: 104627,
+                            colorValue: 104627
+                        },
+                    ]
+                }],
+                title: {
+                    text: 'Quantidade'
+                }
+            });
+        });
+    @*</script>*@

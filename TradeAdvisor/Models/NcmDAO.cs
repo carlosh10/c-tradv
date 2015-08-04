@@ -21,32 +21,32 @@ namespace TradeAdvisor.Models
 
             public string descricao_detalhada_produto { get; set; }
         }
-        public static List<vw_ncm_full_15a> ConsultaListNCM(string descricao, string ncm, int startIndex, int blockSize)
-        {
-            using (ncmrfEntities conexao = new ncmrfEntities())
-            {
-                conexao.Database.CommandTimeout = 300;
-                if (descricao != null)
-                {
-                    return (from c in conexao.vw_ncm_full_15a
-                            where c.ncm == ncm
-                            && c.descricao_detalhada_produto.Contains(descricao)
-                            select c).OrderByDescending(c => c.pk_ncmrf_15a).Skip((startIndex - 1) * blockSize).Take(blockSize).ToList();
-                }
-                else
-                    return (from c in conexao.vw_ncm_full_15a
-                            select c).OrderByDescending(c => c.pk_ncmrf_15a).Skip(startIndex).Take(blockSize).ToList();
-            }
-        }
-        public static vw_ncm_full_15a ConsultaNCM(int idNCM)
-        {
-            using (ncmrfEntities conexao = new ncmrfEntities())
-            {
-                return (from c in conexao.vw_ncm_full_15a
-                        where c.pk_ncmrf_15a == idNCM
-                        select c).FirstOrDefault();
-            }
-        }
+        //public static List<vw_ncm_full_15a> ConsultaListNCM(string descricao, string ncm, int startIndex, int blockSize)
+        //{
+        //    using (ncmrfEntities conexao = new ncmrfEntities())
+        //    {
+        //        conexao.Database.CommandTimeout = 300;
+        //        if (descricao != null)
+        //        {
+        //            return (from c in conexao.vw_ncm_full_15a
+        //                    where c.ncm == ncm
+        //                    && c.descricao_detalhada_produto.Contains(descricao)
+        //                    select c).OrderByDescending(c => c.pk_ncmrf_15a).Skip((startIndex - 1) * blockSize).Take(blockSize).ToList();
+        //        }
+        //        else
+        //            return (from c in conexao.vw_ncm_full_15a
+        //                    select c).OrderByDescending(c => c.pk_ncmrf_15a).Skip(startIndex).Take(blockSize).ToList();
+        //    }
+        //}
+        //public static vw_ncm_full_15a ConsultaNCM(int idNCM)
+        //{
+        //    using (ncmrfEntities conexao = new ncmrfEntities())
+        //    {
+        //        return (from c in conexao.vw_ncm_full_15a
+        //                where c.pk_ncmrf_15a == idNCM
+        //                select c).FirstOrDefault();
+        //    }
+        //}
 
         public static List<ResumoConsulta> ConsultaResumoBusca(string parametro)
         {

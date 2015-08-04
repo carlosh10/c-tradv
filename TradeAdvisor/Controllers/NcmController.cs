@@ -9,6 +9,7 @@ using TradeAdvisor.Models;
 
 namespace TradeAdvisor.Controllers
 {
+     [AllowAnonymous]
     public class NcmController : Controller
     {
         public class JsonModel
@@ -31,27 +32,44 @@ namespace TradeAdvisor.Controllers
                 return null;
             }
 
-            var ncms = NcmDAO.ConsultaListNCM(descricao, ncm, 1, 10);
-            if (ncms.Count == 0)
-            {
-                ModelState.AddModelError("", "Não existem registos para este parametro!");
-                return View();
-            }
-            else
-                return View(ncms);
+            //var ncms = NcmDAO.ConsultaListNCM(descricao, ncm, 1, 10);
+            //var ncms = null;
+            //if (ncms == null || ncms.Count == 0)
+            //{
+            //    ModelState.AddModelError("", "Não existem registos para este parametro!");
+            //    return View();
+            //}
+            //else
+            //    return View(ncms);
+
+            return View();
         }
         public ActionResult DetalhesNcm(string idNcm)
         {
             try
             {
-                var ncm = NcmDAO.ConsultaNCM(Int32.Parse(idNcm));
-                return View(ncm);
+                //var ncm = NcmDAO.ConsultaNCM(Int32.Parse(idNcm));
+                //return View(ncm);
+                return View();
             }
             catch (Exception x)
             {
                 Response.Redirect(@Url.Action("Index", "Home"));
                 return null;
             }
+        }
+
+        public ActionResult ResumoConsultaPorNCM(string descricao, string ncm)
+        {
+            if ((descricao == null) || (ncm == ""))
+            {
+                ModelState.AddModelError("", "Insira um valor");
+                return RedirectToAction("index", "home");
+            }
+            //return View(NcmDAO.ConsultaResumoBusca(@model.descricao_detalhada_produto));
+            //return View(PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveis(descricao));
+
+            return View(PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde(descricao));
         }
 
         public ActionResult ResumoConsulta(TradeAdvisor.Models.NcmDAO.ResumoConsulta model)
@@ -61,7 +79,8 @@ namespace TradeAdvisor.Controllers
                 ModelState.AddModelError("", "Insira um valor");
                 return RedirectToAction("index", "home");
             }
-            return View(NcmDAO.ConsultaResumoBusca(@model.descricao_detalhada_produto));
+            //return View(NcmDAO.ConsultaResumoBusca(@model.descricao_detalhada_produto));
+            return View();
         }
 
         [HttpPost]
@@ -72,10 +91,10 @@ namespace TradeAdvisor.Controllers
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 10;
 
-            var listNcm = NcmDAO.ConsultaListNCM(descricao, ncm, BlockNumber, BlockSize);
+            //var listNcm = NcmDAO.ConsultaListNCM(descricao, ncm, BlockNumber, BlockSize);
             JsonModel jsonModel = new JsonModel();
-            jsonModel.NoMoreData = listNcm.Count < BlockSize;
-            jsonModel.HTMLString = RenderPartialViewToString("_NcmBlock", listNcm);
+            //jsonModel.NoMoreData = listNcm.Count < BlockSize;
+            //jsonModel.HTMLString = RenderPartialViewToString("_NcmBlock", listNcm);
             return Json(jsonModel);
         }
         [HttpPost]
@@ -91,6 +110,24 @@ namespace TradeAdvisor.Controllers
             jsonModel.NoMoreData = listNcm.Count < BlockSize;
             jsonModel.HTMLString = RenderPartialViewToString("_ResumoConsulta", listNcm);
             return Json(jsonModel);
+        }
+        //[HttpPost]
+        //public ActionResult GeraGraficoPorNcm(string descricao, string ncm)
+        //{
+        //    ////////////////// THis line of code only for demo. Needs to be removed ////
+        //    //System.Threading.Thread.Sleep(3000);
+        //    //////////////////////////////////////////////////////////////////////////
+
+
+        //    List<ResumoPorNCM> listNcm = PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCM(descricao);
+        //    JsonModel jsonModel = new JsonModel();
+        //    jsonModel.HTMLString = RenderPartialViewToString("_JsGraficoPorNcm", listNcm);
+        //    return Json(jsonModel);
+        //}
+        [HttpPost]
+        public List<AgregationsPorBucketQtde> GeraGraficoPorNcm()
+        {
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde("iphone");
         }
 
         protected string RenderPartialViewToString(string viewName, object model)

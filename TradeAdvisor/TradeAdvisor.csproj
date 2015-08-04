@@ -109,23 +109,7 @@
   <ItemGroup>
     <Content Include="Elastic\usage.txt" />
     <Content Include="Global.asax" />
-    <EntityDeploy Include="Models\ncmrf.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ncmrf.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ncmrf.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ncmrf.edmx</DependentUpon>
-      <LastGenOutput>ncmrf.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ncmrf.edmx.diagram">
-      <DependentUpon>ncmrf.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\ncmrf.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ncmrf.edmx</DependentUpon>
-      <LastGenOutput>ncmrf.cs</LastGenOutput>
-    </Content>
+    <Content Include="services\ConsultaDadosGraficos.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +131,16 @@
     </Compile>
     <Compile Include="Models\AccountDAO.cs" />
     <Compile Include="Models\AccountLoginModel.cs" />
+    <Compile Include="Models\CEDAO.cs" />
+    <Compile Include="Models\CEPOCO.cs" />
     <Compile Include="Models\DIDAO.cs" />
+    <Compile Include="Models\ElasticSearchDAO.cs" />
+    <Compile Include="Models\empresas.cs">
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\estados.cs">
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ModelDI.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,14 +156,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDI.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ncmrf_full.cs" />
+    <Compile Include="Models\ModelTradeAdvisor.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTradeAdvisor.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelTradeAdvisor.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelTradeAdvisor.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTradeAdvisor.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\pais.cs">
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PRODUTOS_SENSIVEIS_POCO.cs" />
     <Compile Include="Models\POCO.cs" />
-    <Compile Include="Models\empresas.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\estados.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ModelCE.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,29 +192,12 @@
       <DependentUpon>ModelCE.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\NcmDAO.cs" />
-    <Compile Include="Models\ncmrf.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ncmrf.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ncmrf.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ncmrf.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ncmrf.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ncmrf.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\pais.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\PRODUTO_SENSIVEIS_DAO.cs" />
     <Compile Include="Models\schema_migrations.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_acrescimos.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
@@ -280,16 +268,6 @@
     <Compile Include="Models\tb_moeda.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tb_ncmrf_full_14A.cs" />
-    <Compile Include="Models\tb_ncmrf_full_15A.cs">
-      <DependentUpon>ncmrf.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tb_ncm_aliq.cs" />
-    <Compile Include="Models\tb_ncm_computada.cs">
-      <DependentUpon>ncmrf.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tb_ncm_desc.cs" />
-    <Compile Include="Models\tb_ncm_tags.cs" />
     <Compile Include="Models\tb_pais.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
@@ -305,7 +283,6 @@
     <Compile Include="Models\tb_representante.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tb_tags.cs" />
     <Compile Include="Models\tb_taxas_selic.cs">
       <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
@@ -334,40 +311,22 @@
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_usuario_empresa.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tb_via_transporte.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TESTE.cs" />
-    <Compile Include="Models\tradeAdvisor.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tradeAdvisor.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tradeAdvisor.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tradeAdvisor.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tradeAdvisor.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\usuarios.cs">
-      <DependentUpon>tradeAdvisor.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_ncm_full.cs">
-      <DependentUpon>ncmrf.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\vw_ncm_full_15a.cs">
-      <DependentUpon>ncmrf.tt</DependentUpon>
+      <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\vw_pesquisa.cs">
       <DependentUpon>ModelDI.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="services\ConsultaDadosGraficos.asmx.cs">
+      <DependentUpon>ConsultaDadosGraficos.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -396,23 +355,6 @@
     <Content Include="Views\Shared\_ResumoConsulta.cshtml" />
     <Content Include="Views\Account\Cadastrar.cshtml" />
     <Content Include="Views\Shared\_LayoutHome.cshtml" />
-    <EntityDeploy Include="Models\tradeAdvisor.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>tradeAdvisor.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\tradeAdvisor.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>tradeAdvisor.edmx</DependentUpon>
-      <LastGenOutput>tradeAdvisor.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\tradeAdvisor.edmx.diagram">
-      <DependentUpon>tradeAdvisor.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\tradeAdvisor.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>tradeAdvisor.edmx</DependentUpon>
-      <LastGenOutput>tradeAdvisor.cs</LastGenOutput>
-    </Content>
     <EntityDeploy Include="Models\ModelCE.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelCE.Designer.cs</LastGenOutput>
@@ -447,6 +389,24 @@
       <DependentUpon>ModelDI.edmx</DependentUpon>
       <LastGenOutput>ModelDI.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Shared\_JsGraficoPorNcm.cshtml" />
+    <EntityDeploy Include="Models\ModelTradeAdvisor.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelTradeAdvisor.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelTradeAdvisor.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTradeAdvisor.edmx</DependentUpon>
+      <LastGenOutput>ModelTradeAdvisor.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelTradeAdvisor.edmx.diagram">
+      <DependentUpon>ModelTradeAdvisor.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ModelTradeAdvisor.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTradeAdvisor.edmx</DependentUpon>
+      <LastGenOutput>ModelTradeAdvisor.cs</LastGenOutput>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -462,6 +422,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

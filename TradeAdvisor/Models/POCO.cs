@@ -5,6 +5,16 @@ using System.Web;
 
 namespace TradeAdvisor.Models
 {
+    public class AgregationsPorBucketQtde
+    {
+        public string name { get; set; }
+        public long qtde { get; set; }
+    }
+    public class AgregationsPorBucketValor
+    {
+        public string name { get; set; }
+        public float valor { get; set; }
+    }
     public class DIPOCO
     {
         public long pk_di { get; set; }

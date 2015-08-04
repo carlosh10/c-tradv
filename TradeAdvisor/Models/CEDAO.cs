@@ -6,9 +6,9 @@ using System.Web;
 
 namespace TradeAdvisor.Models
 {
-    public class DIDAO
+    public class CEDAO
     {
-        public static List<DIPOCO> ConsultaDis(string paramatro)
+        public static List<CE_POCO> ConsultaDis(string paramatro)
         {
             var node = new Uri("http://146.148.79.38:9400");
 
@@ -16,11 +16,12 @@ namespace TradeAdvisor.Models
 
             var client = new ElasticClient(settings);
 
-            var filterQuery = Query<DIPOCO>.Terms("tx_cnpj", paramatro);
+            var filterQuery = Query<CE_POCO>.Terms("tx_cnpj", paramatro);
 
-            var searchResults = client.Search<DIPOCO>(s => s.Index("doc2").Type("di").Query(filterQuery).Take(20));
+            var searchResults = client.Search<CE_POCO>(s => s.Index("doc2").Type("ce").Query(filterQuery).Take(20));
 
-            return (List<DIPOCO>)searchResults.Documents;
+            return (List<CE_POCO>)searchResults.Documents;
+
         }
     }
 }
