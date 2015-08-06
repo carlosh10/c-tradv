@@ -20,38 +20,53 @@ namespace TradeAdvisor.services
     {
 
         [WebMethod]
-        public List<AgregationsPorBucketQtde> ConsultaDadosPorNcmQtde()
+        public List<AgregationsPorBucketQtde> ConsultaDadosPorNcmQtde(string descricao)
         {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde("iphone");
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde(descricao);
         }
         [WebMethod]
-        public List<AgregationsPorBucketValor> ConsultaDadosPorNcmValor()
+        public List<AgregationsPorBucketValor> ConsultaDadosPorNcmValor(string descricao)
         {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMValor("iphone");
-        }
-
-
-        [WebMethod]
-        public List<AgregationsPorBucketQtde> ConsultaDadosPorPaisAquisicaoQtde()
-        {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisAquisicaoQtde("iphone");
-        }
-        [WebMethod]
-        public List<AgregationsPorBucketValor> ConsultaDadosPorPaisAquisicaoValor()
-        {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisAquisicaoValor("iphone");
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMValor(descricao);
         }
 
 
         [WebMethod]
-        public List<AgregationsPorBucketQtde> ConsultaDadosPorPaisOrigemQtde()
+        public List<AgregationsPorBucketQtde> ConsultaDadosPorPaisAquisicaoQtde(string descricao)
         {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisOrigemQtde("iphone");
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisAquisicaoQtde(descricao);
         }
         [WebMethod]
-        public List<AgregationsPorBucketValor> ConsultaDadosPorPaisOrigemValor()
+        public List<AgregationsPorBucketValor> ConsultaDadosPorPaisAquisicaoValor(string descricao)
         {
-            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisOrigemValor("iphone");
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisAquisicaoValor(descricao);
+        }
+
+
+        [WebMethod]
+        public List<AgregationsPorBucketQtde> ConsultaDadosPorPaisOrigemQtde(string descricao)
+        {
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisOrigemQtde(descricao);
+        }
+        [WebMethod]
+        public List<AgregationsPorBucketValor> ConsultaDadosPorPaisOrigemValor(string descricao)
+        {
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorPaisOrigemValor(descricao);
+        }
+
+
+        [WebMethod]
+        public List<AgregationsPorBucketQtde> ConsultaDadosPorMesAnoQtde(string descricao)
+        {
+            return PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorMesAnoQtde(descricao);
+        }
+
+
+
+        [WebMethod]
+        public List<AgregationsPorBucketQtde> ConsultaDadosDIQtde(string descricao)
+        {
+            return PRODUTO_SENSIVEIS_DAO.ConsultaDIQtde(descricao);
         }
     }
 }

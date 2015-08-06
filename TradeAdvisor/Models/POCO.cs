@@ -9,11 +9,13 @@ namespace TradeAdvisor.Models
     {
         public string name { get; set; }
         public long qtde { get; set; }
+        public string url { get; set; }
     }
     public class AgregationsPorBucketValor
     {
         public string name { get; set; }
         public float valor { get; set; }
+        public string url { get; set; }
     }
     public class DIPOCO
     {

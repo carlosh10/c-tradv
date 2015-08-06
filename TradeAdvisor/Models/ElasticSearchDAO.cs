@@ -2,25 +2,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace TradeAdvisor.Models
 {
     public class ElasticSearchDAO
     {
-        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string campo)
+        public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
+        public const string URL_DI = null;
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDIQtde(string paramatro, string campo)
         {
-            return ConsultaElasticSearchQtde(paramatro, "prodsense", campo);
+            return ConsultaElasticSearchQtde(paramatro, "di", campo, URL_DI);
         }
-        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo)
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchProdSenseQtde(string paramatro, string campo)
         {
-            return ConsultaElasticSearchQtde(paramatro, type_document, campo, 50);
+            return ConsultaElasticSearchQtde(paramatro, "prodsense", campo, campo == "ncm" ? URL_PROD_SENSE : null);
         }
-        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros)
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, string url)
         {
-            return ConsultaElasticSearchQtde(paramatro, type_document, campo, qtde_registros, "documents");
+            return ConsultaElasticSearchQtde(paramatro, type_document, campo, 50, url);
         }
-        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string index)
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string url)
+        {
+            return ConsultaElasticSearchQtde(paramatro, type_document, campo, qtde_registros, "documents", url);
+        }
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string index, string url)
         {
             var node = new Uri("http://104.197.50.109:9400");
 
@@ -59,28 +66,36 @@ namespace TradeAdvisor.Models
 
                 resumoBusca.qtde = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
 
+                resumoBusca.url = url;
+
                 listResultados.Add(resumoBusca);
             }
 
             return listResultados;
         }
-        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string campo)
+
+
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumDIValor(string paramatro, string campo)
         {
-            return ConsultaElasticSearchSumValor(paramatro, "prodsense", campo);
+            return ConsultaElasticSearchSumValor(paramatro, "di", campo, URL_DI);
         }
-        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo)
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumProdSenseValor(string paramatro, string campo)
         {
-            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, 50);
+            return ConsultaElasticSearchSumValor(paramatro, "prodsense", campo, campo == "ncm" ? URL_PROD_SENSE : null);
         }
-        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros)
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, string url)
         {
-            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, "documents");
+            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, 50, url);
         }
-        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index)
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string url)
         {
-            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, index, "CIF");
+            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, "documents", url);
         }
-        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string campo_sum)
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string url)
+        {
+            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, index, "CIF", url);
+        }
+        public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string campo_sum, string url)
         {
             var node = new Uri("http://104.197.50.109:9400");
 
@@ -119,11 +134,50 @@ namespace TradeAdvisor.Models
 
                 resumoBusca.valor = (long)((ValueMetric)listKeyItem.Aggregations["valor"]).Value;
 
+                resumoBusca.url = url;
+
                 listResultados.Add(resumoBusca);
             }
 
             return listResultados;
         }
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchCountDocumentos(string paramatro)
+        {
+            return ConsultaElasticSearchCountDocumentos(paramatro, "documents");
+        }
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchCountDocumentos(string paramatro, string index)
+        {
+            var node = new Uri("http://104.197.50.109:9400");
+
+            var settings = new ConnectionSettings(node);
+
+            var client = new ElasticClient(settings);
+
+            var filterQuery = Query<DIPOCO>.Terms("tx_descricaoMercadoria", paramatro);
+
+            var resultDI = client.Count<DIPOCO>(c => c
+                .Index(index)
+                .Type("di")
+                .Query(q => q
+                    .Match(m => m
+                        .OnField("tx_descricaoMercadoria")
+                        .Query(paramatro)
+                    )
+                )
+            );
+
+            List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
+
+            AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+            resumoBusca.name = "DI";
+            resumoBusca.qtde = resultDI.Count;
+
+            listResultados.Add(resumoBusca);
+
+
+            return listResultados;
+        }
+
 
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();
