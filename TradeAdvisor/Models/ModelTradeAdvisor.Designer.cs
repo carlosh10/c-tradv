@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Anderson Anschau\Projetos Pinho\TradeAdvisor - C# - Git\TradeAdvisor\Models\ModelTradeAdvisor.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\71133915\Desktop\Projetos\Comex.Guru\Projetos\tradeadvisor c#\TradeAdvisor\Models\ModelTradeAdvisor.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

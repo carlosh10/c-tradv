@@ -23,5 +23,24 @@ namespace TradeAdvisor.Models
             return (List<CE_POCO>)searchResults.Documents;
 
         }
+        public static String ConsultaEmpresaCEPorCnpj(string cnpj)
+        {
+
+            using (mercanteEntities conexao = new mercanteEntities())
+            {
+
+                try
+                {
+                    var empresa = conexao.tb_ce_mercante.Where(c => c.cdconsignatario == cnpj).FirstOrDefault();
+                    if (empresa != null)
+                        return empresa.nmconsignatario.ToString();
+                    return "";
+                }
+                catch (Exception x)
+                {
+                    throw new Exception("Erro ao buscar empresa por CNPJ!");
+                }
+            }
+        }
     }
 }

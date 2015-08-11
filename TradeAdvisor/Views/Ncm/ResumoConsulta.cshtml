@@ -373,6 +373,7 @@
                                 <div class="card_style">
                                     <!--//grafico 2 aba 2-->
                                     <div id="documentos_2" class="graficos_responsivos"></div>
+                                    <div id="table_graf"></div>
                                 </div>
                             </div>
 
@@ -680,8 +681,11 @@
 
         RequestPostGraficoBarra('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorMesAnoQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_4', 'Quantidade de Produtos Importados x Período');
 
+        RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchDocCompanyQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade de Documentos Total x Empresa', true);
 
-        RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosDIQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade', true);
+        RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosDIQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_2', 'Quantidade de Documentos x Tipo', true);
+
+        RequestPostGraficoBarraStacked('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchCountQtdeDocuments', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_3', 'Quantidade de Documentos x Período');
     });
 
 </script>
@@ -749,6 +753,99 @@
                 alert("Houve um erro ao cerregar dados para o gráfico.");
             }
         });
+    }
+
+    function inserPosicaoCorreta(obj, name, novovalor, data) {
+        var pos = name.indexOf(obj);
+        var datatemp = [];
+
+        if (pos > -1 && data.length > 0 && data.length >= pos && data[pos] == 0) {
+            for (var i in data) {
+                if (i == pos) {
+                    datatemp.push(novovalor);
+                } else
+                    datatemp.push(data[i]);
+            }
+            data = datatemp;
+        } else
+            data.push(novovalor);
+        return data;
+
+    }
+    function RequestPostGraficoBarraStacked(url, parametros, nm_grafico, text) {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: url,
+            data: parametros,
+            dataType: "json",
+            success: function (Result) {
+                Result = Result.d;
+                var dataGraf = [];
+                var categoriaGraf = [];
+                var stackedGraf = [];
+                var res2 = Result;
+                var name = [];
+                var data = [];
+                for (var i in Result) {
+                    categoriaGraf.push(Result[i].eventdate);
+                    var namesub = [];
+                    var datasub = [];
+                    for (var x in res2) {
+                        if (res2[x].eventdate == Result[i].eventdate) {
+                            if (!contains(namesub, res2[x].name)) {
+                                namesub.push(res2[x].name);
+                            }
+                            datasub = inserPosicaoCorreta(res2[x].name, namesub, res2[x].qtde, datasub);
+                        }
+                        else {
+                            if (!contains(namesub, res2[x].name)) {
+                                namesub.push(res2[x].name);
+                                datasub.push(0);
+                            }
+                        }
+                    }
+
+                    if (namesub.length > 0)
+                        name.push(namesub);
+                    if (datasub.length > 0)
+                        data.push(datasub);
+                }
+
+                var resfull = [];
+                for (var a in categoriaGraf) {
+                    resfull[categoriaGraf]
+
+                }
+                //converting data to plot
+                for (var i in name[0]) {
+                    var serie = {};
+                    serie.name = name[0][i];
+                    var tempdata = [];
+                    for (var y in data) {
+                        tempdata.push(data[y][i]);
+                    }
+                    serie.data = tempdata;
+                    dataGraf.push(serie);
+                }
+                DreawChartBarraStacked(categoriaGraf, dataGraf, nm_grafico, text, '', "Quantidade");
+            },
+            error: function (Result) {
+                alert("Houve um erro ao cerregar dados para o gráfico.");
+            }
+        });
+    }
+
+    function contains(lista, obj) {
+        if (lista.length == 0) {
+            return false;
+        }
+        for (var i = 0; i < lista.length; i++) {
+            if (lista[i] === obj) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function DreawChartTreemap(series, nm_grafico, text, simbolo) {
@@ -840,6 +937,64 @@
                 name: nm_coluna,
                 data: series
             }]
+        });
+    }
+
+    function DreawChartBarraStacked(categorias, serievalues, nm_grafico, text, simbolo, nm_coluna) {
+        $('#' + nm_grafico).highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: text
+            },
+            xAxis: {
+                categories: categorias
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: nm_coluna
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.x + '</b><br/>' +
+                        this.series.name + ': ' + simbolo + Highcharts.numberFormat(this.y, 0) + '<br/>' +
+                        'Total: ' + simbolo + Highcharts.numberFormat(this.point.stackTotal, 0);
+                }
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white',
+                        style: {
+                            textShadow: '0 0 3px black'
+                        }
+                    }
+                }
+            },
+            series: serievalues
         });
     }
 </script>

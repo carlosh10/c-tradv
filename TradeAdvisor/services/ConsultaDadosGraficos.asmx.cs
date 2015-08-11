@@ -68,5 +68,17 @@ namespace TradeAdvisor.services
         {
             return PRODUTO_SENSIVEIS_DAO.ConsultaDIQtde(descricao);
         }
+
+        [WebMethod]
+        public List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompanyQtde(string descricao)
+        {
+            return ElasticSearchDAO.ConsultaElasticSearchDocCompany(descricao);
+        }
+        
+        [WebMethod]
+        public List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string descricao)
+        {
+            return ElasticSearchDAO.ConsultaElasticSearchCountQtdeDocuments(descricao);
+        }
     }
 }

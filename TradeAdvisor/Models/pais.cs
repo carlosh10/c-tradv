@@ -15,7 +15,7 @@ namespace TradeAdvisor.Models
     public partial class pais
     {
         public int id { get; set; }
-        public Nullable<int> pk_pais { get; set; }
+        public Nullable<Int64> pk_pais { get; set; }
         public string nome_pais { get; set; }
         public System.DateTime created_at { get; set; }
         public System.DateTime updated_at { get; set; }

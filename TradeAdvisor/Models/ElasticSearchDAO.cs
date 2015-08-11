@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Nest;
 
 namespace TradeAdvisor.Models
 {
@@ -171,13 +172,133 @@ namespace TradeAdvisor.Models
             AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
             resumoBusca.name = "DI";
             resumoBusca.qtde = resultDI.Count;
-
             listResultados.Add(resumoBusca);
 
+            //Consultando CE
+            filterQuery = Query<CE_POCO>.Terms("txmercadoria", paramatro);
+            var resultCE = client.Count<CE_POCO>(c => c
+                                            .Index(index)
+                                            .Type("ce")
+                                            .Query(q => q
+                                                .Match(m => m
+                                                    .OnField("txmercadoria")
+                                                    .Query(paramatro)
+                                                )
+                                            )
+                                        );
+            resumoBusca = new AgregationsPorBucketQtde();
+            resumoBusca.name = "CE";
+            resumoBusca.qtde = resultCE.Count;
+            listResultados.Add(resumoBusca);
 
             return listResultados;
         }
 
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
+        {
+            var node = new Uri("http://104.197.50.109:9400");
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
+                                                                        .Query(parametro)
+                                                                        .OnFields(
+                                                                            f => f.tx_descricaoMercadoria,
+                                                                            f => f.txmercadoria)
+                                                                                );
+            var result = client.Search<AgregationsPorBucketQtde>(s => s
+                                                                 .Index("documents")
+                                                                .SearchType(Elasticsearch.Net.SearchType.Count)
+                                                                .AllTypes()
+                                                                .Query(filterQuery)
+                                                                .Size(50)
+                                                                 .Aggregations(a => a
+                                                                                .Terms("DI", terDI => terDI
+                                                                                        .Field("tx_cnpj")
+                                                                                )
+                                                                                .Terms("CE", terCE => terCE
+                                                                                        .Field("cdconsignatario")
+                                                                                )
+                                                                              )
+                                                                 );
+
+
+            List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
+
+
+            //DI Values
+            var listBucketsDI = (Bucket)result.Aggregations["DI"];
+
+            foreach (KeyItem listKeyItem in listBucketsDI.Items)
+            {
+                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+                //incluir aqui a busca pelo nome da empresa
+                resumoBusca.name = DIDAO.ConsultaEmpresaDIPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+                resumoBusca.qtde = listKeyItem.DocCount;
+
+                listResultados.Add(resumoBusca);
+            }
+            //CE Values
+            var listBucketsCE = (Bucket)result.Aggregations["CE"];
+
+            foreach (KeyItem listKeyItem in listBucketsCE.Items)
+            {
+                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+                resumoBusca.name = CEDAO.ConsultaEmpresaCEPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+                resumoBusca.qtde = listKeyItem.DocCount;
+
+                listResultados.Add(resumoBusca);
+            }
+            return listResultados;
+        }
+
+
+        public static List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string paramatro)
+        {
+            var node = new Uri("http://104.197.50.109:9400");
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+
+            List<AgregationsPorBucketQtdexDate> listResultados = new List<AgregationsPorBucketQtdexDate>();
+
+            //DI
+            listResultados.AddRange(searchQtdxDate(client, "tx_descricaoMercadoria", paramatro, "di", "dt_registro"));
+            listResultados.AddRange(searchQtdxDate(client, "txmercadoria", paramatro, "ce", "dtemissaoce"));
+            
+            return listResultados;
+        }
+
+
+        private static List<AgregationsPorBucketQtdexDate> searchQtdxDate(ElasticClient client, string filter_field, string parameter, string doc_type, string date_field)
+        {
+            List<AgregationsPorBucketQtdexDate> listResultados = new List<AgregationsPorBucketQtdexDate>();
+            var filterQuery = Query<ES_DOCUMENTS_POCO>.Terms(filter_field, parameter);
+
+            var result = client.Search<AgregationsPorBucketQtdexDate>(s => s
+                .Index("documents")
+                .Type(doc_type)
+                .SearchType(Elasticsearch.Net.SearchType.Count)
+                .Query(filterQuery)
+                .Aggregations(a => a
+                    .DateHistogram("name", dh => dh
+                        .Field(date_field)
+                        .Interval("month")
+                        .Format("yyyy-mm")
+                    )
+                )
+            );
+
+            var listBuckets = (Bucket)result.Aggregations["name"];
+            foreach (HistogramItem listKeyItem in listBuckets.Items)
+            {
+                AgregationsPorBucketQtdexDate resumoBusca = new AgregationsPorBucketQtdexDate();
+                resumoBusca.name = doc_type.ToUpper();
+                resumoBusca.qtde = listKeyItem.DocCount;
+                resumoBusca.eventdate = String.Format("{0:MM-yyyy}", listKeyItem.Date);
+
+                listResultados.Add(resumoBusca);
+            }
+            return listResultados;
+        }
 
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();

@@ -141,6 +141,7 @@
     <Compile Include="Models\estados.cs">
       <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ES_DOCUMENTS_POCO.cs" />
     <Compile Include="Models\ModelDI.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

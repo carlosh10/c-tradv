@@ -40,6 +40,9 @@ namespace TradeAdvisor.Models
         }
 
 
+
+
+ 
         public static List<AgregationsPorBucketQtde> ConsultaProdutosSensiveisPorMesAnoQtde(string paramatro)
         {
             return ElasticSearchDAO.ConsultaElasticSearchProdSenseQtde(paramatro, "mes_ano");

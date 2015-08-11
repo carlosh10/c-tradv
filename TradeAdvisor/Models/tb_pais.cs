@@ -10,7 +10,7 @@ namespace TradeAdvisor.Models
     {
         [Key]
         [StringLength(4)]
-        public string pk_pais { get; set; }
+        public Int64 pk_pais { get; set; }
 
         [Required]
         [StringLength(50)]

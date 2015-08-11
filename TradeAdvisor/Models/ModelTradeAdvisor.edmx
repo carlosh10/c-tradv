@@ -47,7 +47,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="pk_pais" Type="int" />
+          <Property Name="pk_pais" Type="bigint" />
           <Property Name="nome_pais" Type="nvarchar" MaxLength="4000" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="updated_at" Type="datetime" Nullable="false" />
@@ -193,7 +193,7 @@ warning 6002: The table/view 'tradeadvisor.dbo.schema_migrations' does not have 
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="pk_pais" Type="Int32" />
+          <Property Name="pk_pais" Type="Int64" />
           <Property Name="nome_pais" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />

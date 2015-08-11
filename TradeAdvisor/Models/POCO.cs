@@ -17,6 +17,12 @@ namespace TradeAdvisor.Models
         public float valor { get; set; }
         public string url { get; set; }
     }
+    public class AgregationsPorBucketQtdexDate
+    {
+        public string name { get; set; }
+        public long qtde { get; set; }
+        public string eventdate { get; set; }
+    }
     public class DIPOCO
     {
         public long pk_di { get; set; }
