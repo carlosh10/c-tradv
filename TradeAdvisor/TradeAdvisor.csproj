@@ -133,6 +133,7 @@
     <Compile Include="Models\AccountLoginModel.cs" />
     <Compile Include="Models\CEDAO.cs" />
     <Compile Include="Models\CEPOCO.cs" />
+    <Compile Include="Models\ApplicationValues.cs" />
     <Compile Include="Models\DIDAO.cs" />
     <Compile Include="Models\ElasticSearchDAO.cs" />
     <Compile Include="Models\empresas.cs">

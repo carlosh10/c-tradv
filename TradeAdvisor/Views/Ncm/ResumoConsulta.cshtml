@@ -1,16 +1,21 @@
-﻿<section id="nav_abas">
+﻿@using TradeAdvisor.Models
+<section id="nav_abas">
     <div class="gray_back">
 
         <div class="navegacao_abas" data-uk-sticky="{top:-80, animation: 'uk-animation-slide-top'}">
             <div class="uk-container uk-container-center">
                 <ul data-uk-switcher="{connect:'#my-id', animation: 'uk-animation-fade, uk-animation-slide-left'}">
                     <li><a href="">Produtos Importados</a></li>
-                    <li><a href="">Empresas</a></li>
                     <li><a href="">Documentos</a></li>
+                    @*<li><a href="">Empresas</a></li>
                     <li><a href="">NCMs</a></li>
-                    <li><a href="">Pessoas</a></li>
+                    <li><a href="">Pessoas</a></li>*@
                 </ul>
+                <div class="uk-container uk-container-center">
+                    <h3>Teste</h3>
+                </div>
             </div>
+
         </div>
 
         <div class="uk-container uk-container-center">
@@ -48,7 +53,7 @@
 
 
                             <div class="uk-width-small-1-1">
-                                <div class="transparent_card">
+                                @*<div class="transparent_card">
 
                                     <!--//filtro NCM's-->
                                     <div class="uk-grid uk-grid-small">
@@ -101,8 +106,8 @@
                                         </div>
                                     </header>
 
-                                    @*@foreach (var ncm in @Model.Select(c => c.ncm).Distinct().ToList())
-                                        {*@
+                                    @foreach (var ncm in @Model.Select(c => c.ncm).Distinct().ToList())
+                                        {@
                                     <div class="uk-width-small-1-1">
                                         <div class="card_style uk-grid uk-grid-small">
 
@@ -142,7 +147,7 @@
                                             </div>
 
 
-                                            @*<div id="mais_info_filter" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                            <div id="mais_info_filter" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
                                                     <div class="uk-width-small-3-5">
                                                         <span class="uk-visible-small title_card">
                                                             Descrição
@@ -165,14 +170,14 @@
                                                         xx
                                                     </div>
 
-                                                </div>*@
+                                                </div>
 
                                         </div>
 
                                     </div>
 
 
-                                </div>
+                                </div>*@
 
 
 
@@ -228,12 +233,12 @@
                                 <div class="uk-width-small-1-1">
                                     <div class="card_style">
 
-                                        <div class="uk-width-1-1 text_right">
+                                        @*<div class="uk-width-1-1 text_right">
                                             <form class="uk-form">
                                                 De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                                                 a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                                             </form>
-                                        </div>
+                                        </div>*@
                                         <!--//grafico 4 aba 4-->
                                         <div id="produtos_4" class="graficos_responsivos"></div>
                                     </div>
@@ -243,8 +248,45 @@
                         </div>
                 </li>
 
-                <!--Empresas-->
+                <!--Documentos-->
                 <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 1 aba 2-->
+                                    <div id="documentos_1" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 2 aba 2-->
+                                    <div id="documentos_2" class="graficos_responsivos"></div>
+                                    <div id="table_graf"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    @*<div class="uk-width-1-1 text_right">
+                                        <form class="uk-form">
+                                            De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                            a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                        </form>
+                                    </div>*@
+                                    <!--//grafico 3 aba 2-->
+                                    <div id="documentos_3" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!--Empresas-->
+                @*<li>
                     <div class="pading_block">
                         <div class="uk-grid uk-grid-small" data-uk-grid="{gutter: 20}">
 
@@ -355,47 +397,10 @@
 
                         </div>
                     </div>
-                </li>
-
-                <!--Documentos-->
-                <li>
-                    <div class="pading_block">
-                        <div class="uk-grid uk-grid-small">
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 1 aba 2-->
-                                    <div id="documentos_1" class="graficos_responsivos"></div>
-                                </div>
-                            </div>
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 2 aba 2-->
-                                    <div id="documentos_2" class="graficos_responsivos"></div>
-                                    <div id="table_graf"></div>
-                                </div>
-                            </div>
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <div class="uk-width-1-1 text_right">
-                                        <form class="uk-form">
-                                            De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                                            a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                                        </form>
-                                    </div>
-                                    <!--//grafico 3 aba 2-->
-                                    <div id="documentos_3" class="graficos_responsivos"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
+                </li>*@
 
                 <!--NCM's-->
-                <li>
+                @*<li>
                     <div class="pading_block">
                         <div class="uk-grid uk-grid-small">
 
@@ -434,8 +439,8 @@
                                 </div>
                             </header>
 
-                            @*@foreach (var ncm in @Model.Select(c => c.ncm).Distinct())
-                                {*@
+                            @foreach (var ncm in @Model.Select(c => c.ncm).Distinct())
+                                {
                             <div class="uk-width-small-1-1">
                                 <div class="card_style uk-grid uk-grid-small">
                                     <div class="uk-width-small-2-10">
@@ -500,7 +505,7 @@
 
 
 
-                            @*<div class="uk-width-small-1-1">
+                            <div class="uk-width-small-1-1">
                                     <div class="card_style uk-grid uk-grid-small">
                                         <div class="uk-width-small-2-10">
                                             <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
@@ -564,19 +569,19 @@
                                         </div>
 
                                     </div>
-                                </div>*@
+                                </div>
 
 
 
                         </div>
                     </div>
-                </li>
+                </li>*@
 
 
 
 
                 <!--Pessoas-->
-                <li>
+                @*<li>
                     <div class="pading_block">
                         <div class="uk-grid uk-grid-small">
 
@@ -658,7 +663,7 @@
                         </div>
 
                     </div>
-                </li>
+                </li>*@
             </ul>
 
         </div>
