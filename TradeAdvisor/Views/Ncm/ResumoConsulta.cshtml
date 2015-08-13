@@ -11,9 +11,10 @@
                     <li><a href="">NCMs</a></li>
                     <li><a href="">Pessoas</a></li>*@
                 </ul>
-                <div class="uk-container uk-container-center">
-                    <h3>Teste</h3>
-                </div>
+                <li><a id="searchStringHeader" style="font-size:14px;"><p><strong>Busca: </strong></p></a></li>
+                <li><a id="searchProdsenseCountHeader" style="font-size:14px;"><p><strong>Total de NCM´s: </strong></p></a></li>
+                <li><a id="searchDICountHeader" style="font-size:14px;"><p><strong>Total de DI´s: </strong></p></a></li>
+                <li><a id="searchCECountHeader" style="font-size:14px;"><p><strong>Total de CE´s: </strong></p></a></li>
             </div>
 
         </div>
@@ -253,12 +254,12 @@
                     <div class="pading_block">
                         <div class="uk-grid uk-grid-small">
 
-                            <div class="uk-width-small-1-1">
+                            @*<div class="uk-width-small-1-1">
                                 <div class="card_style">
                                     <!--//grafico 1 aba 2-->
                                     <div id="documentos_1" class="graficos_responsivos"></div>
                                 </div>
-                            </div>
+                            </div>*@
 
                             <div class="uk-width-small-1-1">
                                 <div class="card_style">
@@ -674,22 +675,16 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        updateSearchHeader('/services/ConsultaDadosGraficos.asmx/AtualizaBuscaHeader', '{"descricao":"@Request["descricao_detalhada_produto"]"}');
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorNcmValor', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_1_1', 'Valor', false);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorNcmQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_1_2', 'Quantidade', true);
-
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisAquisicaoValor', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_2_1', 'Valor', false);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisAquisicaoQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_2_2', 'Quantidade', true);
-
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisOrigemValor', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_3_1', 'Valor', false);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisOrigemQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_3_2', 'Quantidade', true);
-
-
         RequestPostGraficoBarra('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorMesAnoQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_4', 'Quantidade de Produtos Importados x Período');
-
-        RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchDocCompanyQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade de Documentos Total x Empresa', true);
-
+        //RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchDocCompanyQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade de Documentos Total x Empresa', true);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosDIQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_2', 'Quantidade de Documentos x Tipo', true);
-
         RequestPostGraficoBarraStacked('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchCountQtdeDocuments', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_3', 'Quantidade de Documentos x Período');
     });
 
@@ -731,7 +726,7 @@
                     DreawChartTreemap(dataGrafNcm, nm_grafico, text, '$');
             },
             error: function (Result) {
-                alert("Houve um erro ao cerregar dados para o gráfico.");
+                console.log("Houve um erro ao cerregar dados para o gráfico.");
             }
         });
     }
@@ -755,7 +750,7 @@
                 DreawChartBarra(categoriaGraf, dataGraf, nm_grafico, text, '', 'Quantidade');
             },
             error: function (Result) {
-                alert("Houve um erro ao cerregar dados para o gráfico.");
+                console.log("Houve um erro ao cerregar dados para o gráfico.");
             }
         });
     }
@@ -836,7 +831,7 @@
                 DreawChartBarraStacked(categoriaGraf, dataGraf, nm_grafico, text, '', "Quantidade");
             },
             error: function (Result) {
-                alert("Houve um erro ao cerregar dados para o gráfico.");
+                console.log("Houve um erro ao cerregar dados para o gráfico.");
             }
         });
     }
@@ -868,6 +863,7 @@
                 type: "treemap",
                 layoutAlgorithm: 'squarified',
                 point: {
+                    cursor: 'pointer',
                     events: {
                         click: function (e) {
                             var clicked = this;
@@ -1000,6 +996,28 @@
                 }
             },
             series: serievalues
+        });
+    }
+    function updateSearchHeader(url, parametros) {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: url,
+            data: parametros,
+            dataType: "json",
+            success: function (Result) {
+                Result = Result.d;
+                console.log('Result=> ' + Result);
+                if (Result.split('|').length > 0) {
+                    document.getElementById('searchStringHeader').innerHTML = '<p><strong>Busca: </strong>' + Result.split('|')[0] + '</p>';
+                    document.getElementById('searchProdsenseCountHeader').innerHTML = '<p><strong>Total de NCM´s: </strong>' + Result.split('|')[1] + '</p>';
+                    document.getElementById('searchDICountHeader').innerHTML = '<p><strong>Total de DI´s: </strong>' + Result.split('|')[2] + '</p>';
+                    document.getElementById('searchCECountHeader').innerHTML = '<p><strong>Total de CE´s: </strong>' + Result.split('|')[3] + '</p>';
+                }
+            },
+            error: function (Result) {
+                console.log("Houve um erro ao cerregar dados do Header.");
+            }
         });
     }
 </script>

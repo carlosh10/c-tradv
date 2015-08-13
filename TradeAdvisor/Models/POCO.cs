@@ -8,7 +8,7 @@ namespace TradeAdvisor.Models
     public class AgregationsPorBucketQtde
     {
         public string name { get; set; }
-        public long qtde { get; set; }
+        public Nullable<long> qtde { get; set; }
         public string url { get; set; }
     }
     public class AgregationsPorBucketValor

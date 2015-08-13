@@ -80,5 +80,18 @@ namespace TradeAdvisor.services
         {
             return ElasticSearchDAO.ConsultaElasticSearchCountQtdeDocuments(descricao);
         }
+
+        [WebMethod]
+        public List<long> ConsultaElasticSearchListDocumentos(string descricao, string docType)
+        {
+            return ElasticSearchDAO.ConsultaElasticSearchListDocumentos(descricao, docType);
+        }
+
+        [WebMethod]
+        public string AtualizaBuscaHeader(string descricao)
+        {
+            return ElasticSearchDAO.AtualizaBuscaHeader(descricao);
+        }
+       
     }
 }

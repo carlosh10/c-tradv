@@ -133,7 +133,6 @@
     <Compile Include="Models\AccountLoginModel.cs" />
     <Compile Include="Models\CEDAO.cs" />
     <Compile Include="Models\CEPOCO.cs" />
-    <Compile Include="Models\ApplicationValues.cs" />
     <Compile Include="Models\DIDAO.cs" />
     <Compile Include="Models\ElasticSearchDAO.cs" />
     <Compile Include="Models\empresas.cs">
@@ -443,7 +442,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>7529</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:7528/</IISUrl>
+          <IISUrl>http://localhost:80/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

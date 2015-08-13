@@ -16,7 +16,7 @@ namespace TradeAdvisor.Models
 
             var client = new ElasticClient(settings);
 
-            var filterQuery = Query<CE_POCO>.Terms("tx_cnpj", paramatro);
+            var filterQuery = Query<CE_POCO>.Terms("tx_cnpj", paramatro.ToLower());
 
             var searchResults = client.Search<CE_POCO>(s => s.Index("doc2").Type("ce").Query(filterQuery).Take(20));
 

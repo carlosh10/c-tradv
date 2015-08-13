@@ -12,13 +12,18 @@ namespace TradeAdvisor.Models
     {
         public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
         public const string URL_DI = null;
+        public const string INDEX = "documents";
+        public const string DI = "di";
+        public const string CE = "ce";
+        public const string PRODSENSE = "prodsense";
+
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDIQtde(string paramatro, string campo)
         {
-            return ConsultaElasticSearchQtde(paramatro, "di", campo, URL_DI);
+            return ConsultaElasticSearchQtde(paramatro, DI, campo, URL_DI);
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchProdSenseQtde(string paramatro, string campo)
         {
-            return ConsultaElasticSearchQtde(paramatro, "prodsense", campo, campo == "ncm" ? URL_PROD_SENSE : null);
+            return ConsultaElasticSearchQtde(paramatro, PRODSENSE, campo, campo == "ncm" ? URL_PROD_SENSE : null);
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, string url)
         {
@@ -26,18 +31,14 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string url)
         {
-            return ConsultaElasticSearchQtde(paramatro, type_document, campo, qtde_registros, "documents", url);
+            return ConsultaElasticSearchQtde(paramatro, type_document, campo, qtde_registros, INDEX, url);
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string index, string url)
         {
             var node = new Uri("http://104.197.50.109:9400");
-
             var settings = new ConnectionSettings(node);
-
             var client = new ElasticClient(settings);
-
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro);
-
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var result = client.Search<AgregationsPorBucketQtde>(s => s
                 .Index(index)
                 .Type(type_document)
@@ -64,11 +65,8 @@ namespace TradeAdvisor.Models
             {
                 AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
                 resumoBusca.name = listKeyItem.Key;
-
                 resumoBusca.qtde = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
-
                 resumoBusca.url = url;
-
                 listResultados.Add(resumoBusca);
             }
 
@@ -78,11 +76,11 @@ namespace TradeAdvisor.Models
 
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumDIValor(string paramatro, string campo)
         {
-            return ConsultaElasticSearchSumValor(paramatro, "di", campo, URL_DI);
+            return ConsultaElasticSearchSumValor(paramatro, DI, campo, URL_DI);
         }
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumProdSenseValor(string paramatro, string campo)
         {
-            return ConsultaElasticSearchSumValor(paramatro, "prodsense", campo, campo == "ncm" ? URL_PROD_SENSE : null);
+            return ConsultaElasticSearchSumValor(paramatro, PRODSENSE, campo, campo == "ncm" ? URL_PROD_SENSE : null);
         }
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, string url)
         {
@@ -90,7 +88,7 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string url)
         {
-            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, "documents", url);
+            return ConsultaElasticSearchSumValor(paramatro, type_document, campo, qtde_registros, INDEX, url);
         }
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string url)
         {
@@ -99,13 +97,9 @@ namespace TradeAdvisor.Models
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string campo_sum, string url)
         {
             var node = new Uri("http://104.197.50.109:9400");
-
             var settings = new ConnectionSettings(node);
-
             var client = new ElasticClient(settings);
-
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro);
-
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var result = client.Search<AgregationsPorBucketValor>(s => s
                 .Index(index)
                 .Type(type_document)
@@ -132,11 +126,8 @@ namespace TradeAdvisor.Models
             {
                 AgregationsPorBucketValor resumoBusca = new AgregationsPorBucketValor();
                 resumoBusca.name = listKeyItem.Key;
-
                 resumoBusca.valor = (long)((ValueMetric)listKeyItem.Aggregations["valor"]).Value;
-
                 resumoBusca.url = url;
-
                 listResultados.Add(resumoBusca);
             }
 
@@ -144,25 +135,20 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchCountDocumentos(string paramatro)
         {
-            return ConsultaElasticSearchCountDocumentos(paramatro, "documents");
+            return ConsultaElasticSearchCountDocumentos(paramatro, INDEX);
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchCountDocumentos(string paramatro, string index)
         {
             var node = new Uri("http://104.197.50.109:9400");
-
             var settings = new ConnectionSettings(node);
-
             var client = new ElasticClient(settings);
-
-            var filterQuery = Query<DIPOCO>.Terms("tx_descricaoMercadoria", paramatro);
-
             var resultDI = client.Count<DIPOCO>(c => c
                 .Index(index)
-                .Type("di")
+                .Type(DI)
                 .Query(q => q
                     .Match(m => m
                         .OnField("tx_descricaoMercadoria")
-                        .Query(paramatro)
+                        .Query(paramatro.ToLower())
                     )
                 )
             );
@@ -170,24 +156,24 @@ namespace TradeAdvisor.Models
             List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
 
             AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
-            resumoBusca.name = "DI";
+            resumoBusca.name = DI;
             resumoBusca.qtde = resultDI.Count;
             listResultados.Add(resumoBusca);
 
             //Consultando CE
-            filterQuery = Query<CE_POCO>.Terms("txmercadoria", paramatro);
             var resultCE = client.Count<CE_POCO>(c => c
                                             .Index(index)
-                                            .Type("ce")
+                                            .Type(CE)
                                             .Query(q => q
                                                 .Match(m => m
                                                     .OnField("txmercadoria")
-                                                    .Query(paramatro)
+                                                    .Query(paramatro.ToLower())
                                                 )
                                             )
                                         );
+
             resumoBusca = new AgregationsPorBucketQtde();
-            resumoBusca.name = "CE";
+            resumoBusca.name = CE;
             resumoBusca.qtde = resultCE.Count;
             listResultados.Add(resumoBusca);
 
@@ -200,7 +186,7 @@ namespace TradeAdvisor.Models
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
-                                                                        .Query(parametro)
+                                                                        .Query(parametro.ToLower())
                                                                         .OnFields(
                                                                             f => f.tx_descricaoMercadoria,
                                                                             f => f.txmercadoria)
@@ -261,8 +247,8 @@ namespace TradeAdvisor.Models
             List<AgregationsPorBucketQtdexDate> listResultados = new List<AgregationsPorBucketQtdexDate>();
 
             //DI
-            listResultados.AddRange(searchQtdxDate(client, "tx_descricaoMercadoria", paramatro, "di", "dt_registro"));
-            listResultados.AddRange(searchQtdxDate(client, "txmercadoria", paramatro, "ce", "dtemissaoce"));
+            listResultados.AddRange(searchQtdxDate(client, "tx_descricaoMercadoria", paramatro, DI, "dt_registro"));
+            listResultados.AddRange(searchQtdxDate(client, "txmercadoria", paramatro, CE, "dtemissaoce"));
             
             return listResultados;
         }
@@ -271,10 +257,10 @@ namespace TradeAdvisor.Models
         private static List<AgregationsPorBucketQtdexDate> searchQtdxDate(ElasticClient client, string filter_field, string parameter, string doc_type, string date_field)
         {
             List<AgregationsPorBucketQtdexDate> listResultados = new List<AgregationsPorBucketQtdexDate>();
-            var filterQuery = Query<ES_DOCUMENTS_POCO>.Terms(filter_field, parameter);
+            var filterQuery = Query<ES_DOCUMENTS_POCO>.Terms(filter_field, parameter.ToLower());
 
             var result = client.Search<AgregationsPorBucketQtdexDate>(s => s
-                .Index("documents")
+                .Index(INDEX)
                 .Type(doc_type)
                 .SearchType(Elasticsearch.Net.SearchType.Count)
                 .Query(filterQuery)
@@ -299,6 +285,91 @@ namespace TradeAdvisor.Models
             }
             return listResultados;
         }
+
+        public static List<long> ConsultaElasticSearchListDocumentos(string paramatro, string docType)
+        {
+            var client = new ElasticClient(new ConnectionSettings(new Uri("http://104.197.50.109:9400")));
+            List<long>  listResult  = new List<long>();
+            var pk = "";
+            var searchField = "";
+            if (docType.Equals(DI))
+            {
+                pk = "pk_di";
+                searchField = "tx_descricaoMercadoria";
+            }
+            else if (docType.Equals(CE))
+            {
+                pk = "pk_mercadoria";
+                searchField = "txmercadoria";
+            }
+
+            var result = client.Search<dynamic>(c => c
+                                    .Index(INDEX)
+                                    .Type(docType.ToLower())
+                                    .Size(10000)
+                                    .Fields(pk)
+                                    .Query(q => q
+                                        .Match(m => m
+                                            .OnField(searchField)
+                                            .Query(paramatro)
+                                        )
+                                    )
+                                );
+            foreach (var doc in result.FieldSelections)
+                listResult.Add(doc.FieldValues<long>(pk));
+            return listResult;
+        }
+
+        public static string AtualizaBuscaHeader(string parametro)
+        {
+            var node = new Uri("http://104.197.50.109:9400");
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            String result = parametro;
+
+            var seResult = client.Count<dynamic>(c => c
+                                            .Index(INDEX)
+                                            .Type(PRODSENSE)
+                                            .Query(q => q
+                                                .Match(m => m
+                                                    .OnField("descricao_detalhada_produto")
+                                                    .Query(parametro.ToLower())
+                                                )
+                                            )
+                                        );
+
+            result += "|" + seResult.Count;
+
+            seResult = client.Count<dynamic>(c => c
+                                            .Index(INDEX)
+                                            .Type(DI)
+                                            .Query(q => q
+                                                .Match(m => m
+                                                    .OnField("tx_descricaoMercadoria")
+                                                    .Query(parametro.ToLower())
+                                                )
+                                            )
+                                        );
+
+            result += "|" + seResult.Count;
+
+            //Consultando CE
+            seResult = client.Count<dynamic>(c => c
+                                            .Index(INDEX)
+                                            .Type(CE)
+                                            .Query(q => q
+                                                .Match(m => m
+                                                    .OnField("txmercadoria")
+                                                    .Query(parametro.ToLower())
+                                                )
+                                            )
+                                        );
+
+            result += "|" + seResult.Count;
+
+            return result;
+        }
+
 
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();
