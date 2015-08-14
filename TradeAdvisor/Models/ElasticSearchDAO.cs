@@ -10,7 +10,7 @@ namespace TradeAdvisor.Models
 {
     public class ElasticSearchDAO
     {
-        public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
+        public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
         public const string URL_DI = null;
         public const string INDEX = "documents_index";
         public const string DI = "di";

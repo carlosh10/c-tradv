@@ -9,7 +9,7 @@ using TradeAdvisor.Models;
 
 namespace TradeAdvisor.Controllers
 {
-     [AllowAnonymous]
+    [AllowAnonymous]
     public class NcmController : Controller
     {
         public class JsonModel
@@ -57,6 +57,10 @@ namespace TradeAdvisor.Controllers
                 Response.Redirect(@Url.Action("Index", "Home"));
                 return null;
             }
+        }
+        public ActionResult DetalhesImportacao()
+        {
+            return View();
         }
 
         public ActionResult ResumoConsultaPorNCM(string descricao, string ncm)
