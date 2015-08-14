@@ -32,7 +32,7 @@
                                         <div style="float: left;font-size:24px;width: 150px;padding-right: 0px;color: #444444;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: normal;">
                                             Total de NCMs
                                         </div>
-                                        <div id="ncmDescID" style="float: right;margin: 5px;width: 60%;height: 50px;padding-top: 0px"></div>                                       
+                                        <div id="ncmDescID" style="float: right;margin: 5px;width: 60%;height: 50px;padding-top: 0px;font-size:20px;color: #0077dd;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: normal;"></div>                                       
                                         <div style="float: left;margin: 5px;width: 40%">
                                             <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
                                                 <li><a href="">Valor ($)</a></li>
@@ -867,8 +867,8 @@
             series: [{
                 type: "treemap",
                 layoutAlgorithm: 'squarified',
+                cursor: 'pointer',
                 point: {
-                    cursor: 'pointer',
                     events: {
                         click: function (e) {
                             var clicked = this;

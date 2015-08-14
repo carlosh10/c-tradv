@@ -10,7 +10,9 @@ namespace TradeAdvisor.Models
 {
     public class ElasticSearchDAO
     {
-        public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
+        //public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
+        public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
+        public const string URI_ES = "http://104.197.50.109:9400";
         public const string URL_DI = null;
         public const string INDEX = "documents_index";
         public const string DI = "di";
@@ -35,7 +37,7 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchQtde(string paramatro, string type_document, string campo, int qtde_registros, string index, string url)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
@@ -95,7 +97,7 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketValor> ConsultaElasticSearchSumValor(string paramatro, string type_document, string campo, int qtde_registros, string index, string campo_sum, string url)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
@@ -145,7 +147,7 @@ namespace TradeAdvisor.Models
         }
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchCountDocumentos(string paramatro, string index)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var resultDI = client.Count<DIPOCO>(c => c
@@ -188,7 +190,7 @@ namespace TradeAdvisor.Models
 
         public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
@@ -246,7 +248,7 @@ namespace TradeAdvisor.Models
 
         public static List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string paramatro)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
 
@@ -294,7 +296,7 @@ namespace TradeAdvisor.Models
 
         public static List<long> ConsultaElasticSearchListDocumentos(string paramatro, string docType)
         {
-            var client = new ElasticClient(new ConnectionSettings(new Uri("http://104.197.50.109:9400")));
+            var client = new ElasticClient(new ConnectionSettings(new Uri(URI_ES)));
             List<long>  listResult  = new List<long>();
             var pk = "";
             var searchField = "";
@@ -328,7 +330,7 @@ namespace TradeAdvisor.Models
 
         public static string AtualizaBuscaHeader(string parametro)
         {
-            var node = new Uri("http://104.197.50.109:9400");
+            var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             String result = parametro;
