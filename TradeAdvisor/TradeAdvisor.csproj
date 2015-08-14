@@ -130,6 +130,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountDAO.cs" />
+    <Compile Include="Models\ModelNCM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNCM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelNCM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNCM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelNCM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelNCM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ncmrf_full.cs">
+      <DependentUpon>ModelNCM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StaticNCMV.cs" />
     <Compile Include="Models\AccountLoginModel.cs" />
     <Compile Include="Models\CEDAO.cs" />
     <Compile Include="Models\CEPOCO.cs" />
@@ -269,6 +288,15 @@
     <Compile Include="Models\tb_moeda.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tb_ncmrf_full_14A.cs">
+      <DependentUpon>ModelNCM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tb_ncmrf_full_15A.cs">
+      <DependentUpon>ModelNCM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tb_ncm_aliq.cs">
+      <DependentUpon>ModelNCM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tb_pais.cs">
       <DependentUpon>ModelCE.tt</DependentUpon>
     </Compile>
@@ -407,6 +435,23 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelTradeAdvisor.edmx</DependentUpon>
       <LastGenOutput>ModelTradeAdvisor.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\ModelNCM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelNCM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelNCM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNCM.edmx</DependentUpon>
+      <LastGenOutput>ModelNCM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelNCM.edmx.diagram">
+      <DependentUpon>ModelNCM.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\ModelNCM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelNCM.edmx</DependentUpon>
+      <LastGenOutput>ModelNCM.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

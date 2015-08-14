@@ -19,7 +19,7 @@ namespace TradeAdvisor.Models
 
             var filterQuery = Query<DIPOCO>.Terms("tx_cnpj", paramatro);
 
-            var searchResults = client.Search<DIPOCO>(s => s.Index("doc2").Type("di").Query(filterQuery).Take(20));
+            var searchResults = client.Search<DIPOCO>(s => s.Index(ElasticSearchDAO.INDEX).Type(ElasticSearchDAO.DI).Query(filterQuery).Take(20));
 
             return (List<DIPOCO>)searchResults.Documents;
         }

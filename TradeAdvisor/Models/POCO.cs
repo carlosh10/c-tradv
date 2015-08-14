@@ -16,6 +16,7 @@ namespace TradeAdvisor.Models
         public string name { get; set; }
         public float valor { get; set; }
         public string url { get; set; }
+        public string desc { get; set; }
     }
     public class AgregationsPorBucketQtdexDate
     {

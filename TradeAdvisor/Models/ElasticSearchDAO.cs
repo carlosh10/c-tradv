@@ -12,7 +12,7 @@ namespace TradeAdvisor.Models
     {
         public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
         public const string URL_DI = null;
-        public const string INDEX = "documents";
+        public const string INDEX = "documents_index";
         public const string DI = "di";
         public const string CE = "ce";
         public const string PRODSENSE = "prodsense";
@@ -69,7 +69,6 @@ namespace TradeAdvisor.Models
                 resumoBusca.url = url;
                 listResultados.Add(resumoBusca);
             }
-
             return listResultados;
         }
 
@@ -100,6 +99,7 @@ namespace TradeAdvisor.Models
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+
             var result = client.Search<AgregationsPorBucketValor>(s => s
                 .Index(index)
                 .Type(type_document)
@@ -128,6 +128,12 @@ namespace TradeAdvisor.Models
                 resumoBusca.name = listKeyItem.Key;
                 resumoBusca.valor = (long)((ValueMetric)listKeyItem.Aggregations["valor"]).Value;
                 resumoBusca.url = url;
+                if (campo.Equals("ncm"))
+                {
+                    //This call will Load NCM´s list only once
+                    NcmDAO.loadStaticNCM();
+                    resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                }
                 listResultados.Add(resumoBusca);
             }
 
@@ -192,16 +198,16 @@ namespace TradeAdvisor.Models
                                                                             f => f.txmercadoria)
                                                                                 );
             var result = client.Search<AgregationsPorBucketQtde>(s => s
-                                                                 .Index("documents")
+                                                                 .Index(INDEX)
                                                                 .SearchType(Elasticsearch.Net.SearchType.Count)
                                                                 .AllTypes()
                                                                 .Query(filterQuery)
                                                                 .Size(50)
                                                                  .Aggregations(a => a
-                                                                                .Terms("DI", terDI => terDI
+                                                                                .Terms(DI, terDI => terDI
                                                                                         .Field("tx_cnpj")
                                                                                 )
-                                                                                .Terms("CE", terCE => terCE
+                                                                                .Terms(CE, terCE => terCE
                                                                                         .Field("cdconsignatario")
                                                                                 )
                                                                               )
@@ -212,7 +218,7 @@ namespace TradeAdvisor.Models
 
 
             //DI Values
-            var listBucketsDI = (Bucket)result.Aggregations["DI"];
+            var listBucketsDI = (Bucket)result.Aggregations[DI];
 
             foreach (KeyItem listKeyItem in listBucketsDI.Items)
             {
@@ -224,7 +230,7 @@ namespace TradeAdvisor.Models
                 listResultados.Add(resumoBusca);
             }
             //CE Values
-            var listBucketsCE = (Bucket)result.Aggregations["CE"];
+            var listBucketsCE = (Bucket)result.Aggregations[CE];
 
             foreach (KeyItem listKeyItem in listBucketsCE.Items)
             {
@@ -370,7 +376,6 @@ namespace TradeAdvisor.Models
             return result;
         }
 
-
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();
         //seriesSearch.Index("documents")
@@ -411,4 +416,4 @@ namespace TradeAdvisor.Models
         //    return (List<PRODUTOS_SENSIVEIS_POCO>)searchResults.Documents;
         //}
     }
-}
+}   

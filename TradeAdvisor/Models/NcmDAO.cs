@@ -99,5 +99,25 @@ namespace TradeAdvisor.Models
 
             return listConsulta;
         }
+
+        public static void loadStaticNCM()
+        {
+            if (StaticNCM.ncms.Count == 0) {
+                using (ncmrfEntities conexao = new ncmrfEntities())
+                {
+                    try
+                    {
+                        var ncms = conexao.tb_ncm_aliq;
+                        if (ncms != null)
+                            foreach (var ncm in ncms)
+                                StaticNCM.ncms.Add(new sNCM(ncm.CODIGO, ncm.DESCRICAO.ToUpper()));
+                    }
+                    catch (Exception x)
+                    {
+                        throw new Exception("Erro ao carregar NCMS!");
+                    }
+                }
+            }
+        }
     }
 }

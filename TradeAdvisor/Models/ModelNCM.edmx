@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ModelNCM.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ncmrf_full">
+          <Key>
+            <PropertyRef Name="pk_ncmrf" />
+          </Key>
+          <Property Name="nr_ordem" Type="varchar" MaxLength="32" />
+          <Property Name="id_mes_ano" Type="varchar" MaxLength="12" />
+          <Property Name="mes_ano" Type="varchar" MaxLength="16" />
+          <Property Name="ncm" Type="varchar" MaxLength="16" />
+          <Property Name="descricao_ncm" Type="varchar" MaxLength="60" />
+          <Property Name="codigo_pais_origem" Type="varchar" MaxLength="10" />
+          <Property Name="pais_origem" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_pais_aquisicao" Type="varchar" MaxLength="6" />
+          <Property Name="pais_aquisicao" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="int" />
+          <Property Name="unidade_medida_estatistica" Type="varchar" MaxLength="40" />
+          <Property Name="unidade_comercializacao" Type="varchar" MaxLength="40" />
+          <Property Name="descricao_detalhada_produto" Type="varchar" MaxLength="500" />
+          <Property Name="quantidade_estatistica" Type="float" />
+          <Property Name="peso_liquido_kg" Type="float" />
+          <Property Name="valor_fob_dolar" Type="float" />
+          <Property Name="valor_frete_dolar" Type="float" />
+          <Property Name="valor_seguro_dolar" Type="float" />
+          <Property Name="valor_unidade_produto_dolar" Type="float" />
+          <Property Name="quantidade_comercializada_produto" Type="float" />
+          <Property Name="valor_total_produto_dolar" Type="float" />
+          <Property Name="data_ordem" Type="datetime" />
+          <Property Name="pk_ncmrf" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ncm_aliq">
+          <Key>
+            <PropertyRef Name="pk_ncm_aliq" />
+          </Key>
+          <Property Name="CODIGO" Type="char" MaxLength="8" />
+          <Property Name="DESCRICAO" Type="varchar(max)" />
+          <Property Name="UNIDADE_MEDIDA" Type="varchar" MaxLength="2" />
+          <Property Name="ALIQUOTA_II" Type="varchar" MaxLength="6" />
+          <Property Name="ALIQUOTA_II_MERCOSUL" Type="varchar" MaxLength="6" />
+          <Property Name="ALIQUOTA_IPI" Type="varchar" MaxLength="6" />
+          <Property Name="ALIQUOTA_PIS_ADVAL" Type="varchar" MaxLength="6" />
+          <Property Name="ALIQUOTA_COFINS_ADVAL" Type="varchar" MaxLength="6" />
+          <Property Name="pk_ncm_aliq" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ncmrf_full_14A">
+          <Key>
+            <PropertyRef Name="pk_ncmrf_14a" />
+          </Key>
+          <Property Name="nr_ordem" Type="varchar" MaxLength="32" />
+          <Property Name="id_mes_ano" Type="varchar" MaxLength="12" />
+          <Property Name="mes_ano" Type="varchar" MaxLength="16" />
+          <Property Name="ncm" Type="varchar" MaxLength="16" />
+          <Property Name="descricao_ncm" Type="varchar" MaxLength="60" />
+          <Property Name="codigo_pais_origem" Type="varchar" MaxLength="10" />
+          <Property Name="pais_origem" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_pais_aquisicao" Type="varchar" MaxLength="6" />
+          <Property Name="pais_aquisicao" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="int" />
+          <Property Name="unidade_medida_estatistica" Type="varchar" MaxLength="40" />
+          <Property Name="unidade_comercializacao" Type="varchar" MaxLength="40" />
+          <Property Name="descricao_detalhada_produto" Type="varchar" MaxLength="500" />
+          <Property Name="quantidade_estatistica" Type="float" />
+          <Property Name="peso_liquido_kg" Type="float" />
+          <Property Name="valor_fob_dolar" Type="float" />
+          <Property Name="valor_frete_dolar" Type="float" />
+          <Property Name="valor_seguro_dolar" Type="float" />
+          <Property Name="valor_unidade_produto_dolar" Type="float" />
+          <Property Name="quantidade_comercializada_produto" Type="float" />
+          <Property Name="valor_total_produto_dolar" Type="float" />
+          <Property Name="data_ordem" Type="datetime" />
+          <Property Name="pk_ncmrf_14a" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tb_ncmrf_full_15A">
+          <Key>
+            <PropertyRef Name="pk_ncmrf_15a" />
+          </Key>
+          <Property Name="nr_ordem" Type="varchar" MaxLength="32" />
+          <Property Name="id_mes_ano" Type="varchar" MaxLength="12" />
+          <Property Name="mes_ano" Type="varchar" MaxLength="16" />
+          <Property Name="ncm" Type="varchar" MaxLength="16" />
+          <Property Name="descricao_ncm" Type="varchar" MaxLength="60" />
+          <Property Name="codigo_pais_origem" Type="varchar" MaxLength="10" />
+          <Property Name="pais_origem" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_pais_aquisicao" Type="varchar" MaxLength="6" />
+          <Property Name="pais_aquisicao" Type="varchar" MaxLength="40" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="int" />
+          <Property Name="unidade_medida_estatistica" Type="varchar" MaxLength="40" />
+          <Property Name="unidade_comercializacao" Type="varchar" MaxLength="40" />
+          <Property Name="descricao_detalhada_produto" Type="varchar" MaxLength="500" />
+          <Property Name="quantidade_estatistica" Type="float" />
+          <Property Name="peso_liquido_kg" Type="float" />
+          <Property Name="valor_fob_dolar" Type="float" />
+          <Property Name="valor_frete_dolar" Type="float" />
+          <Property Name="valor_seguro_dolar" Type="float" />
+          <Property Name="valor_unidade_produto_dolar" Type="float" />
+          <Property Name="quantidade_comercializada_produto" Type="float" />
+          <Property Name="valor_total_produto_dolar" Type="float" />
+          <Property Name="data_ordem" Type="datetime" />
+          <Property Name="pk_ncmrf_15a" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ModelNCMStoreContainer">
+          <EntitySet Name="ncmrf_full" EntityType="Self.ncmrf_full" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ncm_aliq" EntityType="Self.tb_ncm_aliq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ncmrf_full_14A" EntityType="Self.tb_ncmrf_full_14A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ncmrf_full_15A" EntityType="Self.tb_ncmrf_full_15A" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ModelNCM" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ncmrf_full">
+          <Key>
+            <PropertyRef Name="pk_ncmrf" />
+          </Key>
+          <Property Name="nr_ordem" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="id_mes_ano" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="mes_ano" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ncm" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_ncm" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_origem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pais_origem" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_aquisicao" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="pais_aquisicao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="Int32" />
+          <Property Name="unidade_medida_estatistica" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="unidade_comercializacao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_detalhada_produto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade_estatistica" Type="Double" />
+          <Property Name="peso_liquido_kg" Type="Double" />
+          <Property Name="valor_fob_dolar" Type="Double" />
+          <Property Name="valor_frete_dolar" Type="Double" />
+          <Property Name="valor_seguro_dolar" Type="Double" />
+          <Property Name="valor_unidade_produto_dolar" Type="Double" />
+          <Property Name="quantidade_comercializada_produto" Type="Double" />
+          <Property Name="valor_total_produto_dolar" Type="Double" />
+          <Property Name="data_ordem" Type="DateTime" Precision="3" />
+          <Property Name="pk_ncmrf" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tb_ncm_aliq">
+          <Key>
+            <PropertyRef Name="pk_ncm_aliq" />
+          </Key>
+          <Property Name="CODIGO" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UNIDADE_MEDIDA" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ALIQUOTA_II" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ALIQUOTA_II_MERCOSUL" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ALIQUOTA_IPI" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ALIQUOTA_PIS_ADVAL" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ALIQUOTA_COFINS_ADVAL" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="pk_ncm_aliq" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tb_ncmrf_full_14A">
+          <Key>
+            <PropertyRef Name="pk_ncmrf_14a" />
+          </Key>
+          <Property Name="nr_ordem" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="id_mes_ano" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="mes_ano" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ncm" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_ncm" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_origem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pais_origem" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_aquisicao" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="pais_aquisicao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="Int32" />
+          <Property Name="unidade_medida_estatistica" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="unidade_comercializacao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_detalhada_produto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade_estatistica" Type="Double" />
+          <Property Name="peso_liquido_kg" Type="Double" />
+          <Property Name="valor_fob_dolar" Type="Double" />
+          <Property Name="valor_frete_dolar" Type="Double" />
+          <Property Name="valor_seguro_dolar" Type="Double" />
+          <Property Name="valor_unidade_produto_dolar" Type="Double" />
+          <Property Name="quantidade_comercializada_produto" Type="Double" />
+          <Property Name="valor_total_produto_dolar" Type="Double" />
+          <Property Name="data_ordem" Type="DateTime" Precision="3" />
+          <Property Name="pk_ncmrf_14a" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tb_ncmrf_full_15A">
+          <Key>
+            <PropertyRef Name="pk_ncmrf_15a" />
+          </Key>
+          <Property Name="nr_ordem" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="id_mes_ano" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="mes_ano" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="ncm" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_ncm" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_origem" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pais_origem" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_pais_aquisicao" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="pais_aquisicao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_unidade_medida_estatistica" Type="Int32" />
+          <Property Name="unidade_medida_estatistica" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="unidade_comercializacao" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="descricao_detalhada_produto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="quantidade_estatistica" Type="Double" />
+          <Property Name="peso_liquido_kg" Type="Double" />
+          <Property Name="valor_fob_dolar" Type="Double" />
+          <Property Name="valor_frete_dolar" Type="Double" />
+          <Property Name="valor_seguro_dolar" Type="Double" />
+          <Property Name="valor_unidade_produto_dolar" Type="Double" />
+          <Property Name="quantidade_comercializada_produto" Type="Double" />
+          <Property Name="valor_total_produto_dolar" Type="Double" />
+          <Property Name="data_ordem" Type="DateTime" Precision="3" />
+          <Property Name="pk_ncmrf_15a" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="ncmrfEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ncmrf_full" EntityType="Self.ncmrf_full" />
+          <EntitySet Name="tb_ncm_aliq" EntityType="Self.tb_ncm_aliq" />
+          <EntitySet Name="tb_ncmrf_full_14A" EntityType="Self.tb_ncmrf_full_14A" />
+          <EntitySet Name="tb_ncmrf_full_15A" EntityType="Self.tb_ncmrf_full_15A" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelNCMStoreContainer" CdmEntityContainer="ncmrfEntities">
+          <EntitySetMapping Name="ncmrf_full">
+            <EntityTypeMapping TypeName="ModelNCM.ncmrf_full">
+              <MappingFragment StoreEntitySet="ncmrf_full">
+                <ScalarProperty Name="nr_ordem" ColumnName="nr_ordem" />
+                <ScalarProperty Name="id_mes_ano" ColumnName="id_mes_ano" />
+                <ScalarProperty Name="mes_ano" ColumnName="mes_ano" />
+                <ScalarProperty Name="ncm" ColumnName="ncm" />
+                <ScalarProperty Name="descricao_ncm" ColumnName="descricao_ncm" />
+                <ScalarProperty Name="codigo_pais_origem" ColumnName="codigo_pais_origem" />
+                <ScalarProperty Name="pais_origem" ColumnName="pais_origem" />
+                <ScalarProperty Name="codigo_pais_aquisicao" ColumnName="codigo_pais_aquisicao" />
+                <ScalarProperty Name="pais_aquisicao" ColumnName="pais_aquisicao" />
+                <ScalarProperty Name="codigo_unidade_medida_estatistica" ColumnName="codigo_unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_medida_estatistica" ColumnName="unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_comercializacao" ColumnName="unidade_comercializacao" />
+                <ScalarProperty Name="descricao_detalhada_produto" ColumnName="descricao_detalhada_produto" />
+                <ScalarProperty Name="quantidade_estatistica" ColumnName="quantidade_estatistica" />
+                <ScalarProperty Name="peso_liquido_kg" ColumnName="peso_liquido_kg" />
+                <ScalarProperty Name="valor_fob_dolar" ColumnName="valor_fob_dolar" />
+                <ScalarProperty Name="valor_frete_dolar" ColumnName="valor_frete_dolar" />
+                <ScalarProperty Name="valor_seguro_dolar" ColumnName="valor_seguro_dolar" />
+                <ScalarProperty Name="valor_unidade_produto_dolar" ColumnName="valor_unidade_produto_dolar" />
+                <ScalarProperty Name="quantidade_comercializada_produto" ColumnName="quantidade_comercializada_produto" />
+                <ScalarProperty Name="valor_total_produto_dolar" ColumnName="valor_total_produto_dolar" />
+                <ScalarProperty Name="data_ordem" ColumnName="data_ordem" />
+                <ScalarProperty Name="pk_ncmrf" ColumnName="pk_ncmrf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ncm_aliq">
+            <EntityTypeMapping TypeName="ModelNCM.tb_ncm_aliq">
+              <MappingFragment StoreEntitySet="tb_ncm_aliq">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="UNIDADE_MEDIDA" ColumnName="UNIDADE_MEDIDA" />
+                <ScalarProperty Name="ALIQUOTA_II" ColumnName="ALIQUOTA_II" />
+                <ScalarProperty Name="ALIQUOTA_II_MERCOSUL" ColumnName="ALIQUOTA_II_MERCOSUL" />
+                <ScalarProperty Name="ALIQUOTA_IPI" ColumnName="ALIQUOTA_IPI" />
+                <ScalarProperty Name="ALIQUOTA_PIS_ADVAL" ColumnName="ALIQUOTA_PIS_ADVAL" />
+                <ScalarProperty Name="ALIQUOTA_COFINS_ADVAL" ColumnName="ALIQUOTA_COFINS_ADVAL" />
+                <ScalarProperty Name="pk_ncm_aliq" ColumnName="pk_ncm_aliq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ncmrf_full_14A">
+            <EntityTypeMapping TypeName="ModelNCM.tb_ncmrf_full_14A">
+              <MappingFragment StoreEntitySet="tb_ncmrf_full_14A">
+                <ScalarProperty Name="nr_ordem" ColumnName="nr_ordem" />
+                <ScalarProperty Name="id_mes_ano" ColumnName="id_mes_ano" />
+                <ScalarProperty Name="mes_ano" ColumnName="mes_ano" />
+                <ScalarProperty Name="ncm" ColumnName="ncm" />
+                <ScalarProperty Name="descricao_ncm" ColumnName="descricao_ncm" />
+                <ScalarProperty Name="codigo_pais_origem" ColumnName="codigo_pais_origem" />
+                <ScalarProperty Name="pais_origem" ColumnName="pais_origem" />
+                <ScalarProperty Name="codigo_pais_aquisicao" ColumnName="codigo_pais_aquisicao" />
+                <ScalarProperty Name="pais_aquisicao" ColumnName="pais_aquisicao" />
+                <ScalarProperty Name="codigo_unidade_medida_estatistica" ColumnName="codigo_unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_medida_estatistica" ColumnName="unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_comercializacao" ColumnName="unidade_comercializacao" />
+                <ScalarProperty Name="descricao_detalhada_produto" ColumnName="descricao_detalhada_produto" />
+                <ScalarProperty Name="quantidade_estatistica" ColumnName="quantidade_estatistica" />
+                <ScalarProperty Name="peso_liquido_kg" ColumnName="peso_liquido_kg" />
+                <ScalarProperty Name="valor_fob_dolar" ColumnName="valor_fob_dolar" />
+                <ScalarProperty Name="valor_frete_dolar" ColumnName="valor_frete_dolar" />
+                <ScalarProperty Name="valor_seguro_dolar" ColumnName="valor_seguro_dolar" />
+                <ScalarProperty Name="valor_unidade_produto_dolar" ColumnName="valor_unidade_produto_dolar" />
+                <ScalarProperty Name="quantidade_comercializada_produto" ColumnName="quantidade_comercializada_produto" />
+                <ScalarProperty Name="valor_total_produto_dolar" ColumnName="valor_total_produto_dolar" />
+                <ScalarProperty Name="data_ordem" ColumnName="data_ordem" />
+                <ScalarProperty Name="pk_ncmrf_14a" ColumnName="pk_ncmrf_14a" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ncmrf_full_15A">
+            <EntityTypeMapping TypeName="ModelNCM.tb_ncmrf_full_15A">
+              <MappingFragment StoreEntitySet="tb_ncmrf_full_15A">
+                <ScalarProperty Name="nr_ordem" ColumnName="nr_ordem" />
+                <ScalarProperty Name="id_mes_ano" ColumnName="id_mes_ano" />
+                <ScalarProperty Name="mes_ano" ColumnName="mes_ano" />
+                <ScalarProperty Name="ncm" ColumnName="ncm" />
+                <ScalarProperty Name="descricao_ncm" ColumnName="descricao_ncm" />
+                <ScalarProperty Name="codigo_pais_origem" ColumnName="codigo_pais_origem" />
+                <ScalarProperty Name="pais_origem" ColumnName="pais_origem" />
+                <ScalarProperty Name="codigo_pais_aquisicao" ColumnName="codigo_pais_aquisicao" />
+                <ScalarProperty Name="pais_aquisicao" ColumnName="pais_aquisicao" />
+                <ScalarProperty Name="codigo_unidade_medida_estatistica" ColumnName="codigo_unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_medida_estatistica" ColumnName="unidade_medida_estatistica" />
+                <ScalarProperty Name="unidade_comercializacao" ColumnName="unidade_comercializacao" />
+                <ScalarProperty Name="descricao_detalhada_produto" ColumnName="descricao_detalhada_produto" />
+                <ScalarProperty Name="quantidade_estatistica" ColumnName="quantidade_estatistica" />
+                <ScalarProperty Name="peso_liquido_kg" ColumnName="peso_liquido_kg" />
+                <ScalarProperty Name="valor_fob_dolar" ColumnName="valor_fob_dolar" />
+                <ScalarProperty Name="valor_frete_dolar" ColumnName="valor_frete_dolar" />
+                <ScalarProperty Name="valor_seguro_dolar" ColumnName="valor_seguro_dolar" />
+                <ScalarProperty Name="valor_unidade_produto_dolar" ColumnName="valor_unidade_produto_dolar" />
+                <ScalarProperty Name="quantidade_comercializada_produto" ColumnName="quantidade_comercializada_produto" />
+                <ScalarProperty Name="valor_total_produto_dolar" ColumnName="valor_total_produto_dolar" />
+                <ScalarProperty Name="data_ordem" ColumnName="data_ordem" />
+                <ScalarProperty Name="pk_ncmrf_15a" ColumnName="pk_ncmrf_15a" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

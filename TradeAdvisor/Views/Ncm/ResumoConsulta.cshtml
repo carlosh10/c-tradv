@@ -1,7 +1,7 @@
 ﻿@using TradeAdvisor.Models
 <section id="nav_abas">
     <div class="gray_back">
-
+            
         <div class="navegacao_abas" data-uk-sticky="{top:-80, animation: 'uk-animation-slide-top'}">
             <div class="uk-container uk-container-center">
                 <ul data-uk-switcher="{connect:'#my-id', animation: 'uk-animation-fade, uk-animation-slide-left'}">
@@ -11,10 +11,7 @@
                     <li><a href="">NCMs</a></li>
                     <li><a href="">Pessoas</a></li>*@
                 </ul>
-                <li><a id="searchStringHeader" style="font-size:14px;"><p><strong>Busca: </strong></p></a></li>
-                <li><a id="searchProdsenseCountHeader" style="font-size:14px;"><p><strong>Total de NCM´s: </strong></p></a></li>
-                <li><a id="searchDICountHeader" style="font-size:14px;"><p><strong>Total de DI´s: </strong></p></a></li>
-                <li><a id="searchCECountHeader" style="font-size:14px;"><p><strong>Total de CE´s: </strong></p></a></li>
+                <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
             </div>
 
         </div>
@@ -30,31 +27,35 @@
 
 
                             <div class="uk-width-small-1-1">
-                                <div id="abaNcms" class="card_style">
+                                <div id="abaNcms" class="card_style" style="height: 500px">
                                     <!--//graficos 1 aba 4-->
-                                    <h3>Total de NCMs</h3>
-                                    <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
-                                        <li><a href="">Valor ($)</a></li>
-                                        <li><a href="">Quantidade</a></li>
-                                    </ul>
-
-                                    <ul id="produtos_abas1" class="uk-switcher">
-                                        <li>
-                                            <!--//grafico 1.1 aba 4-->
-                                            <div id="produtos_1_1" class="graficos_responsivos"></div>
-                                        </li>
-                                        <li>
-                                            <!--//grafico 1.2 aba 4-->
-                                            <div id="produtos_1_2" class="graficos_responsivos"></div>
-                                        </li>
-                                    </ul>
+                                        <div style="float: left;font-size:24px;width: 150px;padding-right: 0px;color: #444444;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: normal;">
+                                            Total de NCMs
+                                        </div>
+                                        <div id="ncmDescID" style="float: right;margin: 5px;width: 60%;height: 50px;padding-top: 0px"></div>                                       
+                                        <div style="float: left;margin: 5px;width: 40%">
+                                            <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                                <li><a href="">Valor ($)</a></li>
+                                                <li><a href="">Quantidade</a></li>
+                                            </ul>
+                                        </div>
+                                        <ul id="produtos_abas1" class="uk-switcher">
+                                            <li>
+                                                <!--//grafico 1.1 aba 4-->
+                                                <div id="produtos_1_1" class="graficos_responsivos" ></div>
+                                            </li>
+                                            <li>
+                                                <!--//grafico 1.2 aba 4-->
+                                                <div id="produtos_1_2" class="graficos_responsivos" ></div>
+                                            </li>
+                                        </ul>
 
                                 </div>
                             </div>
 
 
-                            <div class="uk-width-small-1-1">
-                                @*<div class="transparent_card">
+                            @*<div class="uk-width-small-1-1">
+                                <div class="transparent_card">
 
                                     <!--//filtro NCM's-->
                                     <div class="uk-grid uk-grid-small">
@@ -710,12 +711,16 @@
                         serie.colorValue = Result[i].qtde;
                         if (Result[i].url != null)
                             serie.ownURL = Result[i].url;
+                        if (Result[i].desc != null)
+                            serie.ownDESC = Result[i].desc;
                     }
                     else {
                         serie.value = Result[i].valor;
                         serie.colorValue = Result[i].valor;
                         if (Result[i].url != null)
                             serie.ownURL = Result[i].url;
+                        if (Result[i].desc != null)
+                            serie.ownDESC = Result[i].desc;
                     }
 
                     dataGrafNcm.push(serie);
@@ -869,6 +874,12 @@
                             var clicked = this;
                             if (this.ownURL)
                                 window.open(this.ownURL.replace('{ncm}', this.name).replace('{descricao}', '@Request["descricao_detalhada_produto"]'), "_self");
+                        },
+                        mouseOver: function () {
+                            document.getElementById('ncmDescID').innerHTML = this.ownDESC;
+                        },
+                        mouseOut: function () {
+                            document.getElementById('ncmDescID').innerHTML = '';
                         }
                     }
                 },
@@ -1009,10 +1020,10 @@
                 Result = Result.d;
                 console.log('Result=> ' + Result);
                 if (Result.split('|').length > 0) {
-                    document.getElementById('searchStringHeader').innerHTML = '<p><strong>Busca: </strong>' + Result.split('|')[0] + '</p>';
-                    document.getElementById('searchProdsenseCountHeader').innerHTML = '<p><strong>Total de NCM´s: </strong>' + Result.split('|')[1] + '</p>';
-                    document.getElementById('searchDICountHeader').innerHTML = '<p><strong>Total de DI´s: </strong>' + Result.split('|')[2] + '</p>';
-                    document.getElementById('searchCECountHeader').innerHTML = '<p><strong>Total de CE´s: </strong>' + Result.split('|')[3] + '</p>';
+                    document.getElementById('searchStringHeader').innerHTML = '<div style="font-size:14px;float: left;margin: 5px"><strong>Busca: </strong>' + Result.split('|')[0] +
+                        '</div><div style="font-size:14px;float: left;margin: 5px"><strong> Total de NCM´s: </strong>' + Result.split('|')[1] +
+                        '</div><div style="font-size:14px;float: left;margin: 5px"><strong> Total de DI´s: </strong>' + Result.split('|')[2] +
+                        '</div><div style="font-size:14px;float: left;margin: 5px"><strong> Total de CE´s: </strong>' + Result.split('|')[3] + '</h1>';
                 }
             },
             error: function (Result) {
