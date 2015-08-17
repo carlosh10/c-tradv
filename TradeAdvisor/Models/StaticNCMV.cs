@@ -13,7 +13,7 @@ namespace TradeAdvisor.Models
         public static string getNCMDesc(string ncm)
         {
             foreach (sNCM tNCM in ncms)
-                if (tNCM.ncm.Equals(ncm))
+                if (tNCM != null && tNCM.ncm.Equals(ncm))
                     return tNCM.ncm_desc;
             return "";
         }

@@ -10,8 +10,8 @@ namespace TradeAdvisor.Models
 {
     public class ElasticSearchDAO
     {
-        //public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
-        public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
+        public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
+        //public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
         public const string URI_ES = "http://104.197.50.109:9400";
         public const string URL_DI = null;
         public const string INDEX = "documents_index";
@@ -62,13 +62,19 @@ namespace TradeAdvisor.Models
             var listBuckets = (Bucket)result.Aggregations["name"];
 
             List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
-
+            
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
                 AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
                 resumoBusca.name = listKeyItem.Key;
                 resumoBusca.qtde = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
                 resumoBusca.url = url;
+                if (campo.Equals("ncm"))
+                {
+                    //This call will Load NCM´s list only once
+                    NcmDAO.loadStaticNCM();
+                    resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                }
                 listResultados.Add(resumoBusca);
             }
             return listResultados;
