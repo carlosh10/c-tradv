@@ -54,15 +54,28 @@ namespace TradeAdvisor.Models
                             .ValueCount("qtde", m => m
                                 .Field(campo)
                             )
+                            .Cardinality("desc", m => m
+                                .Field("descricao")
+                            )
                         )
+                    )
+                     .Terms("desc", st => st
+                        .Field("DESCRICAO")
+                        .Size(qtde_registros)
                     )
                 )
             );
 
             var listBuckets = (Bucket)result.Aggregations["name"];
+            
+            Bucket listBucketsDesc = null;
+
+            if (campo.Equals("ncm"))
+                listBucketsDesc = (Bucket)result.Aggregations["desc"];
 
             List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
-            
+
+            int count = 0;
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
                 AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
@@ -72,10 +85,22 @@ namespace TradeAdvisor.Models
                 if (campo.Equals("ncm"))
                 {
                     //This call will Load NCM´s list only once
-                    NcmDAO.loadStaticNCM();
-                    resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                    //NcmDAO.loadStaticNCM();
+                    //resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                   
+                    int countDesc = 0;
+                    foreach (KeyItem listKeyItemDesc in listBucketsDesc.Items)
+                    {
+                        if (count == countDesc)
+                        {
+                            resumoBusca.desc = listKeyItemDesc.Key;
+                            break;
+                        }
+                        countDesc++;
+                    }
                 }
                 listResultados.Add(resumoBusca);
+                count++;
             }
             return listResultados;
         }
@@ -123,13 +148,23 @@ namespace TradeAdvisor.Models
                             )
                         )
                     )
+                     .Terms("desc", st => st
+                        .Field("DESCRICAO")
+                        .Size(qtde_registros)                    
+                    )
                 )
             );
 
             var listBuckets = (Bucket)result.Aggregations["name"];
 
+            Bucket listBucketsDesc = null;
+
+            if (campo.Equals("ncm"))
+                listBucketsDesc = (Bucket)result.Aggregations["desc"];
+
             List<AgregationsPorBucketValor> listResultados = new List<AgregationsPorBucketValor>();
 
+            int count = 0;
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
                 AgregationsPorBucketValor resumoBusca = new AgregationsPorBucketValor();
@@ -138,11 +173,23 @@ namespace TradeAdvisor.Models
                 resumoBusca.url = url;
                 if (campo.Equals("ncm"))
                 {
+
                     //This call will Load NCM´s list only once
-                    NcmDAO.loadStaticNCM();
-                    resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                    //NcmDAO.loadStaticNCM();
+                    //resumoBusca.desc = StaticNCM.getNCMDesc(resumoBusca.name);
+                    int countDesc = 0;
+                    foreach (KeyItem listKeyItemDesc in listBucketsDesc.Items)
+                    {
+                        if (count == countDesc)
+                        {
+                            resumoBusca.desc = listKeyItemDesc.Key;
+                            break;
+                        }
+                        countDesc++;
+                    }
                 }
                 listResultados.Add(resumoBusca);
+                count++;
             }
 
             return listResultados;
@@ -263,7 +310,7 @@ namespace TradeAdvisor.Models
             //DI
             listResultados.AddRange(searchQtdxDate(client, "tx_descricaoMercadoria", paramatro, DI, "dt_registro"));
             listResultados.AddRange(searchQtdxDate(client, "txmercadoria", paramatro, CE, "dtemissaoce"));
-            
+
             return listResultados;
         }
 
@@ -303,7 +350,7 @@ namespace TradeAdvisor.Models
         public static List<long> ConsultaElasticSearchListDocumentos(string paramatro, string docType)
         {
             var client = new ElasticClient(new ConnectionSettings(new Uri(URI_ES)));
-            List<long>  listResult  = new List<long>();
+            List<long> listResult = new List<long>();
             var pk = "";
             var searchField = "";
             if (docType.Equals(DI))
@@ -383,7 +430,7 @@ namespace TradeAdvisor.Models
 
             return result;
         }
-
+        
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();
         //seriesSearch.Index("documents")
@@ -424,4 +471,4 @@ namespace TradeAdvisor.Models
         //    return (List<PRODUTOS_SENSIVEIS_POCO>)searchResults.Documents;
         //}
     }
-}   
+}
