@@ -834,3 +834,23 @@ float: right;
         width: 230px; 
     }
 }
+
+#donut-graph {
+  float: left;
+}
+#donut-graphNcmQuantidade {
+  float: right;
+}
+
+.table_trade2, .table_trade2 th {
+  text-align: center;
+}
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 18px;
+}
+.nm_grafico{
+    text-align:center;    
+    font-size:22px;
+}

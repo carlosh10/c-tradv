@@ -62,6 +62,10 @@ namespace TradeAdvisor.Controllers
         {
             return View();
         }
+        public ActionResult ResumoInicialNcm()
+        {
+            return View(ElasticSearchDAO.ConsultaNCMElasticSearch("iphone"));
+        }
 
         public ActionResult ResumoConsultaPorNCM(string descricao, string ncm)
         {
@@ -152,5 +156,7 @@ namespace TradeAdvisor.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+
+        public IView ConsultaNCMElasticSearch { get; set; }
     }
 }

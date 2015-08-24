@@ -16,7 +16,7 @@ namespace TradeAdvisor.Models
             public string tx_ncm_desc { get; set; }
             public string ncm { get; set; }
             public int? vl_ift { get; set; }
-            public int countReg { get; set; }
+            public long countReg { get; set; }
             public float CIFTot { get; set; }
 
             public string descricao_detalhada_produto { get; set; }

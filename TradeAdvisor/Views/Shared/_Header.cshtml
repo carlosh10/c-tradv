@@ -12,7 +12,7 @@
                 <form class="uk-form" action="@Url.Action("ResumoConsulta", "Ncm")">
                     <div class="uk-grid uk-grid-collapse">
                         <div class="uk-width-5-6 uk-width-medium-9-10">
-                            <input class="input_busca uk-width-1-1" type="text" placeholder="Pesquisa" name="descricao_detalhada_produto">
+                            <input class="input_busca uk-width-1-1" type="text" placeholder="Pesquisa" name="descricao_detalhada_produto" value="@Request["descricao_detalhada_produto"]">
                         </div>
                         <div class="uk-width-1-6 uk-width-medium-1-10">
                             <button class="button_busca uk-width-1-1"><i class="uk-icon-search"></i></button>
