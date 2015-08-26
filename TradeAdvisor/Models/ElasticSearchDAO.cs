@@ -11,7 +11,6 @@ namespace TradeAdvisor.Models
     public class ElasticSearchDAO
     {
         public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
-        //public const string URL_PROD_SENSE = "http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao={descricao}&ncm={ncm}";
         public const string URI_ES = "http://104.197.50.109:9400";
         public const string URL_DI = null;
         public const string INDEX = "documents_index";
@@ -478,7 +477,7 @@ namespace TradeAdvisor.Models
                 resumoBusca.ncm = listKeyItem.Key;
                 resumoBusca.countReg = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
                 resumoBusca.CIFTot = (float)((ValueMetric)listKeyItem.Aggregations["CIFTot"]).Value;
-                
+
                 int countDesc = 0;
                 foreach (KeyItem listKeyItemDesc in listBucketsDesc.Items)
                 {
@@ -489,13 +488,72 @@ namespace TradeAdvisor.Models
                     }
                     countDesc++;
                 }
-               
+
                 listResultados.Add(resumoBusca);
                 count++;
             }
             return listResultados;
         }
 
+        public static List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada> ConsultaResumoConsulta(string paramatro, string ncm)
+        {
+            var node = new Uri(URI_ES);
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+            var filterQuery2 = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("ncm", ncm.ToLower());
+            var result = client.Search<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>(s => s
+                .Index(INDEX)
+                .Type("prodsense")
+                .SearchType(Elasticsearch.Net.SearchType.Count)
+                .Query(filterQuery && filterQuery2)
+                .Aggregations(a => a
+                    .Terms("ncm", term => term
+                        .Field("ncm")
+                        .Aggregations(agg => agg
+                            .ValueCount("countReg", st => st
+                                .Field("ncm")
+                            )
+                            .Sum("vl_ift", st => st
+                                .Field("CIF")
+                            )
+                        )
+                    )
+                )
+            );
+
+            var listBuckets = (Bucket)result.Aggregations["ncm"];
+
+            List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada> listResumo = new List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>();
+           
+            foreach (KeyItem listKeyItem in listBuckets.Items)
+            {
+                NcmDAO.ResumoConsultaDetalhada resumo = new NcmDAO.ResumoConsultaDetalhada();
+                resumo.countReg = (long)((ValueMetric)listKeyItem.Aggregations["countReg"]).Value;
+                resumo.vl_ift = (float)((ValueMetric)listKeyItem.Aggregations["vl_ift"]).Value;
+                listResumo.Add(resumo);
+            }
+
+            return listResumo;
+        }
+
+        public static List<PRODUTOS_SENSIVEIS_POCO> ConsultaProdutosSensiveisElasticSearch(string paramatro, string ncm, int startIndex, int blockSize)
+        {
+            var node = new Uri(URI_ES);
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+
+            var result = client.Search<PRODUTOS_SENSIVEIS_POCO>(s => s
+                .Index(INDEX)
+                .Type("prodsense")
+                .Query(filterQuery)
+                .Size(blockSize)
+                .Skip((startIndex - 1) * blockSize)
+            );
+
+            return (List<PRODUTOS_SENSIVEIS_POCO>)result.Documents;
+        }
 
         //TODO: Código necessário para analisar a query
         //var seriesSearch = new SearchDescriptor<AgregationsPorBucket>();

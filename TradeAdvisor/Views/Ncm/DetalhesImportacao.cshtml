@@ -1,8 +1,74 @@
 ﻿<div class="container">
     <section id="nav_abas">
-        <div class="gray_back">
-            <div class="uk-container uk-container-center"> <iframe src="http://detalhes.tradeadvisor.com.br/ncm/Consulta?descricao=@Request["descricao_detalhada_produto"]&ncm=@Request["ncm"]" width="100%" height="800px"></iframe></div>
-        </div>
-    </section>
+            <div>
+                <!--bloco resultados-->
+                <div id="divResumoConsulta" class="col-xs-12 alert block_default alert-dismissible" role="alert">
+                    <h4 class="col-xs-12">
+                        <strong>Resumo da consulta:</strong>
+                    </h4>
 
+                    <div class="col-xs-7">
+                        <h4>Número de resultados</h4>
+                        <h4>
+                            <strong>
+                                Carregando...
+                            </strong>
+                        </h4>
+                    </div>
+
+                    <div class="col-xs-5">
+                        <h2>Total CIF</h2>
+                        <h2>
+                            <strong>
+                                Carregando...
+                            </strong>
+                        </h2>
+                    </div>
+                </div>
+                <div id="ncmListDiv">
+                    @Html.Partial("_NcmBlock")
+                </div>
+
+                <div id="loadingDiv" class="col-xs-12" style="text-align:center; ">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-spinner fa-4x fa-spin"></i>
+                    </a>
+
+                </div>
+
+            </div>
+    </section>
 </div>
+@*<script language="JavaScript" type="text/javascript" src="~/js/jquery-1.11.3.min.js"></script>*@
+<script type="text/javascript">
+    var BlockNumber = 2;  //Infinate Scroll starts from second block
+    var NoMoreData = false;
+    var inProgress = false;
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height() && !NoMoreData && !inProgress) {
+            inProgress = true;
+            $("#loadingDiv").show();
+
+            $.post("@Url.Action("InfinateScroll", "Ncm")", { "BlockNumber": BlockNumber, "descricao": "@Request["descricao_detalhada_produto"]", "ncm": "@Request["ncm"]" },
+                    function (data) {
+
+                        BlockNumber = BlockNumber + 1;
+                        NoMoreData = data.NoMoreData;
+                        $("#ncmListDiv").append(data.HTMLString);
+                        $("#loadingDiv").hide();
+                        inProgress = false;
+                    });
+        }
+    });
+
+
+    //$("#divResumoConsulta").load(function () {
+    $(window).load(function () {
+        $.post("@Url.Action("ResumoConsultaDetalhada", "Ncm")", { "descricao": "@Request["descricao_detalhada_produto"]","ncm": "@Request["ncm"]" },
+            function (data) {
+                //$("#ncmListDiv").append(data.HTMLString);
+                $("#divResumoConsulta").replaceWith(data.HTMLString);
+            });
+    });
+</script>

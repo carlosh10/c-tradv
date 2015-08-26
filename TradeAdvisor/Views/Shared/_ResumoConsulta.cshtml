@@ -1,25 +1,24 @@
-﻿@model List<TradeAdvisor.Models.NcmDAO.ResumoConsulta>
+﻿@model List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>
 <div class="col-xs-12 alert block_default alert-dismissible" role="alert">
-    <button type="button" class="close_button glyphicon glyphicon-remove" data-dismiss="alert" aria-label="Close"></button>
-    <h1 class="col-xs-12">
+    <h4 class="col-xs-12">
         <strong>Resumo da consulta:</strong>
-    </h1>
+    </h4>
 
     <div class="col-xs-7">
-        <h2>Número de resultados</h2>
-        <h2>
+        <h4>Número de resultados</h4>
+        <h4>
             <strong>
                 @Model.First().countReg
             </strong>
-        </h2>
+        </h4>
     </div>
 
     <div class="col-xs-5">
-        <h2>Total CIF</h2>
-        <h2>
+        <h4>Total CIF</h4>
+        <h4>
             <strong>
-                $@String.Format("{0:0,0.00}", @Model.First().CIFTot)
+                $@String.Format("{0:0,0.00}", @Model.First().vl_ift)
             </strong>
-        </h2>
+        </h4>
     </div>
 </div>

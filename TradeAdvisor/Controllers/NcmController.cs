@@ -58,9 +58,28 @@ namespace TradeAdvisor.Controllers
                 return null;
             }
         }
-        public ActionResult DetalhesImportacao()
+        public ActionResult DetalhesImportacao(string descricao_detalhada_produto,string ncm)
         {
-            return View();
+            if (descricao_detalhada_produto == null || descricao_detalhada_produto == "")
+            {
+                Response.Redirect(@Url.Action("Index", "Home"));
+                return null;
+            }
+
+            if (ncm == null || ncm == "")
+            {
+                Response.Redirect(@Url.Action("Index", "Home"));
+                return null;
+            }
+
+            var ncms = ElasticSearchDAO.ConsultaProdutosSensiveisElasticSearch(descricao_detalhada_produto, ncm, 1, 10);
+            if (ncms.Count == 0)
+            {
+                ModelState.AddModelError("", "Não existem registos para este parametro!");
+                return View();
+            }
+            else
+                return View(ncms);            
         }
         public ActionResult ResumoInicialNcm()
         {
@@ -99,23 +118,18 @@ namespace TradeAdvisor.Controllers
             //////////////////////////////////////////////////////////////////////////
             int BlockSize = 10;
 
-            //var listNcm = NcmDAO.ConsultaListNCM(descricao, ncm, BlockNumber, BlockSize);
+            var listNcm = ElasticSearchDAO.ConsultaProdutosSensiveisElasticSearch(descricao, ncm, BlockNumber, BlockSize);
             JsonModel jsonModel = new JsonModel();
-            //jsonModel.NoMoreData = listNcm.Count < BlockSize;
-            //jsonModel.HTMLString = RenderPartialViewToString("_NcmBlock", listNcm);
+            jsonModel.NoMoreData = listNcm.Count < BlockSize;
+            jsonModel.HTMLString = RenderPartialViewToString("_NcmBlock", listNcm);
             return Json(jsonModel);
         }
         [HttpPost]
         public ActionResult ResumoConsultaDetalhada(string descricao, string ncm)
         {
-            //////////////// THis line of code only for demo. Needs to be removed ////
-            System.Threading.Thread.Sleep(3000);
-            //////////////////////////////////////////////////////////////////////////
-            int BlockSize = 10;
-
-            var listNcm = NcmDAO.ConsultaResumoBusca(descricao, ncm);
+            var listNcm = ElasticSearchDAO.ConsultaResumoConsulta(descricao, ncm);
             JsonModel jsonModel = new JsonModel();
-            jsonModel.NoMoreData = listNcm.Count < BlockSize;
+            jsonModel.NoMoreData = false;
             jsonModel.HTMLString = RenderPartialViewToString("_ResumoConsulta", listNcm);
             return Json(jsonModel);
         }

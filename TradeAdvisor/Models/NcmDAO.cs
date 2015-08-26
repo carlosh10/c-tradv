@@ -21,6 +21,12 @@ namespace TradeAdvisor.Models
 
             public string descricao_detalhada_produto { get; set; }
         }
+
+        public class ResumoConsultaDetalhada
+        {
+            public float vl_ift { get; set; }
+            public long countReg { get; set; }
+        }
         //public static List<vw_ncm_full_15a> ConsultaListNCM(string descricao, string ncm, int startIndex, int blockSize)
         //{
         //    using (ncmrfEntities conexao = new ncmrfEntities())
