@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace TradeAdvisor.Models
+namespace TradeAdvisor.Entities
 {
     public class CE_POCO
     {

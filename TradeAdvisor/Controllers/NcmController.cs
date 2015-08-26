@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TradeAdvisor.Entities;
 using TradeAdvisor.Models;
 
 namespace TradeAdvisor.Controllers
@@ -16,33 +17,6 @@ namespace TradeAdvisor.Controllers
         {
             public string HTMLString { get; set; }
             public bool NoMoreData { get; set; }
-        }
-
-        public ActionResult Consulta(string descricao, string ncm)
-        {
-            if (descricao == null || descricao == "")
-            {
-                Response.Redirect(@Url.Action("Index", "Home"));
-                return null;
-            }
-
-            if (ncm == null || ncm == "")
-            {
-                Response.Redirect(@Url.Action("Index", "Home"));
-                return null;
-            }
-
-            //var ncms = NcmDAO.ConsultaListNCM(descricao, ncm, 1, 10);
-            //var ncms = null;
-            //if (ncms == null || ncms.Count == 0)
-            //{
-            //    ModelState.AddModelError("", "Não existem registos para este parametro!");
-            //    return View();
-            //}
-            //else
-            //    return View(ncms);
-
-            return View();
         }
         public ActionResult DetalhesNcm(string idNcm)
         {
@@ -80,9 +54,15 @@ namespace TradeAdvisor.Controllers
             else
                 return View(ncms);            
         }
-        public ActionResult ResumoInicialNcm()
+        public ActionResult ResumoInicialNcm(string descricao_detalhada_produto)
         {
-            return View(ElasticSearchDAO.ConsultaNCMElasticSearch("iphone"));
+            if (descricao_detalhada_produto == null || descricao_detalhada_produto == "")
+            {
+                Response.Redirect(@Url.Action("Index", "Home"));
+                return null;
+            }
+
+            return View(ElasticSearchDAO.ConsultaNCMElasticSearch(descricao_detalhada_produto));
         }
 
         public ActionResult ResumoConsultaPorNCM(string descricao, string ncm)
@@ -98,7 +78,7 @@ namespace TradeAdvisor.Controllers
             return View(PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde(descricao));
         }
 
-        public ActionResult ResumoConsulta(TradeAdvisor.Models.NcmDAO.ResumoConsulta model)
+        public ActionResult ResumoConsulta(ResumoConsulta model)
         {
             if ((@model.descricao_detalhada_produto == null) || (@model.descricao_detalhada_produto == ""))
             {

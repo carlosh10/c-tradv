@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using TradeAdvisor.Entities;
 
 namespace TradeAdvisor.Models
 {
     public class PRODUTO_SENSIVEIS_DAO
     {
-
         public static List<AgregationsPorBucketQtde> ConsultaProdutosSensiveisPorNCMQtde(string paramatro)
         {
             return ElasticSearchDAO.ConsultaElasticSearchProdSenseQtde(paramatro, "ncm");
@@ -38,9 +38,6 @@ namespace TradeAdvisor.Models
         {
             return ElasticSearchDAO.ConsultaElasticSearchSumProdSenseValor(paramatro, "paisOrigem");
         }
-
-
-
 
  
         public static List<AgregationsPorBucketQtde> ConsultaProdutosSensiveisPorMesAnoQtde(string paramatro)

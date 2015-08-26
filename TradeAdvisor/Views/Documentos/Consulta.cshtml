@@ -1,42 +1,42 @@
 ﻿<div class="container">
     <section id="nav_abas">
-            <div>
-                <!--bloco resultados-->
-                <div id="divResumoConsulta" class="col-xs-12 alert block_default alert-dismissible" role="alert">
-                    <h4 class="col-xs-12">
-                        <strong>Resumo da consulta:</strong>
+        <div>
+            <!--bloco resultados-->
+            <div id="divResumoConsulta" class="col-xs-12 alert block_default alert-dismissible" role="alert">
+                <h4 class="col-xs-12">
+                    <strong>Resumo da consulta:</strong>
+                </h4>
+
+                <div class="col-xs-7">
+                    <h4>Número de resultados</h4>
+                    <h4>
+                        <strong>
+                            Carregando...
+                        </strong>
                     </h4>
-
-                    <div class="col-xs-7">
-                        <h4>Número de resultados</h4>
-                        <h4>
-                            <strong>
-                                Carregando...
-                            </strong>
-                        </h4>
-                    </div>
-
-                    <div class="col-xs-5">
-                        <h2>Total CIF</h2>
-                        <h2>
-                            <strong>
-                                Carregando...
-                            </strong>
-                        </h2>
-                    </div>
-                </div>
-                <div id="ncmListDiv">
-                   @Html.Partial("_NcmBlock")
                 </div>
 
-                <div id="loadingDiv" class="col-xs-12" style="text-align:center; ">
-                    <a href="javascript:void(0);">
-                        <i class="fa fa-spinner fa-4x fa-pulse"></i>
-                    </a>
-
+                <div class="col-xs-5">
+                    <h2>Total CIF</h2>
+                    <h2>
+                        <strong>
+                            Carregando...
+                        </strong>
+                    </h2>
                 </div>
+            </div>
+            <div id="ncmListDiv">
+                @Html.Partial("_DocsBlock")
+            </div>
+
+            <div id="loadingDiv" class="col-xs-12" style="text-align:center; ">
+                <a href="javascript:void(0);">
+                    <i class="fa fa-spinner fa-4x fa-pulse"></i>
+                </a>
 
             </div>
+
+        </div>
     </section>
 </div>
 <script type="text/javascript">
@@ -71,3 +71,4 @@
             });
     });
 </script>
+

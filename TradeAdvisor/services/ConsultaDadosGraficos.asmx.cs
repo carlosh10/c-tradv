@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using TradeAdvisor.Entities;
 using TradeAdvisor.Models;
 
 namespace TradeAdvisor.services
@@ -69,11 +70,11 @@ namespace TradeAdvisor.services
             return PRODUTO_SENSIVEIS_DAO.ConsultaDIQtde(descricao);
         }
 
-        [WebMethod]
-        public List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompanyQtde(string descricao)
-        {
-            return ElasticSearchDAO.ConsultaElasticSearchDocCompany(descricao);
-        }
+        //[WebMethod]
+        //public List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompanyQtde(string descricao)
+        //{
+        //    return ElasticSearchDAO.ConsultaElasticSearchDocCompany(descricao);
+        //}
         
         [WebMethod]
         public List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string descricao)

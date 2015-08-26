@@ -1,4 +1,4 @@
-﻿@model List<TradeAdvisor.Models.NcmDAO.ResumoConsulta>
+﻿@model List<TradeAdvisor.Entities.ResumoConsulta>
 
 <div class="container">
     <section id="nav_abas">
@@ -81,7 +81,7 @@
                             </thead>
 
                             <tbody>
-                                @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).ToList())
+                                @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).ToList())
                                     {
                                     <tr>
                                         <td>
@@ -142,7 +142,7 @@
             Morris.Donut({
                 element: 'donut-graph',
                 data: [
-                 @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
+                 @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
                  {
                      @:{
                                                                       @:value: @ncm.CIFTot.ToString().Replace(',','.'),

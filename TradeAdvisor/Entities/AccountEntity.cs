@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using TradeAdvisor.Models;
 
-namespace TradeAdvisor.Models
+namespace TradeAdvisor.Entities
 {
-    public class AccountLoginModel : usuarios
+    public class AccountLoginEntity : usuarios
     {
         public string ReturnUrl;
         public bool RememberMe;

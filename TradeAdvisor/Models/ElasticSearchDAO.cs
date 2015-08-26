@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using Nest;
+using TradeAdvisor.Entities;
 
 namespace TradeAdvisor.Models
 {
@@ -240,62 +241,62 @@ namespace TradeAdvisor.Models
             return listResultados;
         }
 
-        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
-        {
-            var node = new Uri(URI_ES);
-            var settings = new ConnectionSettings(node);
-            var client = new ElasticClient(settings);
-            var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
-                                                                        .Query(parametro.ToLower())
-                                                                        .OnFields(
-                                                                            f => f.tx_descricaoMercadoria,
-                                                                            f => f.txmercadoria)
-                                                                                );
-            var result = client.Search<AgregationsPorBucketQtde>(s => s
-                                                                 .Index(INDEX)
-                                                                .SearchType(Elasticsearch.Net.SearchType.Count)
-                                                                .AllTypes()
-                                                                .Query(filterQuery)
-                                                                .Size(50)
-                                                                 .Aggregations(a => a
-                                                                                .Terms(DI, terDI => terDI
-                                                                                        .Field("tx_cnpj")
-                                                                                )
-                                                                                .Terms(CE, terCE => terCE
-                                                                                        .Field("cdconsignatario")
-                                                                                )
-                                                                              )
-                                                                 );
+        //public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
+        //{
+        //    var node = new Uri(URI_ES);
+        //    var settings = new ConnectionSettings(node);
+        //    var client = new ElasticClient(settings);
+        //    var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
+        //                                                                .Query(parametro.ToLower())
+        //                                                                .OnFields(
+        //                                                                    f => f.tx_descricaoMercadoria,
+        //                                                                    f => f.txmercadoria)
+        //                                                                        );
+        //    var result = client.Search<AgregationsPorBucketQtde>(s => s
+        //                                                         .Index(INDEX)
+        //                                                        .SearchType(Elasticsearch.Net.SearchType.Count)
+        //                                                        .AllTypes()
+        //                                                        .Query(filterQuery)
+        //                                                        .Size(50)
+        //                                                         .Aggregations(a => a
+        //                                                                        .Terms(DI, terDI => terDI
+        //                                                                                .Field("tx_cnpj")
+        //                                                                        )
+        //                                                                        .Terms(CE, terCE => terCE
+        //                                                                                .Field("cdconsignatario")
+        //                                                                        )
+        //                                                                      )
+        //                                                         );
 
 
-            List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
+        //    List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
 
 
-            //DI Values
-            var listBucketsDI = (Bucket)result.Aggregations[DI];
+        //    //DI Values
+        //    var listBucketsDI = (Bucket)result.Aggregations[DI];
 
-            foreach (KeyItem listKeyItem in listBucketsDI.Items)
-            {
-                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
-                //incluir aqui a busca pelo nome da empresa
-                resumoBusca.name = DIDAO.ConsultaEmpresaDIPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
-                resumoBusca.qtde = listKeyItem.DocCount;
+        //    foreach (KeyItem listKeyItem in listBucketsDI.Items)
+        //    {
+        //        AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+        //        //incluir aqui a busca pelo nome da empresa
+        //        resumoBusca.name = DIDAO.ConsultaEmpresaDIPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+        //        resumoBusca.qtde = listKeyItem.DocCount;
 
-                listResultados.Add(resumoBusca);
-            }
-            //CE Values
-            var listBucketsCE = (Bucket)result.Aggregations[CE];
+        //        listResultados.Add(resumoBusca);
+        //    }
+        //    //CE Values
+        //    var listBucketsCE = (Bucket)result.Aggregations[CE];
 
-            foreach (KeyItem listKeyItem in listBucketsCE.Items)
-            {
-                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
-                resumoBusca.name = CEDAO.ConsultaEmpresaCEPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
-                resumoBusca.qtde = listKeyItem.DocCount;
+        //    foreach (KeyItem listKeyItem in listBucketsCE.Items)
+        //    {
+        //        AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+        //        resumoBusca.name = CEDAO.ConsultaEmpresaCEPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+        //        resumoBusca.qtde = listKeyItem.DocCount;
 
-                listResultados.Add(resumoBusca);
-            }
-            return listResultados;
-        }
+        //        listResultados.Add(resumoBusca);
+        //    }
+        //    return listResultados;
+        //}
 
 
         public static List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string paramatro)
@@ -431,13 +432,13 @@ namespace TradeAdvisor.Models
         }
 
 
-        public static List<TradeAdvisor.Models.NcmDAO.ResumoConsulta> ConsultaNCMElasticSearch(string paramatro)
+        public static List<ResumoConsulta> ConsultaNCMElasticSearch(string paramatro)
         {
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
-            var result = client.Search<TradeAdvisor.Models.NcmDAO.ResumoConsulta>(s => s
+            var result = client.Search<ResumoConsulta>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
                 .SearchType(Elasticsearch.Net.SearchType.Count)
@@ -468,12 +469,12 @@ namespace TradeAdvisor.Models
 
             listBucketsDesc = (Bucket)result.Aggregations["desc"];
 
-            List<TradeAdvisor.Models.NcmDAO.ResumoConsulta> listResultados = new List<TradeAdvisor.Models.NcmDAO.ResumoConsulta>();
+            List<ResumoConsulta> listResultados = new List<ResumoConsulta>();
 
             int count = 0;
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
-                TradeAdvisor.Models.NcmDAO.ResumoConsulta resumoBusca = new TradeAdvisor.Models.NcmDAO.ResumoConsulta();
+                ResumoConsulta resumoBusca = new ResumoConsulta();
                 resumoBusca.ncm = listKeyItem.Key;
                 resumoBusca.countReg = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
                 resumoBusca.CIFTot = (float)((ValueMetric)listKeyItem.Aggregations["CIFTot"]).Value;
@@ -495,14 +496,14 @@ namespace TradeAdvisor.Models
             return listResultados;
         }
 
-        public static List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada> ConsultaResumoConsulta(string paramatro, string ncm)
+        public static List<ResumoConsultaDetalhada> ConsultaResumoConsulta(string paramatro, string ncm)
         {
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var filterQuery2 = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("ncm", ncm.ToLower());
-            var result = client.Search<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>(s => s
+            var result = client.Search<ResumoConsultaDetalhada>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
                 .SearchType(Elasticsearch.Net.SearchType.Count)
@@ -524,11 +525,11 @@ namespace TradeAdvisor.Models
 
             var listBuckets = (Bucket)result.Aggregations["ncm"];
 
-            List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada> listResumo = new List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>();
+            List<ResumoConsultaDetalhada> listResumo = new List<ResumoConsultaDetalhada>();
 
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
-                NcmDAO.ResumoConsultaDetalhada resumo = new NcmDAO.ResumoConsultaDetalhada();
+                ResumoConsultaDetalhada resumo = new ResumoConsultaDetalhada();
                 resumo.countReg = (long)((ValueMetric)listKeyItem.Aggregations["countReg"]).Value;
                 resumo.vl_ift = (float)((ValueMetric)listKeyItem.Aggregations["vl_ift"]).Value;
                 listResumo.Add(resumo);

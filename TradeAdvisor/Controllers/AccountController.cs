@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TradeAdvisor.Entities;
 using TradeAdvisor.Models;
 
 namespace TradeAdvisor.Controllers
@@ -23,7 +24,7 @@ namespace TradeAdvisor.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(AccountLoginModel model)
+        public ActionResult Login(AccountLoginEntity model)
         {
             if (ModelState.IsValid)
             {

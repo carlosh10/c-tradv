@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace TradeAdvisor.Models
+namespace TradeAdvisor.Entities
 {
     public class ES_DOCUMENTS_POCO
     {
