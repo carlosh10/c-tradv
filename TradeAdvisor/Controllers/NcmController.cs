@@ -47,10 +47,9 @@ namespace TradeAdvisor.Controllers
         public ActionResult DetalhesNcm(string idNcm)
         {
             try
-            {
-                //var ncm = NcmDAO.ConsultaNCM(Int32.Parse(idNcm));
-                //return View(ncm);
-                return View();
+            {                
+                var ncm = ElasticSearchDAO.ConsultaProdutoSensivelElasticSearch(Int32.Parse(idNcm));
+                return View(ncm);
             }
             catch (Exception x)
             {

@@ -525,7 +525,7 @@ namespace TradeAdvisor.Models
             var listBuckets = (Bucket)result.Aggregations["ncm"];
 
             List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada> listResumo = new List<TradeAdvisor.Models.NcmDAO.ResumoConsultaDetalhada>();
-           
+
             foreach (KeyItem listKeyItem in listBuckets.Items)
             {
                 NcmDAO.ResumoConsultaDetalhada resumo = new NcmDAO.ResumoConsultaDetalhada();
@@ -553,6 +553,22 @@ namespace TradeAdvisor.Models
             );
 
             return (List<PRODUTOS_SENSIVEIS_POCO>)result.Documents;
+        }
+        public static PRODUTOS_SENSIVEIS_POCO ConsultaProdutoSensivelElasticSearch(int pk_produto_sensivel)
+        {
+            var node = new Uri(URI_ES);
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("pk_ncmrf_15a", pk_produto_sensivel.ToString());
+
+            var result = client.Search<PRODUTOS_SENSIVEIS_POCO>(s => s
+                .Index(INDEX)
+                .Type("prodsense")
+                .Query(filterQuery)
+                
+            );
+
+            return ((List<PRODUTOS_SENSIVEIS_POCO>)result.Documents).First();
         }
 
         //TODO: Código necessário para analisar a query

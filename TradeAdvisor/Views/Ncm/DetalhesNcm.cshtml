@@ -1,17 +1,4 @@
-﻿@model TradeAdvisor.Models.vw_ncm_full_15a
-
-<!--busca-->
-<div class="collapse" id="collapseSearch">
-
-    <form action="@Url.Action("Consulta", "Ncm")" method="POST">
-        <span class="search_box">
-            <input class="input_style col-xs-12" id="search-fld" type="text" name="descricao_detalhada_produto" value="@Request["descricao_detalhada_produto"]" placeholder="Faça sua pesquisa">
-            <button type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </span>
-    </form>
-</div>
+﻿@model TradeAdvisor.Models.PRODUTOS_SENSIVEIS_POCO
 
 <div class="col-xs-12 block_blue">
     <div class="light_blue col-xs-12 padding_zero">

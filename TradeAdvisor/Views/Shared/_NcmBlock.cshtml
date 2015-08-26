@@ -4,7 +4,7 @@
 {
     <div class="col-xs-12 block_default">
 
-        <a href="@Url.Action("DetalhesNcm", "Ncm", new { idNcm = ncm.pk_ncmrf_15a })" class="continue_lendo">
+        <a href="@Url.Action("DetalhesNcm", "Ncm", new { idNcm = ncm.pk_ncmrf_15a, descricao_detalhada_produto = @Request["descricao_detalhada_produto"] })" class="continue_lendo">
             •••
         </a>
 
