@@ -162,7 +162,7 @@
       <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\PRODUTOS_SENSIVEIS_POCO.cs" />
-    <Compile Include="Entities\POCO.cs" />
+    <Compile Include="Entities\Entidades.cs" />
     <Compile Include="Models\PRODUTO_SENSIVEIS_DAO.cs" />
     <Compile Include="Models\schema_migrations.cs">
       <DependentUpon>ModelTradeAdvisor.tt</DependentUpon>
@@ -234,16 +234,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="css\" />
     <Folder Include="img\" />
     <Folder Include="js\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
