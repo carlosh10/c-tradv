@@ -30,7 +30,12 @@ namespace TradeAdvisor.Entities
     {
         public string tx_ncm_desc { get; set; }
         public string ncm { get; set; }
-        public int? vl_ift { get; set; }
+        public float vl_ift { get; set; }
+        public float vl_ii { get; set; }
+        public float vl_ipi { get; set; }
+        public float vl_pis { get; set; }
+        public float vl_cofins { get; set; }
+        public float vl_aliq_total { get; set; }
         public long countReg { get; set; }
         public float CIFTot { get; set; }
 

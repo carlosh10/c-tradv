@@ -454,10 +454,13 @@ namespace TradeAdvisor.Models
                             .Sum("CIFTot", m => m
                                 .Field("CIF")
                             )
+                            .Average("vl_ift", m => m
+                                .Field("vl_ift")
+                            )
                         )
                     )
                      .Terms("desc", st => st
-                        .Field("DESCRICAO")
+                        .Field("ncmDescricao")
                         .Size(99999999)
                     )
                 )
@@ -478,6 +481,7 @@ namespace TradeAdvisor.Models
                 resumoBusca.ncm = listKeyItem.Key;
                 resumoBusca.countReg = (long)((ValueMetric)listKeyItem.Aggregations["qtde"]).Value;
                 resumoBusca.CIFTot = (float)((ValueMetric)listKeyItem.Aggregations["CIFTot"]).Value;
+                resumoBusca.vl_ift = (float)((ValueMetric)listKeyItem.Aggregations["vl_ift"]).Value;
 
                 int countDesc = 0;
                 foreach (KeyItem listKeyItemDesc in listBucketsDesc.Items)
@@ -544,11 +548,12 @@ namespace TradeAdvisor.Models
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
             var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+            var filterQuery2 = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("ncm", ncm.ToLower());
 
             var result = client.Search<PRODUTOS_SENSIVEIS_POCO>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
-                .Query(filterQuery)
+                .Query(filterQuery & filterQuery2)
                 .Size(blockSize)
                 .Skip((startIndex - 1) * blockSize)
             );
@@ -566,7 +571,7 @@ namespace TradeAdvisor.Models
                 .Index(INDEX)
                 .Type("prodsense")
                 .Query(filterQuery)
-                
+
             );
 
             return ((List<PRODUTOS_SENSIVEIS_POCO>)result.Documents).First();

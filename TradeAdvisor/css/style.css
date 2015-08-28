@@ -1117,8 +1117,8 @@ section {
     padding: 12px;
     text-align: center;
     margin: 1px 0;
-    background: #112433;
-    color: #fff;
+    /*background: #112433;*/
+    /*color: #fff;*/
     border: 1px solid #4b96c2;
 }
 
@@ -2253,4 +2253,7 @@ section {
 }
  #loadingDiv{
      margin-bottom:30px;
+ }
+ .small_font strong{
+     color:white;
  }
