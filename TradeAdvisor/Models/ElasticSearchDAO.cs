@@ -11,7 +11,7 @@ namespace TradeAdvisor.Models
 {
     public class ElasticSearchDAO
     {
-        public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao={descricao}&ncm={ncm}";
+        public const string URL_PROD_SENSE = "/ncm/detalhesimportacao?descricao_detalhada_produto={descricao}&ncm={ncm}";
         public const string URI_ES = "http://104.197.50.109:9400";
         public const string URL_DI = null;
         public const string INDEX = "documents_index";
@@ -40,12 +40,13 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+            //var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower().Replace(" ", " AND "));
             var result = client.Search<AgregationsPorBucketQtde>(s => s
                 .Index(index)
                 .Type(type_document)
                 .SearchType(Elasticsearch.Net.SearchType.Count)
-                .Query(filterQuery)
+                //.Query(filterQuery)
+                .Query(q => q.QueryString(d => d.DefaultField("descricao_detalhada_produto").Query(paramatro.ToLower().Replace(" ", " AND "))))
                 .Aggregations(a => a
                     .Terms("name", st => st
                         .Field(campo)
@@ -131,13 +132,14 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
+            //var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower().Replace(" ", " AND "));
 
             var result = client.Search<AgregationsPorBucketValor>(s => s
                 .Index(index)
                 .Type(type_document)
                 .SearchType(Elasticsearch.Net.SearchType.Count)
-                .Query(filterQuery)
+                //.Query(filterQuery)
+                .Query(q => q.QueryString(d => d.DefaultField("descricao_detalhada_produto").Query(paramatro.ToLower().Replace(" ", " AND "))))
                 .Aggregations(a => a
                     .Terms("name", st => st
                         .Field(campo)
@@ -241,62 +243,62 @@ namespace TradeAdvisor.Models
             return listResultados;
         }
 
-        //public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
-        //{
-        //    var node = new Uri(URI_ES);
-        //    var settings = new ConnectionSettings(node);
-        //    var client = new ElasticClient(settings);
-        //    var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
-        //                                                                .Query(parametro.ToLower())
-        //                                                                .OnFields(
-        //                                                                    f => f.tx_descricaoMercadoria,
-        //                                                                    f => f.txmercadoria)
-        //                                                                        );
-        //    var result = client.Search<AgregationsPorBucketQtde>(s => s
-        //                                                         .Index(INDEX)
-        //                                                        .SearchType(Elasticsearch.Net.SearchType.Count)
-        //                                                        .AllTypes()
-        //                                                        .Query(filterQuery)
-        //                                                        .Size(50)
-        //                                                         .Aggregations(a => a
-        //                                                                        .Terms(DI, terDI => terDI
-        //                                                                                .Field("tx_cnpj")
-        //                                                                        )
-        //                                                                        .Terms(CE, terCE => terCE
-        //                                                                                .Field("cdconsignatario")
-        //                                                                        )
-        //                                                                      )
-        //                                                         );
+        public static List<AgregationsPorBucketQtde> ConsultaElasticSearchDocCompany(string parametro)
+        {
+            var node = new Uri(URI_ES);
+            var settings = new ConnectionSettings(node);
+            var client = new ElasticClient(settings);
+            var filterQuery = Query<ES_DOCUMENTS_POCO>.MultiMatch(mm => mm
+                                                                        .Query(parametro.ToLower())
+                                                                        .OnFields(
+                                                                            f => f.tx_descricaoMercadoria,
+                                                                            f => f.txmercadoria)
+                                                                                );
+            var result = client.Search<AgregationsPorBucketQtde>(s => s
+                                                                 .Index(INDEX)
+                                                                .SearchType(Elasticsearch.Net.SearchType.Count)
+                                                                .AllTypes()
+                                                                .Query(filterQuery)
+                                                                .Size(50)
+                                                                 .Aggregations(a => a
+                                                                                .Terms(DI, terDI => terDI
+                                                                                        .Field("tx_cnpj")
+                                                                                )
+                                                                                .Terms(CE, terCE => terCE
+                                                                                        .Field("cdconsignatario")
+                                                                                )
+                                                                              )
+                                                                 );
 
 
-        //    List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
+            List<AgregationsPorBucketQtde> listResultados = new List<AgregationsPorBucketQtde>();
 
 
-        //    //DI Values
-        //    var listBucketsDI = (Bucket)result.Aggregations[DI];
+            //DI Values
+            var listBucketsDI = (Bucket)result.Aggregations[DI];
 
-        //    foreach (KeyItem listKeyItem in listBucketsDI.Items)
-        //    {
-        //        AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
-        //        //incluir aqui a busca pelo nome da empresa
-        //        resumoBusca.name = DIDAO.ConsultaEmpresaDIPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
-        //        resumoBusca.qtde = listKeyItem.DocCount;
+            foreach (KeyItem listKeyItem in listBucketsDI.Items)
+            {
+                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+                //incluir aqui a busca pelo nome da empresa
+                //resumoBusca.name = DIDAO.ConsultaEmpresaDIPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+                resumoBusca.qtde = listKeyItem.DocCount;
 
-        //        listResultados.Add(resumoBusca);
-        //    }
-        //    //CE Values
-        //    var listBucketsCE = (Bucket)result.Aggregations[CE];
+                listResultados.Add(resumoBusca);
+            }
+            //CE Values
+            var listBucketsCE = (Bucket)result.Aggregations[CE];
 
-        //    foreach (KeyItem listKeyItem in listBucketsCE.Items)
-        //    {
-        //        AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
-        //        resumoBusca.name = CEDAO.ConsultaEmpresaCEPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
-        //        resumoBusca.qtde = listKeyItem.DocCount;
+            foreach (KeyItem listKeyItem in listBucketsCE.Items)
+            {
+                AgregationsPorBucketQtde resumoBusca = new AgregationsPorBucketQtde();
+                //resumoBusca.name = CEDAO.ConsultaEmpresaCEPorCnpj(listKeyItem.Key) + "/" + listKeyItem.Key;
+                resumoBusca.qtde = listKeyItem.DocCount;
 
-        //        listResultados.Add(resumoBusca);
-        //    }
-        //    return listResultados;
-        //}
+                listResultados.Add(resumoBusca);
+            }
+            return listResultados;
+        }
 
 
         public static List<AgregationsPorBucketQtdexDate> ConsultaElasticSearchCountQtdeDocuments(string paramatro)
@@ -437,12 +439,12 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var result = client.Search<ResumoConsulta>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
                 .SearchType(Elasticsearch.Net.SearchType.Count)
-                .Query(filterQuery)
+                //.Query(filterQuery)
+                .Query(q => q.QueryString(d => d.DefaultField("descricao_detalhada_produto").Query(paramatro.ToLower().Replace(" "," AND "))))
                 .Aggregations(a => a
                     .Terms("ncm", st => st
                         .Field("ncm")
@@ -505,13 +507,13 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var filterQuery2 = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("ncm", ncm.ToLower());
             var result = client.Search<ResumoConsultaDetalhada>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
                 .SearchType(Elasticsearch.Net.SearchType.Count)
-                .Query(filterQuery && filterQuery2)
+                .Query(filterQuery2)
+                .Query(q => q.QueryString(d => d.DefaultField("descricao_detalhada_produto").Query(paramatro.ToLower().Replace(" ", " AND "))))
                 .Aggregations(a => a
                     .Terms("ncm", term => term
                         .Field("ncm")
@@ -547,13 +549,13 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("descricao_detalhada_produto", paramatro.ToLower());
             var filterQuery2 = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("ncm", ncm.ToLower());
 
             var result = client.Search<PRODUTOS_SENSIVEIS_POCO>(s => s
                 .Index(INDEX)
                 .Type("prodsense")
-                .Query(filterQuery & filterQuery2)
+                .Query(filterQuery2)
+                .Query(q => q.QueryString(d => d.DefaultField("descricao_detalhada_produto").Query(paramatro.ToLower().Replace(" ", " AND "))))
                 .Size(blockSize)
                 .Skip((startIndex - 1) * blockSize)
             );
@@ -565,7 +567,7 @@ namespace TradeAdvisor.Models
             var node = new Uri(URI_ES);
             var settings = new ConnectionSettings(node);
             var client = new ElasticClient(settings);
-            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("pk_ncmrf_15a", pk_produto_sensivel.ToString());
+            var filterQuery = Query<PRODUTOS_SENSIVEIS_POCO>.Terms("pk_ncmrf_15a", pk_produto_sensivel.ToString().Split(' '));
 
             var result = client.Search<PRODUTOS_SENSIVEIS_POCO>(s => s
                 .Index(INDEX)

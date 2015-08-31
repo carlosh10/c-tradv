@@ -50,8 +50,7 @@
                                         </ul>
 
                                 </div>
-                            </div>
-
+                            </div>                     
 
                             @*<div class="uk-width-small-1-1">
                                 <div class="transparent_card">
@@ -180,8 +179,6 @@
 
                                 </div>*@
 
-
-
                                 <div class="uk-width-small-1-1">
                                     <div class="card_style">
                                         <!--//graficos 2 aba 4-->
@@ -201,7 +198,6 @@
                                                 <div id="produtos_2_2" class="graficos_responsivos"></div>
                                             </li>
                                         </ul>
-
                                     </div>
                                 </div>
 
@@ -225,11 +221,8 @@
                                                 <div id="produtos_3_2" class="graficos_responsivos"></div>
                                             </li>
                                         </ul>
-
                                     </div>
                                 </div>
-
-
 
                                 <div class="uk-width-small-1-1">
                                     <div class="card_style">
@@ -683,7 +676,7 @@
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisOrigemValor', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_3_1', 'Valor', false);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorPaisOrigemQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_3_2', 'Quantidade', true);
         RequestPostGraficoBarra('/services/ConsultaDadosGraficos.asmx/ConsultaDadosPorMesAnoQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'produtos_4', 'Quantidade de Produtos Importados x Período');
-        //RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchDocCompanyQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade de Documentos Total x Empresa', true);
+        RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchDocCompanyQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_1', 'Quantidade de Documentos Total x Empresa', true);
         RequestPostGraficoTreemap('/services/ConsultaDadosGraficos.asmx/ConsultaDadosDIQtde', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_2', 'Quantidade de Documentos x Tipo', true);
         RequestPostGraficoBarraStacked('/services/ConsultaDadosGraficos.asmx/ConsultaElasticSearchCountQtdeDocuments', '{"descricao":"@Request["descricao_detalhada_produto"]"}', 'documentos_3', 'Quantidade de Documentos x Período');
     });

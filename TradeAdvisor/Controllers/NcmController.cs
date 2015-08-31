@@ -78,9 +78,9 @@ namespace TradeAdvisor.Controllers
             return View(PRODUTO_SENSIVEIS_DAO.ConsultaProdutosSensiveisPorNCMQtde(descricao));
         }
 
-        public ActionResult ResumoConsulta(ResumoConsulta model)
+        public ActionResult ResumoConsulta(string descricao_detalhada_produto)
         {
-            if ((@model.descricao_detalhada_produto == null) || (@model.descricao_detalhada_produto == ""))
+            if ((descricao_detalhada_produto == null) || (descricao_detalhada_produto == ""))
             {
                 ModelState.AddModelError("", "Insira um valor");
                 return RedirectToAction("index", "home");
