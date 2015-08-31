@@ -31,115 +31,117 @@
                     }
                     @if (@Model.Count > 0)
                     {
-                    <div>
-                        <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
-                        <!--bloco produto-->
-                        <div class="col-xs-12 block_default">
-                            <div style="width:50%;float:left; margin-top:0px; text-align:center;"><label class="nm_grafico">CIF Total por NCM </label></div>
-                            <div style="width:50%;float:right;margin-top:0px; text-align:center;"><label class="nm_grafico">Quantidade por NCM</label></div>
-                            <div class="col-sm-12">
+                        <div>
+                            <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
+                            <!--bloco produto-->
+                            <div class="col-xs-12 block_default">
+                                <div class="col-sm-12">
 
-                                <div>
-                                    <!-- Widget ID (each widget will need unique ID)-->
-                                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+                                    <div>
+                                        <!-- Widget ID (each widget will need unique ID)-->
+                                        <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
 
-                                        <div>
-                                            <!-- widget edit box -->
-                                            <div class="jarviswidget-editbox">
-                                                <!-- This area used as dropdown edit box -->
+                                            <div>
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
+
+                                                </div>
+                                                <!-- end widget edit box -->
+                                                <!-- widget content -->
+                                                <div class="widget-body no-padding">
+                                                    <div id="donut-graphNcmStyle">
+                                                        <label class="nm_grafico">CIF Total por NCM </label>
+                                                        <div id="donut-graphNcm" class="chart no-padding"></div>
+                                                    </div>
+
+                                                </div>
+                                                <!-- end widget content -->
 
                                             </div>
-                                            <!-- end widget edit box -->
-                                            <!-- widget content -->
-                                            <div class="widget-body no-padding">
-
-                                                <div id="donut-graphNcm" class="chart no-padding"></div>
-
-                                            </div>
-                                            <!-- end widget content -->
+                                            <!-- end widget div -->
 
                                         </div>
-                                        <!-- end widget div -->
 
-                                    </div>
+                                        <!-- Widget ID (each widget will need unique ID)-->
+                                        <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
 
-                                    <!-- Widget ID (each widget will need unique ID)-->
-                                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+                                            <div>
+                                                <!-- widget edit box -->
+                                                <div class="jarviswidget-editbox">
+                                                    <!-- This area used as dropdown edit box -->
 
-                                        <div>
-                                            <!-- widget edit box -->
-                                            <div class="jarviswidget-editbox">
-                                                <!-- This area used as dropdown edit box -->
+                                                </div>
+                                                <!-- end widget edit box -->
+                                                <!-- widget content -->
+                                                <div class="widget-body no-padding">
+                                                    <div id="donut-graphNcmQuantidadeStyle">
+                                                        <label class="nm_grafico">Quantidade por NCM</label>
+                                                        <div id="donut-graphNcmQuantidade" class="chart no-padding"></div>
+                                                    </div>
+                                                </div>
+                                                <!-- end widget content -->
 
                                             </div>
-                                            <!-- end widget edit box -->
-                                            <!-- widget content -->
-                                            <div class="widget-body no-padding">
-
-                                                <div id="donut-graphNcmQuantidade" class="chart no-padding"></div>
-                                            </div>
-                                            <!-- end widget content -->
+                                            <!-- end widget div -->
 
                                         </div>
-                                        <!-- end widget div -->
-
-                                    </div>
 
 
-                                    <table class="table table-striped table_trade2">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    <strong>Ncm</strong>
-
-                                                </th>
-                                                <th>
-                                                    <strong>Descrição</strong>
-                                                </th>
-                                                <th>
-                                                    <strong>CIF Total USD</strong>
-                                                </th>
-                                                <th>
-                                                    <strong>Aliquota Total</strong>
-
-                                                </th>
-                                                <th>
-                                                    <strong>Quantidade</strong>
-                                                </th>
-                                            </tr>
-
-                                        </thead>
-
-                                        <tbody>
-                                            @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).ToList())
-                                            {
+                                        <table class="table table-striped table_trade2">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.ncm</a>
-                                                    </td>
-                                                    <td>
-                                                        <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.tx_ncm_desc</a>
-                                                    </td>
-                                                    <td>
-                                                        $@String.Format("{0:0,0.00}", @ncm.CIFTot)
-                                                    </td>
-                                                    <td>
-                                                        @String.Format("{0:0}", @ncm.vl_ift)%
-                                                    </td>
-                                                    <td>
-                                                        @ncm.countReg
-                                                    </td>
+                                                    <th>
+                                                        <strong>Ncm</strong>
+
+                                                    </th>
+                                                    <th>
+                                                        <strong>Descrição</strong>
+                                                    </th>
+                                                    <th>
+                                                        <strong>CIF Total USD</strong>
+                                                    </th>
+                                                    <th>
+                                                        <strong>Aliquota Total</strong>
+
+                                                    </th>
+                                                    <th>
+                                                        <strong>Quantidade</strong>
+                                                    </th>
                                                 </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).ToList())
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.ncm</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.tx_ncm_desc</a>
+                                                        </td>
+                                                        <td>
+                                                            $@String.Format("{0:0,0.00}", @ncm.CIFTot)
+                                                        </td>
+                                                        <td>
+                                                            @String.Format("{0:0}", @ncm.vl_ift)%
+                                                        </td>
+                                                        <td>
+                                                            @ncm.countReg
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
 
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
                     }
                 </li>
 
@@ -814,9 +816,9 @@
                  @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
                      {
                      @:{
-                                                                                           @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                                                                           @:label: @ncm.ncm
-                                                                                    @:},
+                                                                                                                @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                                                                                                @:label: @ncm.ncm
+                                                                                                         @:},
                      }
                 ],
                 formatter: function (x) {
@@ -838,9 +840,9 @@
                  @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
                  {
                      @:{
-                                                                                                                                                           @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                                                                                                                                           @:label: @ncm.ncm
-                                                                                                                                                       @:},
+                                                                                                                                                                                @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                                                                                                                                                                @:label: @ncm.ncm
+                                                                                                                                                                            @:},
                      }
                 ],
                 formatter: function (x) {
@@ -862,9 +864,9 @@
                 @foreach (var ncm in Model.OrderByDescending(c => c.countReg).Take(7).ToList())
                 {
                 @:{
-                                                                                                                                                 @:value: @ncm.countReg.ToString().Replace(',', '.'),
-                                                                                                                                                 @:label: @ncm.ncm
-                                                                                                                                            @:},
+                                                                                                                                                                     @:value: @ncm.countReg.ToString().Replace(',', '.'),
+                                                                                                                                                                     @:label: @ncm.ncm
+                                                                                                                                                                @:},
                      }
                 ],
                 formatter: function (x) {

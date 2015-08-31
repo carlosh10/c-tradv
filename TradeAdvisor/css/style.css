@@ -338,7 +338,6 @@ section {
     float: left;
     margin: 0;
 }
-
 /*banner*/
 .banner_principal {
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#142c3e+43,142c3e+43,1e9195+100 */
@@ -363,23 +362,25 @@ section {
     z-index: 1;
 }
 
+@media (min-width: 1024px) {
     .mensagem_banner h2 {
         color: #fff;
         font-family: 'latolight';
         font-size: 30px;
         text-transform: uppercase;
     }
+}
 
-    .mensagem_banner p {
-        color: #fff;
-    }
+.mensagem_banner p {
+    color: #fff;
+}
 
-    .mensagem_banner p {
-        font-size: 18px;
-        border-top: dotted 2px #fff;
-        border-collapse: 4px;
-        padding: 10px 0;
-    }
+.mensagem_banner p {
+    font-size: 18px;
+    border-top: dotted 2px #fff;
+    border-collapse: 4px;
+    padding: 10px 0;
+}
 
 .descer {
     margin-top: 15%;
@@ -600,6 +601,14 @@ section {
     -webkit-box-shadow: 2px 2px 0 0 rgba(0,0,0,0.1);
     box-shadow: 2px 2px 0 0 rgba(0,0,0,0.1);
     position: relative;
+}
+
+@media (max-width: 767px) {
+    .navegacao_abas ul {
+        width: 620px;
+        padding-right: 20px;
+        height: 45px;
+    }
 }
 
 .navegacao_abas {
@@ -931,15 +940,41 @@ section {
     }
 }
 
-#donut-graphNcm {
-    float: left;
-    width: 49%;
+@media (max-width:979px) {
+    #donut-graphNcmStyle {
+        width: 100%;
+    }
+
+    #donut-graphNcmQuantidadeStyle {
+        width: 100%;
+    }
+
+    .nm_grafico {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+    }
 }
 
-#donut-graphNcmQuantidade {
-    float: right;
-    width: 49%;
+@media (min-width:979px) {
+    #donut-graphNcmStyle {
+        float: left;
+        width: 49%;
+    }
+
+    #donut-graphNcmQuantidadeStyle {
+        float: right;
+        width: 49%;
+    }
+
+    .nm_grafico {
+        width: 100%;
+        text-align: center;
+        font-size: 22px;
+    }
 }
+
+
 
 .table_trade2, .table_trade2 th {
     text-align: center;
@@ -949,11 +984,6 @@ section {
     width: 100%;
     max-width: 100%;
     margin-bottom: 18px;
-}
-
-.nm_grafico {
-    text-align: center;
-    font-size: 22px;
 }
 
 .table_trade1 {
@@ -2210,54 +2240,63 @@ section {
         max-width: 30px !important;
     }
 }
-.continue_lendo {
-  padding: 0 12px;
-  margin-top: -12px;
-  font-weight: bold;
-  border: 0;
-  background: transparent;
-  font-size: 20px;
-  display: block;
-  line-height: ;
-  z-index: 10;
-  text-align: right;
-  color: #333;
-  opacity: .2;
-}
-.continue_lendo:hover,.continue_lendo:focus,.continue_lendo:active{
- 	color:#112433;
-  	opacity: 1;
- }
- .block_default strong{
- 	color:#112433;
- }
- .gray_background {
-  background: #eee;
-  height: 100%;
-  width: 100%;
-}
- .fa-spin {
-  -webkit-animation: fa-spin 2s infinite linear;
-  animation: fa-spin 2s infinite linear;
-}
- .fa-4x {
-  font-size: 4em;
-}
- .fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
- #loadingDiv{
-     margin-bottom:30px;
- }
- .small_font strong{
-     color:white;
- }
 
- a:focus, a:hover{
-     text-decoration:none;
- }
+.continue_lendo {
+    padding: 0 12px;
+    margin-top: -12px;
+    font-weight: bold;
+    border: 0;
+    background: transparent;
+    font-size: 20px;
+    display: block;
+    line-height:;
+    z-index: 10;
+    text-align: right;
+    color: #333;
+    opacity: .2;
+}
+
+    .continue_lendo:hover, .continue_lendo:focus, .continue_lendo:active {
+        color: #112433;
+        opacity: 1;
+    }
+
+.block_default strong {
+    color: #112433;
+}
+
+.gray_background {
+    background: #eee;
+    height: 100%;
+    width: 100%;
+}
+
+.fa-spin {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+}
+
+.fa-4x {
+    font-size: 4em;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#loadingDiv {
+    margin-bottom: 30px;
+}
+
+.small_font strong {
+    color: white;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+}
