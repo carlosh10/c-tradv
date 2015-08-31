@@ -916,12 +916,6 @@ section {
         width: 100%;
     }
 
-    .navegacao_abas ul {
-        width: 330px;
-        padding-right: 20px;
-        height: 45px;
-    }
-
     .navegacao_abas {
         overflow-x: visible;
         overflow-y: hidden;
@@ -944,7 +938,6 @@ section {
     #donut-graphNcmStyle {
         width: 100%;
     }
-
     #donut-graphNcmQuantidadeStyle {
         width: 100%;
     }
