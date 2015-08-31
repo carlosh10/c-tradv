@@ -1202,6 +1202,10 @@ section {
     .table_trade1, .table_trade2, .small_font {
         font-size: 8px;
     }
+    
+    .graficos_responsivos {
+        width: 230px;
+    }
 }
 
 .col-xs-12 {
@@ -2299,4 +2303,8 @@ section {
 
 a:focus, a:hover {
     text-decoration: none;
+}
+#container_nav{
+    width:100%;
+    overflow-x:auto;
 }
