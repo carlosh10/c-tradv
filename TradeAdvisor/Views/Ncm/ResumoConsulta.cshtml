@@ -1,5 +1,6 @@
 ﻿@using TradeAdvisor.Models
 @model List<TradeAdvisor.Entities.ResumoConsulta>
+
 <section id="nav_abas">
     <div class="gray_back">
         <div class="navegacao_abas" data-uk-sticky="{top:-80, animation: 'uk-animation-slide-top'}">
@@ -22,6 +23,14 @@
 
                 <!--Produtos importados-->
                 <li>
+                    @if (@Model.Count == 0)
+                    {
+                        <br /><br />
+                        <strong>Não existem resultados para os valores pesquisados!</strong>
+                        <br /><br />
+                    }
+                    @if (@Model.Count > 0)
+                    {
                     <div>
                         <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
                         <!--bloco produto-->
@@ -44,7 +53,7 @@
                                             <!-- widget content -->
                                             <div class="widget-body no-padding">
 
-                                                <div id="donut-graph" class="chart no-padding"></div>
+                                                <div id="donut-graphNcm" class="chart no-padding"></div>
 
                                             </div>
                                             <!-- end widget content -->
@@ -131,6 +140,7 @@
 
                         </div>
                     </div>
+                    }
                 </li>
 
                 <!--Documentos-->
@@ -797,17 +807,17 @@
 
 
         // donut
-        if ($('#donut-graph').length) {
+        if ($('#donut-graphNcm').length) {
             Morris.Donut({
-                element: 'donut-graph',
+                element: 'donut-graphNcm',
                 data: [
                  @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
-                 {
+                     {
                      @:{
-                                                 @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                                 @:label: @ncm.ncm
-                                         @:},
-                 }
+                                                                                           @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                                                                           @:label: @ncm.ncm
+                                                                                    @:},
+                     }
                 ],
                 formatter: function (x) {
                     return '$'+(x).formatMoney(2, ',', '.');
@@ -821,17 +831,17 @@
         //pageSetUp();
 
         // donut
-        if ($('#donut-graph').length) {
+        if ($('#donut-graphNcm').length) {
             Morris.Donut({
-                element: 'donut-graph',
+                element: 'donut-graphNcm',
                 data: [
                  @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
                  {
                      @:{
-                                              @:value: @ncm.CIFTot.ToString().Replace(',','.'),
-                                              @:label: @ncm.ncm
-                                          @:},
-                 }
+                                                                                                                                                           @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                                                                                                                                           @:label: @ncm.ncm
+                                                                                                                                                       @:},
+                     }
                 ],
                 formatter: function (x) {
                     return '$'+(x).formatMoney(2, ',', '.');
@@ -852,10 +862,10 @@
                 @foreach (var ncm in Model.OrderByDescending(c => c.countReg).Take(7).ToList())
                 {
                 @:{
-                                         @:value: @ncm.countReg.ToString().Replace(',', '.'),
-                                         @:label: @ncm.ncm
-                                    @:},
-                 }
+                                                                                                                                                 @:value: @ncm.countReg.ToString().Replace(',', '.'),
+                                                                                                                                                 @:label: @ncm.ncm
+                                                                                                                                            @:},
+                     }
                 ],
                 formatter: function (x) {
                     return x;
