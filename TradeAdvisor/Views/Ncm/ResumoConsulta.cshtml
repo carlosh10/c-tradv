@@ -1,14 +1,15 @@
 ﻿@using TradeAdvisor.Models
+@model List<TradeAdvisor.Entities.ResumoConsulta>
 <section id="nav_abas">
-    <div class="gray_back">            
+    <div class="gray_back">
         <div class="navegacao_abas" data-uk-sticky="{top:-80, animation: 'uk-animation-slide-top'}">
             <div class="uk-container uk-container-center">
                 <ul data-uk-switcher="{connect:'#my-id', animation: 'uk-animation-fade, uk-animation-slide-left'}">
-                    <li><a href="">Produtos Importados</a></li>
-                    <li><a href="">Documentos</a></li>
-                    @*<li><a href="">Empresas</a></li>
-                    <li><a href="">NCMs</a></li>
-                    <li><a href="">Pessoas</a></li>*@
+                    <li><a href="#">Produtos Importados</a></li>
+                    <li><a href="#">Documentos</a></li>
+                    <li><a href="#">Explorar Detalhes</a></li>
+                    @*   <li><a href="">NCMs</a></li>
+                        <li><a href="">Pessoas</a></li>*@
                 </ul>
                 <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
             </div>
@@ -21,6 +22,155 @@
 
                 <!--Produtos importados-->
                 <li>
+                    <div>
+                        <div id="searchStringHeader" style="height: 30px;padding: 10px;font-size:14px;"></div>
+                        <!--bloco produto-->
+                        <div class="col-xs-12 block_default">
+                            <div style="width:50%;float:left; margin-top:0px; text-align:center;"><label class="nm_grafico">CIF Total por NCM </label></div>
+                            <div style="width:50%;float:right;margin-top:0px; text-align:center;"><label class="nm_grafico">Quantidade por NCM</label></div>
+                            <div class="col-sm-12">
+
+                                <div>
+                                    <!-- Widget ID (each widget will need unique ID)-->
+                                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+
+                                        <div>
+                                            <!-- widget edit box -->
+                                            <div class="jarviswidget-editbox">
+                                                <!-- This area used as dropdown edit box -->
+
+                                            </div>
+                                            <!-- end widget edit box -->
+                                            <!-- widget content -->
+                                            <div class="widget-body no-padding">
+
+                                                <div id="donut-graph" class="chart no-padding"></div>
+
+                                            </div>
+                                            <!-- end widget content -->
+
+                                        </div>
+                                        <!-- end widget div -->
+
+                                    </div>
+
+                                    <!-- Widget ID (each widget will need unique ID)-->
+                                    <div class="jarviswidget" id="wid-id-6" data-widget-editbutton="false">
+
+                                        <div>
+                                            <!-- widget edit box -->
+                                            <div class="jarviswidget-editbox">
+                                                <!-- This area used as dropdown edit box -->
+
+                                            </div>
+                                            <!-- end widget edit box -->
+                                            <!-- widget content -->
+                                            <div class="widget-body no-padding">
+
+                                                <div id="donut-graphNcmQuantidade" class="chart no-padding"></div>
+                                            </div>
+                                            <!-- end widget content -->
+
+                                        </div>
+                                        <!-- end widget div -->
+
+                                    </div>
+
+
+                                    <table class="table table-striped table_trade2">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <strong>Ncm</strong>
+
+                                                </th>
+                                                <th>
+                                                    <strong>Descrição</strong>
+                                                </th>
+                                                <th>
+                                                    <strong>CIF Total USD</strong>
+                                                </th>
+                                                <th>
+                                                    <strong>Aliquota Total</strong>
+
+                                                </th>
+                                                <th>
+                                                    <strong>Quantidade</strong>
+                                                </th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).ToList())
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.ncm</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="@Url.Action("DetalhesImportacao", "Ncm", new { descricao_detalhada_produto = @Request["descricao_detalhada_produto"], ncm = @ncm.ncm })">@ncm.tx_ncm_desc</a>
+                                                    </td>
+                                                    <td>
+                                                        $@String.Format("{0:0,0.00}", @ncm.CIFTot)
+                                                    </td>
+                                                    <td>
+                                                        @String.Format("{0:0}", @ncm.vl_ift)%
+                                                    </td>
+                                                    <td>
+                                                        @ncm.countReg
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <!--Documentos-->
+                <li>
+                    <div class="pading_block">
+                        <div class="uk-grid uk-grid-small">
+
+                            @*<div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <!--//grafico 1 aba 2-->
+                                        <div id="documentos_1" class="graficos_responsivos"></div>
+                                    </div>
+                                </div>*@
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//grafico 2 aba 2-->
+                                    <div id="documentos_2" class="graficos_responsivos"></div>
+                                    <div id="table_graf"></div>
+                                </div>
+                            </div>
+
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    @*<div class="uk-width-1-1 text_right">
+                                            <form class="uk-form">
+                                                De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                                a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
+                                            </form>
+                                        </div>*@
+                                    <!--//grafico 3 aba 2-->
+                                    <div id="documentos_3" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <li>
                     <div class="pading_block">
                         <div class="uk-grid uk-grid-small">
 
@@ -28,29 +178,29 @@
                             <div class="uk-width-small-1-1">
                                 <div id="abaNcms" class="card_style" style="height: 500px">
                                     <!--//graficos 1 aba 4-->
-                                        <div style="float: left;font-size:24px;width: 150px;padding-right: 0px;color: #444444;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: normal;">
-                                            Total de NCMs
-                                        </div>
-                                        <div id="ncmDescID" style="float: right;margin: 5px;width: 60%;height: 50px;padding-top: 0px;font-size:20px;color: #0077dd;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight: normal;"></div>                                       
-                                        <div style="float: left;margin: 5px;width: 40%">
-                                            <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
-                                                <li><a href="">Valor ($)</a></li>
-                                                <li><a href="">Quantidade</a></li>
-                                            </ul>
-                                        </div>
-                                        <ul id="produtos_abas1" class="uk-switcher">
-                                            <li>
-                                                <!--//grafico 1.1 aba 4-->
-                                                <div id="produtos_1_1" class="graficos_responsivos" ></div>
-                                            </li>
-                                            <li>
-                                                <!--//grafico 1.2 aba 4-->
-                                                <div id="produtos_1_2" class="graficos_responsivos" ></div>
-                                            </li>
+                                    <div style="float: left;font-size:24px;width: 150px;padding-right: 0px;color: #444444;font-family: " helvetica neue", helvetica, arial, sans-serif;font-weight normal;">
+                                        Total de NCMs
+                                    </div>
+                                    <div id="ncmDescID" style="float: right;margin: 5px;width: 60%;height: 50px;padding-top: 0px;font-size:20px;color: #0077dd;font-family: " helvetica neue", helvetica, arial, sans-serif;font-weight normal;"></div>
+                                    <div style="float: left;margin: 5px;width: 40%">
+                                        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas1', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                            <li><a href="">Valor ($)</a></li>
+                                            <li><a href="">Quantidade</a></li>
                                         </ul>
+                                    </div>
+                                    <ul id="produtos_abas1" class="uk-switcher">
+                                        <li>
+                                            <!--//grafico 1.1 aba 4-->
+                                            <div id="produtos_1_1" class="graficos_responsivos"></div>
+                                        </li>
+                                        <li>
+                                            <!--//grafico 1.2 aba 4-->
+                                            <div id="produtos_1_2" class="graficos_responsivos"></div>
+                                        </li>
+                                    </ul>
 
                                 </div>
-                            </div>                     
+                            </div>
 
                             @*<div class="uk-width-small-1-1">
                                 <div class="transparent_card">
@@ -179,327 +329,225 @@
 
                                 </div>*@
 
-                                <div class="uk-width-small-1-1">
-                                    <div class="card_style">
-                                        <!--//graficos 2 aba 4-->
-                                        <h3>Total de Produtos Importados x País de Aquisição</h3>
-                                        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas2', animation: 'uk-animation-fade,uk-animation-fade'}">
-                                            <li><a href="">Valor ($)</a></li>
-                                            <li><a href="">Quantidade</a></li>
-                                        </ul>
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//graficos 2 aba 4-->
+                                    <h3>Total de Produtos Importados x País de Aquisição</h3>
+                                    <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas2', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                        <li><a href="">Valor ($)</a></li>
+                                        <li><a href="">Quantidade</a></li>
+                                    </ul>
 
-                                        <ul id="produtos_abas2" class="uk-switcher">
-                                            <li>
-                                                <!--//grafico 2.1 aba 4-->
-                                                <div id="produtos_2_1" class="graficos_responsivos"></div>
-                                            </li>
-                                            <li>
-                                                <!--//grafico 2.2 aba 4-->
-                                                <div id="produtos_2_2" class="graficos_responsivos"></div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <ul id="produtos_abas2" class="uk-switcher">
+                                        <li>
+                                            <!--//grafico 2.1 aba 4-->
+                                            <div id="produtos_2_1" class="graficos_responsivos"></div>
+                                        </li>
+                                        <li>
+                                            <!--//grafico 2.2 aba 4-->
+                                            <div id="produtos_2_2" class="graficos_responsivos"></div>
+                                        </li>
+                                    </ul>
                                 </div>
+                            </div>
 
 
-                                <div class="uk-width-small-1-1">
-                                    <div class="card_style">
-                                        <!--//graficos 3 aba 4-->
-                                        <h3>Total de Produtos Importados x País de Origem</h3>
-                                        <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas3', animation: 'uk-animation-fade,uk-animation-fade'}">
-                                            <li><a href="">Valor ($)</a></li>
-                                            <li><a href="">Quantidade</a></li>
-                                        </ul>
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
+                                    <!--//graficos 3 aba 4-->
+                                    <h3>Total de Produtos Importados x País de Origem</h3>
+                                    <ul class="uk-tab" data-uk-switcher="{connect:'#produtos_abas3', animation: 'uk-animation-fade,uk-animation-fade'}">
+                                        <li><a href="">Valor ($)</a></li>
+                                        <li><a href="">Quantidade</a></li>
+                                    </ul>
 
-                                        <ul id="produtos_abas3" class="uk-switcher">
-                                            <li>
-                                                <!--//grafico 3.1 aba 4-->
-                                                <div id="produtos_3_1" class="graficos_responsivos"></div>
-                                            </li>
-                                            <li>
-                                                <!--//grafico 3.2 aba 4-->
-                                                <div id="produtos_3_2" class="graficos_responsivos"></div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <ul id="produtos_abas3" class="uk-switcher">
+                                        <li>
+                                            <!--//grafico 3.1 aba 4-->
+                                            <div id="produtos_3_1" class="graficos_responsivos"></div>
+                                        </li>
+                                        <li>
+                                            <!--//grafico 3.2 aba 4-->
+                                            <div id="produtos_3_2" class="graficos_responsivos"></div>
+                                        </li>
+                                    </ul>
                                 </div>
+                            </div>
 
-                                <div class="uk-width-small-1-1">
-                                    <div class="card_style">
+                            <div class="uk-width-small-1-1">
+                                <div class="card_style">
 
-                                        @*<div class="uk-width-1-1 text_right">
+                                    @*<div class="uk-width-1-1 text_right">
                                             <form class="uk-form">
                                                 De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                                                 a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
                                             </form>
                                         </div>*@
-                                        <!--//grafico 4 aba 4-->
-                                        <div id="produtos_4" class="graficos_responsivos"></div>
+                                    <!--//grafico 4 aba 4-->
+                                    <div id="produtos_4" class="graficos_responsivos"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <!--Empresas-->
+                @*<li>
+                        <div class="pading_block">
+                            <div class="uk-grid uk-grid-small" data-uk-grid="{gutter: 20}">
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <!--//grafico 1 aba 1-->
+
+                                        <div id="container_1" class="graficos_responsivos"></div>
+                                    </div>
+                                </div>
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <!--//grafico 2 aba 1-->
+
+                                        <div id="container_2" class="graficos_responsivos"></div>
+                                    </div>
+                                </div>
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style">
+                                        <h3>Volume Importado x Localização</h3>
+
+                                        <!--mapa exemplo-->
+                                        <script src='https://maps.googleapis.com/maps/api/js?key=&sensor=false&extension=.js'></script>
+
+                                        <script>
+
+                                            google.maps.event.addDomListener(window, 'load', init);
+                                            var map;
+                                            function init() {
+                                                var mapOptions = {
+                                                    center: new google.maps.LatLng(40.830437, -4.552003),
+                                                    zoom: 3,
+                                                    zoomControl: true,
+                                                    zoomControlOptions: {
+                                                        style: google.maps.ZoomControlStyle.DEFAULT,
+                                                    },
+                                                    disableDoubleClickZoom: true,
+                                                    mapTypeControl: true,
+                                                    mapTypeControlOptions: {
+                                                        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                                                    },
+                                                    scaleControl: true,
+                                                    scrollwheel: false,
+                                                    panControl: true,
+                                                    streetViewControl: true,
+                                                    draggable: false,
+                                                    overviewMapControl: true,
+                                                    overviewMapControlOptions: {
+                                                        opened: false,
+                                                    },
+                                                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                                    styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+                                                }
+                                                var mapElement = document.getElementById('map_ex');
+                                                var map = new google.maps.Map(mapElement, mapOptions);
+                                                var locations = [
+
+                                                ];
+                                                for (i = 0; i < locations.length; i++) {
+                                                    if (locations[i][1] == 'undefined') { description = ''; } else { description = locations[i][1]; }
+                                                    if (locations[i][2] == 'undefined') { telephone = ''; } else { telephone = locations[i][2]; }
+                                                    if (locations[i][3] == 'undefined') { email = ''; } else { email = locations[i][3]; }
+                                                    if (locations[i][4] == 'undefined') { web = ''; } else { web = locations[i][4]; }
+                                                    if (locations[i][7] == 'undefined') { markericon = ''; } else { markericon = locations[i][7]; }
+                                                    marker = new google.maps.Marker({
+                                                        icon: markericon,
+                                                        position: new google.maps.LatLng(locations[i][5], locations[i][6]),
+                                                        map: map,
+                                                        title: locations[i][0],
+                                                        desc: description,
+                                                        tel: telephone,
+                                                        email: email,
+                                                        web: web
+                                                    });
+                                                    link = '';
+                                                }
+
+                                            }
+                                        </script>
+                                        <style>
+                                            #map_ex {
+                                                height: 400px;
+                                                width: 100%px;
+                                            }
+
+                                            .gm-style-iw * {
+                                                display: block;
+                                                width: 100%;
+                                            }
+
+                                            .gm-style-iw h4, .gm-style-iw p {
+                                                margin: 0;
+                                                padding: 0;
+                                            }
+
+                                            .gm-style-iw a {
+                                                color: #4272db;
+                                            }
+                                        </style>
+
+                                        <div id='map_ex'></div>
+                                        <!--fim mapa-->
+
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                </li>
-
-                <!--Documentos-->
-                <li>
-                    <div class="pading_block">
-                        <div class="uk-grid uk-grid-small">
-
-                            @*<div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 1 aba 2-->
-                                    <div id="documentos_1" class="graficos_responsivos"></div>
-                                </div>
-                            </div>*@
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 2 aba 2-->
-                                    <div id="documentos_2" class="graficos_responsivos"></div>
-                                    <div id="table_graf"></div>
-                                </div>
-                            </div>
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    @*<div class="uk-width-1-1 text_right">
-                                        <form class="uk-form">
-                                            De: <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                                            a <input class="date_input" placeholder="selecione a data" type="" data-uk-datepicker="{format:'DD.MM.YYYY'}">
-                                        </form>
-                                    </div>*@
-                                    <!--//grafico 3 aba 2-->
-                                    <div id="documentos_3" class="graficos_responsivos"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>
-
-                <!--Empresas-->
-                @*<li>
-                    <div class="pading_block">
-                        <div class="uk-grid uk-grid-small" data-uk-grid="{gutter: 20}">
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 1 aba 1-->
-
-                                    <div id="container_1" class="graficos_responsivos"></div>
-                                </div>
-                            </div>
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <!--//grafico 2 aba 1-->
-
-                                    <div id="container_2" class="graficos_responsivos"></div>
-                                </div>
-                            </div>
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style">
-                                    <h3>Volume Importado x Localização</h3>
-
-                                    <!--mapa exemplo-->
-                                    <script src='https://maps.googleapis.com/maps/api/js?key=&sensor=false&extension=.js'></script>
-
-                                    <script>
-
-                                        google.maps.event.addDomListener(window, 'load', init);
-                                        var map;
-                                        function init() {
-                                            var mapOptions = {
-                                                center: new google.maps.LatLng(40.830437, -4.552003),
-                                                zoom: 3,
-                                                zoomControl: true,
-                                                zoomControlOptions: {
-                                                    style: google.maps.ZoomControlStyle.DEFAULT,
-                                                },
-                                                disableDoubleClickZoom: true,
-                                                mapTypeControl: true,
-                                                mapTypeControlOptions: {
-                                                    style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-                                                },
-                                                scaleControl: true,
-                                                scrollwheel: false,
-                                                panControl: true,
-                                                streetViewControl: true,
-                                                draggable: false,
-                                                overviewMapControl: true,
-                                                overviewMapControlOptions: {
-                                                    opened: false,
-                                                },
-                                                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                                                styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
-                                            }
-                                            var mapElement = document.getElementById('map_ex');
-                                            var map = new google.maps.Map(mapElement, mapOptions);
-                                            var locations = [
-
-                                            ];
-                                            for (i = 0; i < locations.length; i++) {
-                                                if (locations[i][1] == 'undefined') { description = ''; } else { description = locations[i][1]; }
-                                                if (locations[i][2] == 'undefined') { telephone = ''; } else { telephone = locations[i][2]; }
-                                                if (locations[i][3] == 'undefined') { email = ''; } else { email = locations[i][3]; }
-                                                if (locations[i][4] == 'undefined') { web = ''; } else { web = locations[i][4]; }
-                                                if (locations[i][7] == 'undefined') { markericon = ''; } else { markericon = locations[i][7]; }
-                                                marker = new google.maps.Marker({
-                                                    icon: markericon,
-                                                    position: new google.maps.LatLng(locations[i][5], locations[i][6]),
-                                                    map: map,
-                                                    title: locations[i][0],
-                                                    desc: description,
-                                                    tel: telephone,
-                                                    email: email,
-                                                    web: web
-                                                });
-                                                link = '';
-                                            }
-
-                                        }
-                                    </script>
-                                    <style>
-                                        #map_ex {
-                                            height: 400px;
-                                            width: 100%px;
-                                        }
-
-                                        .gm-style-iw * {
-                                            display: block;
-                                            width: 100%;
-                                        }
-
-                                        .gm-style-iw h4, .gm-style-iw p {
-                                            margin: 0;
-                                            padding: 0;
-                                        }
-
-                                        .gm-style-iw a {
-                                            color: #4272db;
-                                        }
-                                    </style>
-
-                                    <div id='map_ex'></div>
-                                    <!--fim mapa-->
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </li>*@
+                    </li>*@
 
                 <!--NCM's-->
                 @*<li>
-                    <div class="pading_block">
-                        <div class="uk-grid uk-grid-small">
+                        <div class="pading_block">
+                            <div class="uk-grid uk-grid-small">
 
-                            <div class="uk-width-small-1-2 uk-width-medium-2-3">
-                                <h2 class="total_busca">Total: <span>2939203</span></h2>
-                            </div>
-                            <div class="uk-width-small-1-2 uk-width-medium-1-3">
-                                <form class="uk-form">
-                                    <div class="uk-grid uk-grid-collapse">
-                                        <div class="uk-width-5-6 uk-width-medium-8-10">
-                                            <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
-                                        </div>
-                                        <div class="uk-width-1-6 uk-width-medium-2-10">
-                                            <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <header class="uk-width-small-1-1 uk-hidden-small">
-                                <div class="header_cards">
-                                    <div class="uk-grid uk-grid-small">
-                                        <div class="title_card uk-width-small-2-10">
-                                            Código
-                                        </div>
-                                        <div class="title_card uk-width-small-4-10">
-                                            Descrição
-                                        </div>
-                                        <div class="title_card uk-width-small-2-10">
-                                            Alíquota
-                                        </div>
-                                        <div class="title_card uk-width-small-2-10">
-                                            Licença de Importação
-                                        </div>
-                                    </div>
+                                <div class="uk-width-small-1-2 uk-width-medium-2-3">
+                                    <h2 class="total_busca">Total: <span>2939203</span></h2>
                                 </div>
-                            </header>
+                                <div class="uk-width-small-1-2 uk-width-medium-1-3">
+                                    <form class="uk-form">
+                                        <div class="uk-grid uk-grid-collapse">
+                                            <div class="uk-width-5-6 uk-width-medium-8-10">
+                                                <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
+                                            </div>
+                                            <div class="uk-width-1-6 uk-width-medium-2-10">
+                                                <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
 
-                            @foreach (var ncm in @Model.Select(c => c.ncm).Distinct())
-                                {
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style uk-grid uk-grid-small">
-                                    <div class="uk-width-small-2-10">
-                                        <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
-                                            <i class="uk-icon-plus-square"></i>
-                                        </a>
-                                        <span class="uk-visible-small title_card">
-                                            Código
-                                        </span>
-                                        000111.11
-
-                                    </div>
-
-                                    <div class="uk-width-small-4-10 uk-hidden-small">
-                                        DESCRICAO NCM
-                                    </div>
-
-
-                                    <div class="uk-width-small-2-10 uk-hidden-small">
-                                        <strong>IPI:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_IPI))% <br>
-                                        <strong>II:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_II))% <br>
-                                        <strong>PIS:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_PIS_ADVAL))%<br />
-                                        <strong>COFINS:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_COFINS_ADVAL))%<br />
-                                    </div>
-                                    <div class="uk-width-small-2-10 uk-hidden-small">
-                                        <a href="#" class="tag_licenca">
-                                            Licença de Importação
-                                        </a>
-                                    </div>
-
-
-                                    <div id="mais_info" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
-                                        <div class="uk-width-small-3-5">
-                                            <span class="uk-visible-small title_card">
+                                <header class="uk-width-small-1-1 uk-hidden-small">
+                                    <div class="header_cards">
+                                        <div class="uk-grid uk-grid-small">
+                                            <div class="title_card uk-width-small-2-10">
+                                                Código
+                                            </div>
+                                            <div class="title_card uk-width-small-4-10">
                                                 Descrição
-                                            </span>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
-                                        </div>
-
-
-                                        <div class="uk-width-small-1-5">
-                                            <span class="uk-visible-small title_card">
+                                            </div>
+                                            <div class="title_card uk-width-small-2-10">
                                                 Alíquota
-                                            </span>
-                                            <strong>IPI:</strong> XX% <br>
-                                            <strong>II:</strong> XX% <br>
-                                            <strong>PIS/COFINS:</strong> XX%
-                                        </div>
-                                        <div class="uk-width-small-1-5">
-                                            <span class="uk-visible-small title_card">
+                                            </div>
+                                            <div class="title_card uk-width-small-2-10">
                                                 Licença de Importação
-                                            </span>
-                                            <a href="#" class="tag_licenca">
-                                                Licença de Importação
-                                            </a>
-
+                                            </div>
                                         </div>
                                     </div>
+                                </header>
 
-                                </div>
-                            </div>
-
-
-
-                            <div class="uk-width-small-1-1">
+                                @foreach (var ncm in @Model.Select(c => c.ncm).Distinct())
+                                    {
+                                <div class="uk-width-small-1-1">
                                     <div class="card_style uk-grid uk-grid-small">
                                         <div class="uk-width-small-2-10">
                                             <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
@@ -508,26 +556,24 @@
                                             <span class="uk-visible-small title_card">
                                                 Código
                                             </span>
-                                            3573794
+                                            000111.11
 
                                         </div>
 
                                         <div class="uk-width-small-4-10 uk-hidden-small">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                            DESCRICAO NCM
                                         </div>
 
 
                                         <div class="uk-width-small-2-10 uk-hidden-small">
-                                            <strong>IPI:</strong> XX% <br>
-                                            <strong>II:</strong> XX% <br>
-                                            <strong>PIS/COFINS:</strong> XX%
+                                            <strong>IPI:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_IPI))% <br>
+                                            <strong>II:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_II))% <br>
+                                            <strong>PIS:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_PIS_ADVAL))%<br />
+                                            <strong>COFINS:</strong> Average(c => Decimal.Parse(c.ALIQUOTA_COFINS_ADVAL))%<br />
                                         </div>
                                         <div class="uk-width-small-2-10 uk-hidden-small">
                                             <a href="#" class="tag_licenca">
                                                 Licença de Importação
-                                            </a>
-                                            <a href="#" class="tag_licenca">
-                                                Tag teste
                                             </a>
                                         </div>
 
@@ -556,9 +602,7 @@
                                                 <a href="#" class="tag_licenca">
                                                     Licença de Importação
                                                 </a>
-                                                <a href="#" class="tag_licenca">
-                                                    Tag teste
-                                                </a>
+
                                             </div>
                                         </div>
 
@@ -567,104 +611,262 @@
 
 
 
+                                <div class="uk-width-small-1-1">
+                                        <div class="card_style uk-grid uk-grid-small">
+                                            <div class="uk-width-small-2-10">
+                                                <a class="uk-visible-small mais_info" data-uk-toggle="{target:'#mais_info', animation:'uk-animation-slide-left, uk-animation-slide-bottom'}">
+                                                    <i class="uk-icon-plus-square"></i>
+                                                </a>
+                                                <span class="uk-visible-small title_card">
+                                                    Código
+                                                </span>
+                                                3573794
+
+                                            </div>
+
+                                            <div class="uk-width-small-4-10 uk-hidden-small">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                            </div>
+
+
+                                            <div class="uk-width-small-2-10 uk-hidden-small">
+                                                <strong>IPI:</strong> XX% <br>
+                                                <strong>II:</strong> XX% <br>
+                                                <strong>PIS/COFINS:</strong> XX%
+                                            </div>
+                                            <div class="uk-width-small-2-10 uk-hidden-small">
+                                                <a href="#" class="tag_licenca">
+                                                    Licença de Importação
+                                                </a>
+                                                <a href="#" class="tag_licenca">
+                                                    Tag teste
+                                                </a>
+                                            </div>
+
+
+                                            <div id="mais_info" class="uk-grid uk-hidden uk-grid-small uk-width-small-8-10">
+                                                <div class="uk-width-small-3-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Descrição
+                                                    </span>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed.
+                                                </div>
+
+
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Alíquota
+                                                    </span>
+                                                    <strong>IPI:</strong> XX% <br>
+                                                    <strong>II:</strong> XX% <br>
+                                                    <strong>PIS/COFINS:</strong> XX%
+                                                </div>
+                                                <div class="uk-width-small-1-5">
+                                                    <span class="uk-visible-small title_card">
+                                                        Licença de Importação
+                                                    </span>
+                                                    <a href="#" class="tag_licenca">
+                                                        Licença de Importação
+                                                    </a>
+                                                    <a href="#" class="tag_licenca">
+                                                        Tag teste
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                            </div>
                         </div>
-                    </div>
-                </li>*@
+                    </li>*@
 
 
 
 
                 <!--Pessoas-->
                 @*<li>
-                    <div class="pading_block">
-                        <div class="uk-grid uk-grid-small">
+                        <div class="pading_block">
+                            <div class="uk-grid uk-grid-small">
 
 
 
 
-                            <div class="uk-width-small-1-2 uk-width-medium-2-3">
-                                <h2 class="total_busca">Total: <span>2939203</span></h2>
-                            </div>
-                            <div class="uk-width-small-1-2 uk-width-medium-1-3">
-                                <form class="uk-form">
-                                    <div class="uk-grid uk-grid-collapse">
-                                        <div class="uk-width-5-6 uk-width-medium-8-10">
-                                            <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
+                                <div class="uk-width-small-1-2 uk-width-medium-2-3">
+                                    <h2 class="total_busca">Total: <span>2939203</span></h2>
+                                </div>
+                                <div class="uk-width-small-1-2 uk-width-medium-1-3">
+                                    <form class="uk-form">
+                                        <div class="uk-grid uk-grid-collapse">
+                                            <div class="uk-width-5-6 uk-width-medium-8-10">
+                                                <input class="input_busca uk-width-1-1" type="text" placeholder="Busque por...">
+                                            </div>
+                                            <div class="uk-width-1-6 uk-width-medium-2-10">
+                                                <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                            </div>
                                         </div>
-                                        <div class="uk-width-1-6 uk-width-medium-2-10">
-                                            <button class="button_busca2 uk-width-1-1"><i class="uk-icon-search"></i></button>
+                                    </form>
+                                </div>
+
+
+                                <header class="uk-width-small-1-1 uk-hidden-small">
+                                    <div class="header_cards">
+                                        <div class="uk-grid uk-grid-small">
+                                            <div class="title_card uk-width-small-4-10">
+                                                Nome
+                                            </div>
+                                            <div class="title_card uk-width-small-3-10">
+                                                CPF
+                                            </div>
+                                            <div class="title_card uk-width-small-3-10">
+                                                E-mail
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </header>
 
 
-                            <header class="uk-width-small-1-1 uk-hidden-small">
-                                <div class="header_cards">
-                                    <div class="uk-grid uk-grid-small">
-                                        <div class="title_card uk-width-small-4-10">
-                                            Nome
+
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style uk-grid uk-grid-small">
+                                        <div class="uk-width-small-4-10">
+                                            <span class="title_card uk-visible-small">Nome</span>
+                                            José Silva
                                         </div>
-                                        <div class="title_card uk-width-small-3-10">
-                                            CPF
+                                        <div class="uk-width-small-3-10">
+                                            <span class="title_card uk-visible-small">CPF</span>
+                                            000.000.000-00
                                         </div>
-                                        <div class="title_card uk-width-small-3-10">
-                                            E-mail
+                                        <div class="uk-width-small-3-10">
+                                            <span class="title_card uk-visible-small">E-mail</span>
+                                            contato@jose.com.br
                                         </div>
+
                                     </div>
                                 </div>
-                            </header>
 
 
+                                <div class="uk-width-small-1-1">
+                                    <div class="card_style uk-grid uk-grid-small">
+                                        <div class="uk-width-small-4-10">
+                                            <span class="title_card uk-visible-small">Nome</span>
+                                            José Silva
+                                        </div>
+                                        <div class="uk-width-small-3-10">
+                                            <span class="title_card uk-visible-small">CPF</span>
+                                            000.000.000-00
+                                        </div>
+                                        <div class="uk-width-small-3-10">
+                                            <span class="title_card uk-visible-small">E-mail</span>
+                                            contato@jose.com.br
+                                        </div>
 
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style uk-grid uk-grid-small">
-                                    <div class="uk-width-small-4-10">
-                                        <span class="title_card uk-visible-small">Nome</span>
-                                        José Silva
                                     </div>
-                                    <div class="uk-width-small-3-10">
-                                        <span class="title_card uk-visible-small">CPF</span>
-                                        000.000.000-00
-                                    </div>
-                                    <div class="uk-width-small-3-10">
-                                        <span class="title_card uk-visible-small">E-mail</span>
-                                        contato@jose.com.br
-                                    </div>
-
                                 </div>
-                            </div>
 
-
-                            <div class="uk-width-small-1-1">
-                                <div class="card_style uk-grid uk-grid-small">
-                                    <div class="uk-width-small-4-10">
-                                        <span class="title_card uk-visible-small">Nome</span>
-                                        José Silva
-                                    </div>
-                                    <div class="uk-width-small-3-10">
-                                        <span class="title_card uk-visible-small">CPF</span>
-                                        000.000.000-00
-                                    </div>
-                                    <div class="uk-width-small-3-10">
-                                        <span class="title_card uk-visible-small">E-mail</span>
-                                        contato@jose.com.br
-                                    </div>
-
-                                </div>
                             </div>
 
                         </div>
-
-                    </div>
-                </li>*@
+                    </li>*@
             </ul>
-
         </div>
-
     </div>
-
 </section>
+
+
+
+<script type="text/javascript">
+    Number.prototype.formatMoney = function(c, d, t){
+        var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
+
+    $(document).ready(function () {
+        updateSearchHeader('/services/ConsultaDadosGraficos.asmx/AtualizaBuscaHeader', '{"descricao":"@Request["descricao_detalhada_produto"]"}');
+
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+        //pageSetUp();
+
+
+        // donut
+        if ($('#donut-graph').length) {
+            Morris.Donut({
+                element: 'donut-graph',
+                data: [
+                 @foreach (var ncm in @Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
+                 {
+                     @:{
+                                                 @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                                 @:label: @ncm.ncm
+                                         @:},
+                 }
+                ],
+                formatter: function (x) {
+                    return '$'+(x).formatMoney(2, ',', '.');
+                }
+            });
+        }
+    });
+
+    $(document).ready(function () {
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+        //pageSetUp();
+
+        // donut
+        if ($('#donut-graph').length) {
+            Morris.Donut({
+                element: 'donut-graph',
+                data: [
+                 @foreach (var ncm in Model.OrderByDescending(c => c.CIFTot).Take(7).ToList())
+                 {
+                     @:{
+                                              @:value: @ncm.CIFTot.ToString().Replace(',','.'),
+                                              @:label: @ncm.ncm
+                                          @:},
+                 }
+                ],
+                formatter: function (x) {
+                    return '$'+(x).formatMoney(2, ',', '.');
+                }
+            });
+        }
+    });
+
+    $(document).ready(function () {
+        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+        //pageSetUp();
+
+        // donut
+        if ($('#donut-graphNcmQuantidade').length) {
+            Morris.Donut({
+                element: 'donut-graphNcmQuantidade',
+                data: [
+                @foreach (var ncm in Model.OrderByDescending(c => c.countReg).Take(7).ToList())
+                {
+                @:{
+                                         @:value: @ncm.countReg.ToString().Replace(',', '.'),
+                                         @:label: @ncm.ncm
+                                    @:},
+                 }
+                ],
+                formatter: function (x) {
+                    return x;
+                }
+            });
+        }
+    });
+</script>
+
+
+
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -868,10 +1070,10 @@
                                 window.open(this.ownURL.replace('{ncm}', this.name).replace('{descricao}', '@Request["descricao_detalhada_produto"]'), "_self");
                         },
                         mouseOver: function () {
-                                document.getElementById('ncmDescID').innerHTML = this.ownDESC;
+                            document.getElementById('ncmDescID').innerHTML = this.ownDESC;
                         },
                         mouseOut: function () {
-                                document.getElementById('ncmDescID').innerHTML = '';
+                            document.getElementById('ncmDescID').innerHTML = '';
                         }
                     }
                 },

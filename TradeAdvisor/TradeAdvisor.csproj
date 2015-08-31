@@ -223,7 +223,6 @@
       <LastGenOutput>ModelTradeAdvisor.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Ncm\DetalhesImportacao.cshtml" />
-    <Content Include="Views\Ncm\ResumoInicialNcm.cshtml" />
     <Content Include="Views\Documentos\Consulta.cshtml" />
     <Content Include="Views\Shared\_DocsBlock.cshtml" />
     <None Include="Web.Debug.config">

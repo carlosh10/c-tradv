@@ -2257,3 +2257,7 @@ section {
  .small_font strong{
      color:white;
  }
+
+ a:focus, a:hover{
+     text-decoration:none;
+ }

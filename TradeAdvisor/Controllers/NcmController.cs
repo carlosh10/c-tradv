@@ -53,17 +53,7 @@ namespace TradeAdvisor.Controllers
             }
             else
                 return View(ncms);            
-        }
-        public ActionResult ResumoInicialNcm(string descricao_detalhada_produto)
-        {
-            if (descricao_detalhada_produto == null || descricao_detalhada_produto == "")
-            {
-                Response.Redirect(@Url.Action("Index", "Home"));
-                return null;
-            }
-
-            return View(ElasticSearchDAO.ConsultaNCMElasticSearch(descricao_detalhada_produto));
-        }
+        }       
 
         public ActionResult ResumoConsultaPorNCM(string descricao, string ncm)
         {
@@ -85,8 +75,7 @@ namespace TradeAdvisor.Controllers
                 ModelState.AddModelError("", "Insira um valor");
                 return RedirectToAction("index", "home");
             }
-            //return View(NcmDAO.ConsultaResumoBusca(@model.descricao_detalhada_produto));
-            return View();
+            return View(ElasticSearchDAO.ConsultaNCMElasticSearch(descricao_detalhada_produto));
         }
 
         [HttpPost]
